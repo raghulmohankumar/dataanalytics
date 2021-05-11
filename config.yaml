@@ -22,6 +22,8 @@ menu:
       url: https://twitter.com/eee_rahulrahul
     - name: LinkedIn
       url: https://www.linkedin.com/in/raghul-mohankumar-51811763/  
+    - name: Facebook
+      url: https://www.facebook.com/rahul.mohan.54/  
 params:
   MathJaxCDN: //cdnjs.cloudflare.com/ajax/libs
   MathJaxVersion: 2.7.5
