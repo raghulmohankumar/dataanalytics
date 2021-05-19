@@ -101,6 +101,14 @@ starwars</code></pre>
 ## 10 Obi-Wa~    182    77 auburn, wh~ fair       blue-gray       57   male  mascu~
 ## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
 ## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<div id="mass-vs-weight" class="section level3">
+<h3>Mass vs Weight</h3>
+<p>Mass vs weight relationship through a scatterplot</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(starwars,aes(x=height,y=mass)) + geom_point() + labs(title=&quot;Mass vs Height of Starwars Characters&quot;,x=&quot;Height (cm)&quot;,y=&quot;Weight (Kg)&quot;)</code></pre>
+<pre><code>## Warning: Removed 28 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2021/05/19/data-and-visualization/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
 </div>
 
     </div>
