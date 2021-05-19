@@ -36,5 +36,5 @@ We visualise all four sets
 ```{r echo=FALSE, message=FALSE}
 ggplot(quartet,aes(x=x,y=y))+ geom_point() + facet_wrap(~ set, ncol=4)
 ```
-
+ = 
 
