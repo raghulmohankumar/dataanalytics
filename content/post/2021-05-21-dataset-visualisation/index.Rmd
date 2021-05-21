@@ -1,0 +1,50 @@
+---
+title: Dataset Visualisation
+author: ''
+date: '2021-05-21'
+slug: dataset-visualisation
+categories:
+  - ggplot2
+tags: []
+---
+
+## Dataset Visualization Assignment
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(datasets)
+datasets::LifeCycleSavings
+```
+
+## Life Cycle Savings in various countries
+DPI vs Count relationship through a scatter plot
+
+i)  DPI
+ii) Count
+
+a) The LifeCycleSavings dataset contains the data of Life Cycle Savings of various countries.
+b) The Savings pattern is shown in the histogram below, which clearly indicates  that the most of the savings are from the DPI lesser than 1000. 
+
+```{r warning=FALSE,echo=TRUE,message=TRUE}
+library(ggplot2)
+ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 300) + labs(title="DPI vs Count of LifeCycleSavings Dataset",x="DPI",y="Count")
+```
+
+
+```{r warning=FALSE,echo=TRUE,message=TRUE}
+library(datasets)
+datasets::InsectSprays
+```
+## Insect Sprays and its count
+Spray vs Count relationship through a scatter plot
+
+i)  Spray
+ii) Count
+
+a) The InsectSprays dataset contains the data of Insect Sprays and its count.
+b) The Spray is concentrated in some some specific count as shown in the ridge plot, which clearly indicates  that the 3 of the density ridges has the count lesser than 10, whereas another 3 of the density ridges has the count distributed in the flat manner from 3 to 30. 
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(ggplot2)
+library(ggridges)
+ggplot(InsectSprays, aes(x = count, y = spray, fill = spray, color = spray))+ geom_density_ridges(alpha = 0.5)
+```
