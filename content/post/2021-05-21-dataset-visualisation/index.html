@@ -48,7 +48,7 @@ tags: []
 </div>
 <div id="i-life-cycle-savings-in-various-countries" class="section level2">
 <h2>i) Life Cycle Savings in various countries</h2>
-<p>DPI vs Count and Pop15 vs Count relationships through a scatter plot</p>
+<p>DPI vs Count and Pop15 vs Count relationships through a histogram</p>
 <ol style="list-style-type: lower-roman">
 <li>DPI</li>
 <li>Count</li>
@@ -59,8 +59,24 @@ tags: []
 </ol>
 <pre class="r"><code>library(datasets)
 library(ggplot2)
-ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 300) + labs(title=&quot;DPI vs Count of LifeCycleSavings Dataset&quot;,x=&quot;DPI&quot;,y=&quot;Count&quot;)</code></pre>
+ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 200) + labs(title=&quot;DPI vs Count of LifeCycleSavings Dataset&quot;,x=&quot;DPI&quot;,y=&quot;Count&quot;)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="ii-eruption-in-old-faithful-geyser-in-yellowstone-national-park" class="section level2">
+<h2>ii) Eruption in Old Faithful Geyser in Yellowstone National Park</h2>
+<p>Duration of eruptions vs Waiting time between eruptions relationships through a scatter plot</p>
+<ol style="list-style-type: lower-roman">
+<li>Duration of eruptions</li>
+<li>Waiting time between eruptions</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>The faithful dataset contains the data of Duration of eruptions and Waiting time between eruptions in Old Faithful Geyser in Yellowstone National Park, Wyoming, USA .</li>
+<li>The timing pattern is shown in the histogram below, which clearly indicates that the most of the eruption duration falls in the range of 3 to 5.</li>
+</ol>
+<pre class="r"><code>library(datasets)
+library(ggplot2)
+ggplot(faithful, aes(x = eruptions, y = waiting)) + geom_point() + labs(title=&quot;Eruptions vs Duration of faithful Dataset&quot;,x=&quot;Eruptions&quot;,y=&quot;Duration&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="categorical-data-visualization" class="section level2">
 <h2>Categorical data visualization</h2>
@@ -76,5 +92,18 @@ ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 300) + labs(t
 <li>The InsectSprays dataset contains the data of Insect Sprays and its count.</li>
 <li>The Spray is concentrated in some some specific count as shown in the ridge plot, which clearly indicates that the 3 of the density ridges has the count lesser than 10, whereas another 3 of the density ridges has the count distributed in the flat manner from 3 to 30.</li>
 </ol>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="ii-flower-species-and-its-sepal-length" class="section level2">
+<h2>ii) Flower Species and its Sepal Length</h2>
+<p>Flower Species vs Sepal Length relationship through a scatter plot</p>
+<ol style="list-style-type: lower-roman">
+<li>Species</li>
+<li>Sepal Length</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>The iris dataset contains the data of Flower Species and their Sepal Length.</li>
+<li>The Flowers with various Sepal lengths are categorized under Species such as Setosa, Versicolor and Virginica, which are illustrated by Bar graph. It is clearly seen that the Sentosa has small sepals, Versicolor has bigger sepals than Sentosa and Virginica has the longest sepals in the Iris dataset.</li>
+</ol>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>

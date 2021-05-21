@@ -44,7 +44,7 @@ ggplot(pressure,aes(x=temperature ,y=pressure)) + geom_point() + labs(title="Tem
 
 ## Numerical data visualization
 ## i) Life Cycle Savings in various countries
-DPI vs Count and Pop15 vs Count relationships through a scatter plot
+DPI vs Count and Pop15 vs Count relationships through a histogram
 
 i)  DPI
 ii) Count
@@ -55,7 +55,22 @@ b) The Savings pattern is shown in the histogram below, which clearly indicates 
 ```{r warning=FALSE,echo=TRUE,message=TRUE}
 library(datasets)
 library(ggplot2)
-ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 300) + labs(title="DPI vs Count of LifeCycleSavings Dataset",x="DPI",y="Count")
+ggplot(LifeCycleSavings, aes(x = dpi)) + geom_histogram(binwidth = 200) + labs(title="DPI vs Count of LifeCycleSavings Dataset",x="DPI",y="Count")
+```
+
+## ii) Eruption in Old Faithful Geyser in Yellowstone National Park
+Duration of eruptions vs Waiting time between eruptions relationships through a scatter plot
+
+i)  Duration of eruptions
+ii) Waiting time between eruptions
+
+a) The faithful dataset contains the data of Duration of eruptions and Waiting time between eruptions in Old Faithful Geyser in Yellowstone National Park, Wyoming, USA .
+b) The timing pattern is shown in the histogram below, which clearly indicates  that the most of the eruption duration falls in the range of 3 to 5. 
+
+```{r warning=FALSE,echo=TRUE,message=TRUE}
+library(datasets)
+library(ggplot2)
+ggplot(faithful, aes(x = eruptions, y = waiting)) + geom_point() + labs(title="Eruptions vs Duration of faithful Dataset",x="Eruptions",y="Duration")
 ```
 
 ## Categorical data visualization
@@ -74,4 +89,20 @@ library(datasets)
 library(ggplot2)
 library(ggridges)
 ggplot(InsectSprays, aes(x = count, y = spray, fill = spray, color = spray))+ geom_density_ridges(alpha = 0.5)
+```
+
+## ii) Flower Species and its Sepal Length
+
+Flower Species vs Sepal Length relationship through a scatter plot
+
+i)  Species
+ii) Sepal Length
+
+a) The iris dataset contains the data of Flower Species and their Sepal Length.
+b) The Flowers with various Sepal lengths are categorized under Species such as Setosa, Versicolor and Virginica, which are illustrated by Bar graph. It is clearly seen that the Sentosa has small sepals, Versicolor has bigger sepals than Sentosa and Virginica has the longest sepals in the Iris dataset.
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(datasets)
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) +  geom_bar()
 ```
