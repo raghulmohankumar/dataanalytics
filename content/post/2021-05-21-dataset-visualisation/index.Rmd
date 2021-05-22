@@ -59,7 +59,7 @@ Duration of eruptions vs Waiting time between eruptions relationships through a 
 i)  Duration of eruptions
 ii) Waiting time between eruptions
 
-a) The faithful dataset contains the data of Duration of eruptions and Waiting time between eruptions in Old Faithful Geyser in Yellowstone National Park, Wyoming, USA .
+a) The faithful dataset contains the data of Duration of eruptions and Waiting time between eruptions in Old Faithful Geyser in Yellowstone National Park, Wyoming, USA 
 b) The timing pattern is shown in the histogram below, which clearly indicates  that the most of the eruption duration falls in the range of 3 to 5. 
 
 ```{r warning=FALSE,echo=TRUE,message=TRUE}

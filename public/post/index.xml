@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Dataset Visualisation</title>
+      <title>Assignment A01- GGPLOT2</title>
       <link>/2021/05/21/dataset-visualisation/</link>
       <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/05/21/dataset-visualisation/</guid>
-      <description>Assignment A01: GGPLOT2i) Speed vs DistanceSpeed vs Distance relationship through a scatter plot
+      <description>i) Speed vs DistanceSpeed vs Distance relationship through a scatter plot
 SpeedDistanceThe Cars dataset contains the data of cars which covered the distance in mentioned Speed.The pattern is scattered and clustered in specific linear trend.ii) Temperature vs PressureTemperature vs Pressure relationship through a scatter plot
 TemperaturePressureThe Pressure dataset contains the data of Pressure values measured at the various temperature.</description>
     </item>
