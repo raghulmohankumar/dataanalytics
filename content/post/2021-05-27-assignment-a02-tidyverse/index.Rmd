@@ -1,0 +1,111 @@
+---
+title: 'Assignment A02: TIDYVERSE'
+author: ''
+date: '2021-05-27'
+slug: assignment-a02-tidyverse
+categories:
+  - Tidyverse
+tags: []
+---
+
+## Import the diabetes.csv file for One table verb
+
+```{r warning=FALSE}
+library(tidyverse)
+diabetes <- read_csv("diabetes.csv")
+
+# Function 1 arrange()
+diabetes %>% arrange(desc(Glucose))
+
+# Function 2 count()
+diabetes %>% count(Age)
+```
+
+## Import the diamonds.csv file for Two table verb
+
+```{r warning=FALSE}
+
+diamonds <- read_csv("diamonds.csv")
+
+# Function 1 bind_rows
+
+one <- diamonds[1:4,]
+two <- diamonds[9:12,]
+bind_rows(one, two)
+
+# Function 2 intersect()
+
+diamonds$cut <- rownames(diamonds)
+first <- diamonds[1:20, ]
+second <- diamonds[10:32, ]
+
+intersect(first, second)
+```
+
+## Import the fifa19.csv file for Grouping Functions
+
+```{r warning=FALSE}
+
+fifa19 <- read_csv("fifa19.csv")
+
+# Function 1 group_by()
+
+Club <- fifa19 %>% group_by(Club)
+Club
+
+# Function 2 ungroup()
+
+ungroup(Club)
+```
+
+## Import the netflix_titles.csv file for Vector Functions
+
+```{r warning=FALSE}
+
+netflix <- read_csv("netflix_titles.csv")
+
+# Function 1 coalesce()
+selection <- netflix[1:20,]
+coalesce(selection$director, selection$cast)
+
+# Function 2 nth()
+nth(selection$director,19)
+```
+
+## Import the Placement_Data_Full_Class.csv file for Pivoting Functions
+
+```{r warning=FALSE}
+
+sales <- read_csv("vgsales.csv")
+selection <- sales[,2:6]
+
+# Function 1 pivot_longer()
+selection %>%
+  pivot_longer(!Name, names_to = "sales", values_to = "count")
+
+# Function 2 pivot_wider()
+selection %>%
+  pivot_wider(names_from = NA_Sales, values_from = EU_Sales)
+```
+
+## Import the volcano.csv file for Pivoting Functions
+
+```{r warning=FALSE}
+
+volcano <- read_csv("volcano.csv")
+selection <- volcano[1:30,]
+
+# Function 1 replace_na()
+selection$Dominant_Rock_Type %>% replace_na("unknown")
+
+# Function 2 drop_na()
+selection %>% drop_na()
+```
+
+Discussion:
+
+   Tidyverse is a single package for data science and data analysis. The purpose of tidyverse is to provide key data transformation functions in a single package. This assignment works with the functions from the packages dplyr and tidyr. The dplyr package is used for data manipulation, whereas the tidyr package creates tidy data, which means a variable is a column, an observation is a row, and every value is a cell. 
+   
+   Most interestingly, the one table verb and two table verb functions are rigid functions to analyze data efficiently. This assignment considered the functions arrange(), count(), bind_rows(), intersect() as these are quite necessary functions for initial level of data analysis and they are easy to implement into the code. Similarly, the Grouping and Vector functions such as group_by(), ungroup(), coalesce() and nth() functions are considered in this assignment as they are essential for initial stages of data analysis.
+   
+   However, the Pivoting and Missing Values functions such as pivot_longer(), pivot_wider(), replace_na() and drop_na() had some implementation challenges while doing this assignment. Initially, the selection of right columns for pivoting is a major challenge in this assignment. Similarly, the NA values are unavailable in the downloaded datasets, which affects the working of the Missing Values functions, so that the NA values are added manually in the datasets for easy functionality of these functions.
