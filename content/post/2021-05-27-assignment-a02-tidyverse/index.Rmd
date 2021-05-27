@@ -88,7 +88,7 @@ selection %>%
   pivot_wider(names_from = NA_Sales, values_from = EU_Sales)
 ```
 
-## Import the volcano.csv file for Pivoting Functions
+## Import the volcano.csv file for Missing Values Functions
 
 ```{r warning=FALSE}
 
