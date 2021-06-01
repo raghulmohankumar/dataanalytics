@@ -6,7 +6,16 @@
     <description>Recent content in Tidyverse on Raghul - Fundamentals of Business Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data IO</title>
+      <link>/2021/06/01/data-io/</link>
+      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/01/data-io/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Assignment A02: TIDYVERSE</title>
       <link>/2021/05/27/assignment-a02-tidyverse/</link>
