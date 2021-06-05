@@ -6,7 +6,16 @@
     <description>Recent content in Tidyverse on Raghul - Fundamentals of Business Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Assignment A03: LEGO SALES</title>
+      <link>/2021/06/05/assignment-a03-lego-sales/</link>
+      <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/05/assignment-a03-lego-sales/</guid>
+      <description>Import lego_sales.csv## # A tibble: 6 x 15## first_name last_name age phone_number set_id number theme subtheme year## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;## 1 Serena Bartkowiak 16 305-555-2377 24778 75113 Star ~ Buildable~ 2018## 2 Natalia Vonduyke 16 859-555-3818 25922 75149 Star ~ The Force~ 2018## 3 Serena Bartkowiak 16 305-555-2377 24987 40201 Seaso~ Valentine~ 2018## 4 Natalia Vonduyke 16 859-555-3818 24765 70332 Nexo ~ Ultimate 2018## 5 Talise Nieukirk 16 801-555-2343 24902 41556 Mixels Series 7 2018## 6 Natalia Vonduyke 16 859-555-3818 25879 853534 Gear Key Chain~ 2018## # .</description>
+    </item>
+    
     <item>
       <title>Assignment A03: LEGO SALES TIDYVERSE</title>
       <link>/2021/06/04/assignment-a03-lego-sales-tidyverse/</link>
