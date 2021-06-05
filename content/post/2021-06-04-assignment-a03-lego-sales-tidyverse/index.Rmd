@@ -1,5 +1,5 @@
 ---
-title: 'Assignment A03: LEGO SALES TIDYVERSE'
+title: 'Assignment A03: LEGO SALES'
 author: Raghul Mohankumar
 date: '2021-06-04'
 categories:
@@ -52,12 +52,6 @@ sub_theme %>%
 ## Age grouping
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 
- # get categories
-
-
-# calculate group counts:
-
-
 lego_new <- lego_sales %>% mutate(age_group = case_when(
 between(age, 0, 18) ~ "18 and under",
 between(age, 19, 25) ~ "19 - 25",
@@ -70,19 +64,19 @@ between(age, 51, max(lego_sales$age)) ~ "51 and over"))
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 
-# Q4. Probability of customer from the 19 - 25 age group
+
 
 cat("From the 19 - 25 age group =",129/nrow(lego_sales))
 
 
-# Q5. Probability of customer from the 19 - 25 age group and purchased a Duplo theme set
+
 
 duplo_prob =  count(filter(lego_sales, theme == "Duplo" & age < 26 & age > 18))/nrow(lego_sales)
 
 cat("From the 19 - 25 age group and purchased a Duplo theme set =",duplo_prob$n)
 
 
-# Q6. Probability of customer from the 19 - 25 age group given they purchased a Duplo theme set
+
 
 duplo_prob2 =  count(filter(lego_sales, theme == "Duplo" & age < 26 & age > 18))/count(filter(lego_sales, theme == "Duplo"))
 
