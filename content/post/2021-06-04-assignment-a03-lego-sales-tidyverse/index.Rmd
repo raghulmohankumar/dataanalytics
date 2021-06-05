@@ -1,0 +1,169 @@
+---
+title: 'Assignment A03: LEGO SALES TIDYVERSE'
+author: ''
+date: '2021-06-04'
+slug: assignment-a03-lego-sales-tidyverse
+categories:
+  - Tidyverse
+tags: []
+---
+
+## Import lego_sales.csv
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(tidyverse)
+lego_sales <- read_csv(file = "lego_sales.csv")
+```
+
+## Q1. The three most common first names of customers are shown below
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+lego_sales %>% 
+  group_by(lego_sales$first_name) %>%
+  summarize(Occurrence=n()) %>%
+  arrange(desc(Occurrence)) %>%
+  top_n(3)
+```
+
+## Q2. The three most common themes of lego sets purchased are shown below
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+top_theme = lego_sales %>% 
+  group_by(lego_sales$theme) %>%
+  summarize(Occurrence=n()) %>%
+  arrange(desc(Occurrence)) %>%
+  top_n(3)
+top_theme
+```
+
+# Q3. The most common sub-theme among the common theme is shown below
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+ 
+ sub_theme =  filter(lego_sales, theme == "Star Wars")
+sub_theme %>% 
+  group_by(sub_theme$subtheme) %>%
+  summarize(Occurrence=n()) %>%
+  arrange(desc(Occurrence)) %>%
+  top_n(1)
+```
+
+## Age grouping
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+ # get categories
+#age_group = cut(lego_sales$age, breaks=c(0,19,26,36,51,Inf))
+
+# calculate group counts:
+
+
+lego_new <- lego_sales %>% mutate(age_group = case_when(
+between(age, 0, 18) ~ "18 and under",
+between(age, 19, 25) ~ "19 - 25",
+between(age, 26, 35) ~ "26 - 35",
+between(age, 36, 50) ~ "36 - 50",
+between(age, 51, max(lego_sales$age)) ~ "51 and over"))
+```
+
+## Q4 - Q6. Probability  workout
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+# Q4. Probability of customer from the 19 - 25 age group
+
+cat("From the 19 - 25 age group =",129/nrow(lego_sales))
+
+
+# Q5. Probability of customer from the 19 - 25 age group and purchased a Duplo theme set
+
+duplo_prob =  count(filter(lego_sales, theme == "Duplo" & age < 26 & age > 18))/nrow(lego_sales)
+
+cat("From the 19 - 25 age group and purchased a Duplo theme set =",duplo_prob$n)
+
+
+# Q6. Probability of customer from the 19 - 25 age group given they purchased a Duplo theme set
+
+duplo_prob2 =  count(filter(lego_sales, theme == "Duplo" & age < 26 & age > 18))/count(filter(lego_sales, theme == "Duplo"))
+
+cat("From the 19 - 25 age group given they purchased a Duplo theme set =",duplo_prob2$n)
+
+
+```
+
+## Q7 & Q8. Purchase analysis
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+# Q7. calculate in terms of purchase quantity
+
+purchase_data_1 = select(lego_new,quantity,age_group) %>%
+arrange(age_group) %>%
+  group_by(age_group) %>%
+  summarize(Quantity=sum(quantity)) 
+purchase_data_1
+
+cat ("The maximum purchase value in terms of quantity is ",max(purchase_data_1$Quantity), "by the age group of 36 to 50")
+
+# Q8. calculate in terms of purchase amount
+
+purchase_data_2 = select(lego_new,amount,age_group) %>%
+arrange(age_group) %>%
+  group_by(age_group) %>%
+  summarize(Amount=sum(amount)) 
+purchase_data_2
+cat ("The maximum purchase value in terms of amount is ",max(purchase_data_2$Amount), "by the age group of 36 to 50")
+```
+
+Q9. Voluntary Question
+
+Question : Which Lego set is expensive in terms of us_price per piece?
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+lego_sales_filter = lego_sales %>% 
+  
+  select("name","pieces","us_price") %>%
+  
+  drop_na("name","pieces","us_price") %>%
+  
+  mutate(price_per_piece = round(us_price/pieces,digits = 2)) %>%
+  
+  distinct(name, .keep_all = TRUE) %>%
+  
+  arrange(desc(price_per_piece)) %>%
+  
+  top_n(5)
+
+```
+
+# Data visualization that answers the question
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+
+  p<- ggplot(lego_sales_filter, aes(x= name,y=price_per_piece)) + geom_col(width = 0.5) +  scale_x_discrete(guide = guide_axis(n.dodge=3))
+  p
+  cat(" The expensive Lego set in terms of price per piece is", lego_sales_filter$name[1],"with the value of",max(lego_sales_filter$price_per_piece))
+```
+
+Explanation:
+
+For the question "Which Lego set is expensive in terms of us_price per piece?", the above data visualization clearly answers that the expensive Lego set in terms of price per piece is Horse Trailer with the value of 1.33. The bar chart depicts all the top names of lego sets in terms of high price per piece value. From the plot, it is inferred that the Horse Trailer bar is the highest one with the value of 1.33 $/piece. Thus, the plot answers the question as required.
+
+
+# Q10. Data visualization with creative changes in theme, background color and annotations 
+
+Changes list:
+
+i)   Inclusion of title
+ii)  Changing Bar colors to Blue
+iii) Inclusion of labels
+iv)  Minimal theme with blue border
+v)   Display y-values as decimal values
+
+
+```{r}
+ q<- ggplot(lego_sales_filter, aes(x= name,y=price_per_piece,fill=price_per_piece)) +  ggtitle("Price per piece plot")+ geom_col(width = 0.5) + geom_text(aes(label = price_per_piece), vjust = -0.2, colour = "blue", position = position_dodge(width = 0.7)) + theme_dark() + theme_minimal() + theme(panel.background = element_rect(colour = "blue"), plot.title=element_text( hjust=0.6, vjust=0.5, face='bold')
+  )+ scale_x_discrete(guide = guide_axis(n.dodge=3))
+q
+
+```
+
+
