@@ -9,10 +9,12 @@ slug: assignment-a03-lego-sales-tidyverse
 
 ## Import lego_sales.csv
 
+
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 
 library(tidyverse)
 lego_sales <- read_csv(file = "lego_sales.csv")
+head(lego_sales)
 ```
 
 ## Q1. The three most common first names of customers are shown below
