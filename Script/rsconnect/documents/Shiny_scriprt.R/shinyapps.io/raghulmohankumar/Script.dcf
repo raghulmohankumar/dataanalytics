@@ -1,0 +1,13 @@
+name: Script
+title: Script
+username:
+account: raghulmohankumar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4243484
+bundleId: 4692346
+url: https://raghulmohankumar.shinyapps.io/Script/
+when: 1623161141.15015
+lastSyncTime: 1623161141.15015
+asMultiple: FALSE
+asStatic: FALSE

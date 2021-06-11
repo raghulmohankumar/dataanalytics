@@ -111,7 +111,7 @@ purchase_data_2
 cat ("The maximum purchase value in terms of amount is ",max(purchase_data_2$Amount), "by the age group of 36 to 50")
 ```
 
-Q9. Voluntary Question
+## Q9. Voluntary Question
 
 Question : Which Lego set is expensive in terms of us_price per piece?
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shiny app on Raghul - Fundamentals of Business Analytics</title>
+    <link>/categories/shiny-app/</link>
+    <description>Recent content in shiny app on Raghul - Fundamentals of Business Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/shiny-app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shiny App Assignment</title>
+      <link>/2021/06/11/shiny-app-assignment/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/11/shiny-app-assignment/</guid>
+      <description>This is a Shiny web application. You can run the application by clickingthe ‘Run App’ button above.Find out more about building applications with Shiny here:http://shiny.rstudio.com/library(shiny)library(shinybusy)library(shinyjs)library(tidyverse)library(tidytext)library(plotly)library(glue)library(rsconnect)library(shinycustomloader)
+Import Estimated_Inpatient_Beds.csvIndian_air_quality_index &amp;lt;- read_csv(file = “air_quality_index_india.csv”)
+Transform Dataui User Interfaceui &amp;lt;- fluidPage(titlePanel(“Air Quality Index in Indian Cities”),add_busy_spinner(spin = “fading-circle”),sidebarLayout(sidebarPanel(selectInput(inputId = “city”,label = “Select City”,choices = c(“Bengaluru”,“Bhopal”,“Chandigarh”,“Chennai”,“Gandhinagar”,“Hyderabad”,“Jaipur”,“Kolkata”,“Lucknow”,“Mumbai”,“Mysore”,“Nagpur”,“New Delhi”,“Patna”,“Shillong”,“Thiruvananthapuram”,“Thrissur”,“Visakhapatnam”)),dateRangeInput(inputId = “date_range”,label = “Select date range”,start = min(Indian_air_quality_index\(date), end = max(Indian_air_quality_index\)date))),</description>
+    </item>
+    
+  </channel>
+</rss>

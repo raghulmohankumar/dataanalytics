@@ -2,10 +2,9 @@
 title: 'Assignment A03: LEGO SALES'
 author: Raghul Mohankumar
 date: '2021-06-05'
-slug: assignment-a03-lego-sales
 categories:
   - Tidyverse
-tags: []
+slug: assignment-a03-lego-sales
 ---
 
 

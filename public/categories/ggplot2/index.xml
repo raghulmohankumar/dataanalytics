@@ -6,7 +6,17 @@
     <description>Recent content in ggplot2 on Raghul - Fundamentals of Business Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shiny App Assignment A04</title>
+      <link>/2021/06/11/shiny-app-assignment-a04/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/11/shiny-app-assignment-a04/</guid>
+      <description>Air Quality Index analysisThis interactive visualisation presents the Daywise Air Quality Index data collected in various indian cities from the year 2019 to 2021 (Till March).
+</description>
+    </item>
+    
     <item>
       <title>Assignment A01- GGPLOT2</title>
       <link>/2021/05/21/dataset-visualisation/</link>

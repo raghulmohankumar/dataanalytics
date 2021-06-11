@@ -1,0 +1,17 @@
+---
+title: Shiny App Assignment A04
+author: Raghul Mohankumar
+date: '2021-06-11'
+categories:
+  - shiny
+  - ggplot2
+  - Tidyverse
+runtime: shiny
+output: html_document
+---
+
+## Air Quality Index analysis
+
+This interactive visualisation presents the Daywise Air Quality Index data collected in various indian cities from the year 2019 to 2021 (Till March).
+
+<iframe src= "https://raghulmohankumar.shinyapps.io/Air_quality_index/" height="800" width="100%" frameborder="no"></iframe> 
