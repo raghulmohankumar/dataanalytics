@@ -9,6 +9,7 @@
 
 
 library(shiny)
+library(ggplot2)
 library(shinyanimate)
 library(shinybusy)
 library(shinyjs)
@@ -31,9 +32,13 @@ Indian_air_quality_index <- read_csv(file = "air_quality_index_india.csv")
 # ui User Interface
 
 ui <- fluidPage(
+    wellPanel(
+        radioButtons("extension", "Save As:",
+                     choices = c("png", "pdf", "jpeg"), inline = TRUE),
+        downloadButton("download", "Save Plot")
+    ),
     align = "center",
     titlePanel("Selection based Air Quality Index in Indian Cities"),
-    downloadButton("testgif"),
     add_busy_spinner(spin = "fading-circle"),
     sidebarLayout(
         sidebarPanel(
@@ -50,8 +55,8 @@ ui <- fluidPage(
                 start = min(Indian_air_quality_index$date),
                 end = max(Indian_air_quality_index$date)
             )
-        ), 
-        mainPanel(
+        ),
+               mainPanel(
             plotlyOutput(outputId = "Quality_plot")
         )
     )
@@ -80,16 +85,16 @@ server <- function(input, output) {
         ggplotly(p, tooltip = c("x", "y"))
     })
     
-    output$testgif = downloadHandler(
-        filename = 'random.gif',
-        content  = function(file) {
-            saveGIF(
-                for (i in 1:30) {
-                    plot(rnorm(100))
-                }, movie.name = 'random.gif', interval = 0.1)
-            file.rename('random.gif', file)
-        })
-    }
+    output$download <- downloadHandler(
+        filename = function() {
+            paste("Shiny_plot", input$extension, sep = ".")
+        },
+        content = function(file){
+            ggsave(file,device = input$extension)
+        }
+    )
+    
+            }
     
 # Shiny App
 shinyApp(ui = ui, server = server)
