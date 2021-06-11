@@ -14,7 +14,7 @@ output: html_document
 
 This interactive visualisation presents the Daywise Air Quality Index data collected in various indian cities from the year 2019 to 2021 (Till March).
 
-<iframe src= https://raghulmohankumar.shinyapps.io/Air_quality_index/ height="800" width="100%" frameborder="no" onload="resizeIframe(this)"></iframe> 
+<iframe src= https://raghulmohankumar.shinyapps.io/Air_Quality/ height="800" width="100%" frameborder="no" onload="resizeIframe(this)"></iframe> 
 
 
 

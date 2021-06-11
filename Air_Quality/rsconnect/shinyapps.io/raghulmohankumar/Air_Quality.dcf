@@ -1,0 +1,13 @@
+name: Air_Quality
+title: Air_Quality
+username:
+account: raghulmohankumar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4258760
+bundleId: 4705962
+url: https://raghulmohankumar.shinyapps.io/Air_Quality/
+when: 1623424843.41006
+lastSyncTime: 1623424843.41006
+asMultiple: FALSE
+asStatic: FALSE
