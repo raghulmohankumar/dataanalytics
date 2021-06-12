@@ -12,7 +12,7 @@ output: html_document
 
 ## Air Quality Index analysis
 
-This interactive visualisation presents the Daywise Air Quality Index data collected in various indian cities from the year 2019 to 2021 (Till March).
+Air Quality application depicts the air quality among the 11 Indian cities for the range of dates from 1st January 2019 to 31st May 2021. The App user can select the range of date and the city to view the visualisation. The Air Quality Index is plotted in Y axis with respect to the selected range of dates in X - axis for the selected city. The Air quality Index is ploted in Magenta Colour for the values higher than or equal to 100, whereas it is plotted in Green colour for the values lesser than 100. Most Significantly, user can download the visualisation plot in the formats such as PDF, PNG and JPEG. Furthermore, the dataset is available to download in two modes, one is from the application and another is from the weblink.
 
 <iframe src= https://raghulmohankumar.shinyapps.io/Air_Quality/ height="800" width="100%" frameborder="no" onload="resizeIframe(this)"></iframe> 
 
