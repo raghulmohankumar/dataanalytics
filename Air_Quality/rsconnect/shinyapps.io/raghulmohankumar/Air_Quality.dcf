@@ -5,9 +5,9 @@ account: raghulmohankumar
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4262131
-bundleId: 4708771
+bundleId: 4709277
 url: https://raghulmohankumar.shinyapps.io/Air_Quality/
-when: 1623505536.54103
-lastSyncTime: 1623505536.54103
+when: 1623522773.14217
+lastSyncTime: 1623522773.14217
 asMultiple: FALSE
 asStatic: FALSE
