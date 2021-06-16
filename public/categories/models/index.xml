@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>models on Raghul - Fundamentals of Business Analytics</title>
+    <link>/categories/models/</link>
+    <description>Recent content in models on Raghul - Fundamentals of Business Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/models/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fitting and Interpretting Models</title>
+      <link>/2021/06/15/fitting-and-interpretting-models/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/06/15/fitting-and-interpretting-models/</guid>
+      <description>Import Dataset : Paris PaintingsGoal: Predict height from width\[\widehat{height}_{i} = \beta_0 + \beta_1 \times width_{i}\]
+## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;Step 1: Specify modellinear_reg()## Linear Regression Model Specification (regression)Step 2: Set model fitting enginelinear_reg() %&amp;gt;%set_engine(&amp;quot;lm&amp;quot;) # lm: linear model## Linear Regression Model Specification (regression)## ## Computational engine: lmStep 3: Fit model &amp;amp; estimate parameters… using formula syntax</description>
+    </item>
+    
+  </channel>
+</rss>

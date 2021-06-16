@@ -1,0 +1,206 @@
+---
+title: A05 Assignment EDA2
+author: ''
+date: '2021-06-16'
+slug: a05-assignment-eda2
+categories: []
+tags: []
+---
+
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(ggtext)
+library(knitr)
+library(kableExtra)
+set.seed(1234)
+options(dplyr.print_min = 10, dplyr.print_max = 6)
+```
+
+## Import Dataset : Fish
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+le <- read_csv("Life Expectancy Data.csv", na = c("n/a", "", "NA"))
+```
+## Goal: Predict Life Expectancy from BMI
+
+$$\widehat{Life_expectancy}_{i} = \beta_0 + \beta_1 \times BMI_{i}$$
+```{r weight-height-plot, echo=FALSE, warning=FALSE}
+ggplot(data = le, aes(x = BMI, y = Life_expectancy)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + 
+  labs(
+    title = "Life Expectancy vs. BMI of Countries",
+    subtitle = "Life Expectancy Rate",
+    x = "BMI",
+    y = "Life Expectancy (years)"
+  )
+```
+
+```{r out.height=="98%", echo=FALSE}
+knitr::include_graphics("life_expectancy.png")
+```
+
+
+## Step 1: Specify model
+
+```{r}
+linear_reg()
+```
+## Step 2: Set model fitting *engine*
+
+```{r}
+linear_reg() %>%
+  set_engine("lm") # lm: linear model
+```
+---
+
+## Step 3: Fit model & estimate parameters
+
+... using **formula syntax**
+
+```{r fit-model}
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Life_expectancy ~ BMI, data = le)
+```
+
+---
+
+## A closer look at model output
+
+```{r ref.label="fit-model", echo=FALSE}
+```
+
+## A tidy look at model output
+
+```{r}
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Life_expectancy ~ BMI, data = le) %>%
+  tidy()
+```
+
+## Visualizing residuals
+
+```{r vis-res-1, echo=FALSE, out.width="70%"}
+le_bmi_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Life_expectancy ~ BMI, data = le)
+le_bmi_fit_tidy <- tidy(le_bmi_fit$fit) 
+le_bmi_fit_aug  <- augment(le_bmi_fit$fit) %>%
+  mutate(res_cat = ifelse(.resid > 0, TRUE, FALSE))
+l <- ggplot(data = le_bmi_fit_aug, 
+            aes(x = BMI, y = Life_expectancy)) +
+  geom_point(alpha = 0.2) + 
+  labs(
+    title = "Life Expectancy vs. BMI",
+    subtitle = "Just the data",
+    x = "BMI",
+    y = "Life Expectancy (years)"
+    ) +
+  coord_cartesian(xlim = c(0, 80), ylim = c(35, 100)) +
+  theme(plot.subtitle = element_text(colour = "#E48957", face = "bold", size = rel(1.5)))
+l
+```
+
+
+## Visualizing residuals (cont.)
+
+```{r vis-res-2, echo=FALSE, out.width="70%"}
+l <- l + 
+  geom_smooth(method = "lm", color = "#8E2C90", se = FALSE) +
+  geom_point(mapping = aes(y = .fitted), color = "#E48957") +
+  labs(subtitle = "Data + least squares line")
+l
+```
+
+## Visualizing residuals (cont.)
+
+```{r vis-res-3, echo = FALSE, out.width="70%"}
+l + 
+  geom_segment(mapping = aes(xend = BMI, yend = .fitted), color = "#E48957", alpha = 0.4) +
+  labs(subtitle = "Data + least squares line + residuals")
+```
+# Categorical predictor with 2 levels
+
+```{r echo=FALSE}
+le %>% 
+  select(Country, Life_expectancy, Status) %>%
+  print(n = 20)
+```
+
+]
+]
+.pull-right-wide[
+- `Status = "Developing"`: Developing Country
+- `Status = "Developed"`: Developed Country
+]
+## Life Expectancy & Status 
+
+```{r le-bmi-fit}
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Life_expectancy ~ factor(Status), data = le) %>%
+  tidy()
+```
+
+## Height & landscape features
+
+$$\widehat{Life Expectancy_{years}} = 2.7 - 5.5~BMI$$
+
+## Relationship between Life Expectancy and Adult Mortality rate
+
+```{r ht-school}
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Life_expectancy ~ Adult_Mortality, data = le) %>%
+  tidy()
+```
+
+
+---
+
+## Dummy variables
+
+```{r ref.label="le-am", echo = FALSE}
+
+```
+
+
+
+## Categorical predictor with 3+ levels
+
+.pull-left-wide[
+```{r echo=FALSE}
+dummy_le_df <- le %>% 
+  select(Adult_Mortality) %>% 
+  group_by(Adult_Mortality) %>% 
+  sample_n(1) %>%
+  mutate(
+    Very_Low = as.integer(ifelse(Adult_Mortality <= "50", 1L, 0)),
+    Low      = as.integer(ifelse(Adult_Mortality >= "51" & Adult_Mortality <= "60", 1L, 0)),
+    Medium   = as.integer(ifelse(Adult_Mortality >= "61" & Adult_Mortality <= "70", 1L, 0)),
+    High     = as.integer(ifelse(Adult_Mortality >= "71" & Adult_Mortality <= "80", 1L, 0)),
+    Very_High= as.integer(ifelse(Adult_Mortality >= "81" & Adult_Mortality <= "90", 1L, 0)),
+  )
+dummy_le_df %>%
+  kable(align = "lcccccc") %>%
+  kable_styling() %>%
+  column_spec(2, width = "10em", background = spec_color(dummy_le_df$Very_Low[1:7], end = 0.8), color = "white") %>%
+  column_spec(3, width = "10em", background = spec_color(dummy_le_df$Low[1:7], end = 0.8), color = "white") %>%
+  column_spec(4, width = "10em", background = spec_color(dummy_le_df$Medium[1:7], end = 0.8), color = "white") %>%
+  column_spec(5, width = "10em", background = spec_color(dummy_le_df$High[1:7], end = 0.8), color = "white") %>%
+  column_spec(6, width = "10em", background = spec_color(dummy_le_df$Very_High[1:7], end = 0.8), color = "white")
+```
+
+]
+.pull-right-narrow[
+.small[
+```{r echo=FALSE}
+le %>% 
+  select(Country, Life_expectancy, Status) %>%
+  print(n = 20)
+```

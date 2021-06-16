@@ -3,15 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2021-06-11T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/ggplot2/</loc>
-    <lastmod>2021-06-11T00:00:00+00:00</lastmod>
+    <loc>/2021/06/15/fitting-and-interpretting-models/</loc>
+    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/models/</loc>
+    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/</loc>
-    <lastmod>2021-06-11T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
+    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/ggplot2/</loc>
     <lastmod>2021-06-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/shiny/</loc>

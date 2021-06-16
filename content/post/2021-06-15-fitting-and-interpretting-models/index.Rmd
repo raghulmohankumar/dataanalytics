@@ -27,7 +27,6 @@ pp <- read_csv("paris-paintings.csv", na = c("n/a", "", "NA"))
 ## Goal: Predict height from width
 
 $$\widehat{height}_{i} = \beta_0 + \beta_1 \times width_{i}$$
-
 ```{r height-width-plot, echo=FALSE, warning=FALSE}
 ggplot(data = pp, aes(x = Width_in, y = Height_in)) +
   geom_point() +
@@ -40,24 +39,20 @@ ggplot(data = pp, aes(x = Width_in, y = Height_in)) +
   )
 ```
 
-
 ```{r out.width="98%", echo=FALSE}
 knitr::include_graphics("tidymodels.png")
 ```
-
 ## Step 1: Specify model
 
 ```{r}
 linear_reg()
 ```
-
 ## Step 2: Set model fitting *engine*
 
 ```{r}
 linear_reg() %>%
   set_engine("lm") # lm: linear model
 ```
-
 ---
 
 ## Step 3: Fit model & estimate parameters
@@ -78,12 +73,6 @@ linear_reg() %>%
 ```{r ref.label="fit-model", echo=FALSE}
 ```
 
-.large[
-$$\widehat{height}_{i} = 3.6214 + 0.7808 \times width_{i}$$
-]
-
----
-
 ## A tidy look at model output
 
 ```{r}
@@ -92,8 +81,6 @@ linear_reg() %>%
   fit(Height_in ~ Width_in, data = pp) %>%
   tidy()
 ```
-
-
 ## Visualizing residuals
 
 ```{r vis-res-1, echo=FALSE, out.width="70%"}
@@ -127,7 +114,6 @@ p <- p +
 p
 ```
 
-
 ## Visualizing residuals (cont.)
 
 ```{r vis-res-3, echo = FALSE, out.width="70%"}
@@ -138,8 +124,6 @@ p +
 
 # Categorical predictor with 2 levels
 
-.pull-left-narrow[
-.small[
 ```{r echo=FALSE}
 pp %>% 
   select(name, Height_in, landsALL) %>%
@@ -167,7 +151,7 @@ linear_reg() %>%
 
 ## Height & landscape features
 
-$$\widehat{Height_{in}} = 22.7 - 5.645~landsALL$$
+$$\widehat{Height_{in}} = 11.4 - 4.235~landsALL$$
 
 - **Slope:** Paintings with landscape features are expected, on average, to be 5.645 inches shorter than paintings that without landscape features
   - Compares baseline level (`landsALL = 0`) to the other level (`landsALL = 1`)
