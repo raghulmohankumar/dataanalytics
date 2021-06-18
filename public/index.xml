@@ -13,8 +13,7 @@
       <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/06/16/a05-assignment-eda2/</guid>
-      <description>Import Dataset : FishGoal: Predict Life Expectancy from BMI\[\widehat{Life_expectancy}_{i} = \beta_0 + \beta_1 \times BMI_{i}\]
-## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;Step 1: Specify modellinear_reg()## Linear Regression Model Specification (regression)Step 2: Set model fitting enginelinear_reg() %&amp;gt;%set_engine(&amp;quot;lm&amp;quot;) # lm: linear model## Linear Regression Model Specification (regression)## ## Computational engine: lmStep 3: Fit model &amp;amp; estimate parameters… using formula syntax</description>
+      <description>body {text-align: justify}IntroductionA05 Assignment EDA2 post is created through the R studio for analyzing the weather data of USA. The weather data set is obtained from NOAA Daily Global Historical Climatology Network. The data analysis in this page is supported by various R platform based packages such as Tidyverse, GGPlot, GGalt, USmap, and Shiny Application. Most significantly, a reactive visualization is also included in this page with the help of Shiny app.</description>
     </item>
     
     <item>
