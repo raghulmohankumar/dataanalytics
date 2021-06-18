@@ -37,16 +37,12 @@ text-align: justify}
 
 A05 Assignment EDA2 post is created for analyzing the weather data of USA. The weather data set is obtained from NOAA Daily Global Historical Climatology Network. The data analysis in this page is supported by various R platform based packages such as Tidyverse, GGPlot, GGalt, USmap, and Shiny Application. Most significantly, a reactive visualization is also included in this page with the help of Shiny app. This dataset contains various parameters in 1395 rows and 15 columns such as Station, State, latitude, longitude, elevation, date, Minimum Temperature, Maximum Temperature, Average Temperature, Average daily wind speed , Direction of fastest 5-second wind, Fastest 5-second wind speed, Snowfall, Snow Depth and Precipitation. 
 
-```{r warning=FALSE,echo=FALSE,message=FALSE}
-wd <- read_csv("weather_dataset.csv", na = c("n/a", "", "NA"))
-DataExplorer::create_report(wd)
-```
 
 ## Blank and Reference USA Map
 
   The United States of America has 52 states, out of which 42 states are considered in the dataset "weather_dataset". In this plot,USA map is surrounded by blue color as border and Alaska is shown at the bottom of the map. The states are displayed in short terms as labels for easy identification.
   
-```{r warning=FALSE,echo=FALSE,message=FALSE}
+```{r warning=FALSE,echo=FALSE,message=FALSE, include=FALSE}
 
 plot_usmap(regions = "states",labels=TRUE) + 
   labs(title = "USA States",
@@ -59,15 +55,28 @@ knitr::include_graphics("list.png")
 ```
 ## Initial Analysis Questions
 
-i)   How often the state Arizona records the maximum temperature higher than the 80 degree Fahrenheit?
+i)    How often the state Arizona records the maximum temperature higher than the 80 degree Fahrenheit?
+
 ii)  Which states record high and low average temperatures? 
-iii) How the precipitation levels are varied among the states?
-iv)  Which state records the maximum value of temperature?
-v)   Which states record high and low value of fastest 5-second wind speed (WSF5)?
-vi)  What is the average range of highest average daily wind speed among the states?
-vii) How many states recorded fastest 5-second wind speed higher than 60 tenths of meters per second?
-viii)What is the angle of inclination of linear prediction line for the linear model between average Temperature and elevation level of the location based on the geo-coordinates.
-ix) Are the residual values of previous linear model are high or low in the current linear dataset?
+
+iii)  How the precipitation levels are varied among the states?
+
+iv)   Which state records the maximum value of temperature?
+
+v)    Which states record high and low value of fastest 5-second wind speed (WSF5)?
+
+vi)   What is the average range of highest average daily wind speed among the states?
+
+vii)  How many states recorded fastest 5-second wind speed higher than 60 tenths of meters per second?
+
+viii) What is the angle of inclination of linear prediction line for the linear model between average Temperature and elevation level of the location based on the geo-coordinates?
+
+ix)   Are the residual values of previous linear model are high or low in the current linear dataset?
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+wd <- read_csv("weather_dataset.csv", na = c("n/a", "", "NA"))
+DataExplorer::create_report(wd)
+```
 
 ## Discoveries & Insights
 
