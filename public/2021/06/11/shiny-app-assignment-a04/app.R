@@ -103,8 +103,8 @@ server <- function(input, output) {
         p <- Indian_air_quality_index %>%
             filter(city == input$city) %>%
             filter(between(date, input$date_range[1], input$date_range[2])) %>%
-            count(date, value) %>%
-            ggplot(aes(x = date, y = value)) +
+            count(date, TMAX) %>%
+            ggplot(aes(x = date, y = TMAX)) +
             geom_line(color = "gray") +
             scale_fill_discrete(name="AQ Index", labels = c("Poor Quality","Good Quality"))+
             geom_point(aes(color = value < 100), size = 1) +

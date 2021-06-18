@@ -1,0 +1,13 @@
+name: US_Weather
+title: US_Weather
+username:
+account: raghulmohankumar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4287791
+bundleId: 4729995
+url: https://raghulmohankumar.shinyapps.io/US_Weather/
+when: 1624002798.40682
+lastSyncTime: 1624002798.40682
+asMultiple: FALSE
+asStatic: FALSE
