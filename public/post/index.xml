@@ -1,125 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on Raghul - Fundamentals of Business Analytics</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on Raghul - Fundamentals of Business Analytics</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>A05 Assignment EDA2</title>
-      <link>/2021/06/16/a05-assignment-eda2/</link>
-      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/16/a05-assignment-eda2/</guid>
-      <description>body {text-align: justify}Introduction about the datasetA05 Assignment EDA2 post is created for analyzing the weather data of USA. The weather data set is obtained from NOAA Daily Global Historical Climatology Network. The data analysis in this page is supported by various R platform based packages such as Tidyverse, GGPlot, GGalt, USmap, and Shiny Application. Most significantly, a reactive visualization is also included in this page with the help of Shiny app.</description>
-    </item>
-    
-    <item>
-      <title>Fitting and Interpretting Models</title>
-      <link>/2021/06/15/fitting-and-interpretting-models/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/15/fitting-and-interpretting-models/</guid>
-      <description>Import Dataset : Paris PaintingsGoal: Predict height from width\[\widehat{height}_{i} = \beta_0 + \beta_1 \times width_{i}\]
-## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;Step 1: Specify modellinear_reg()## Linear Regression Model Specification (regression)Step 2: Set model fitting enginelinear_reg() %&amp;gt;%set_engine(&amp;quot;lm&amp;quot;) # lm: linear model## Linear Regression Model Specification (regression)## ## Computational engine: lmStep 3: Fit model &amp;amp; estimate parameters… using formula syntax</description>
-    </item>
-    
-    <item>
-      <title>Shiny App Assignment A04</title>
-      <link>/2021/06/11/shiny-app-assignment-a04/</link>
-      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/11/shiny-app-assignment-a04/</guid>
-      <description>Air Quality Index analysisThis interactive visualisation presents the Daywise Air Quality Index data collected in various indian cities from the year 2019 to 2021 (Till March).
-</description>
-    </item>
-    
-    <item>
-      <title>Assignment A03: LEGO SALES</title>
-      <link>/2021/06/05/assignment-a03-lego-sales/</link>
-      <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/05/assignment-a03-lego-sales/</guid>
-      <description>Import lego_sales.csv## # A tibble: 6 x 15## first_name last_name age phone_number set_id number theme subtheme year## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;## 1 Serena Bartkowiak 16 305-555-2377 24778 75113 Star ~ Buildable~ 2018## 2 Natalia Vonduyke 16 859-555-3818 25922 75149 Star ~ The Force~ 2018## 3 Serena Bartkowiak 16 305-555-2377 24987 40201 Seaso~ Valentine~ 2018## 4 Natalia Vonduyke 16 859-555-3818 24765 70332 Nexo ~ Ultimate 2018## 5 Talise Nieukirk 16 801-555-2343 24902 41556 Mixels Series 7 2018## 6 Natalia Vonduyke 16 859-555-3818 25879 853534 Gear Key Chain~ 2018## # .</description>
-    </item>
-    
-    <item>
-      <title>Data_IO</title>
-      <link>/2021/06/04/assignment-a03-lego-sales-tidyverse/</link>
-      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/04/assignment-a03-lego-sales-tidyverse/</guid>
-      <description>Import lego_sales.csv## # A tibble: 6 x 15## first_name last_name age phone_number set_id number theme subtheme year## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;## 1 Serena Bartkowiak 16 305-555-2377 24778 75113 Star ~ Buildable~ 2018## 2 Natalia Vonduyke 16 859-555-3818 25922 75149 Star ~ The Force~ 2018## 3 Serena Bartkowiak 16 305-555-2377 24987 40201 Seaso~ Valentine~ 2018## 4 Natalia Vonduyke 16 859-555-3818 24765 70332 Nexo ~ Ultimate 2018## 5 Talise Nieukirk 16 801-555-2343 24902 41556 Mixels Series 7 2018## 6 Natalia Vonduyke 16 859-555-3818 25879 853534 Gear Key Chain~ 2018## # .</description>
-    </item>
-    
-    <item>
-      <title>Data_Recode</title>
-      <link>/2021/06/01/data-recode/</link>
-      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/06/01/data-recode/</guid>
-      <description>Import Relig-income.csvlibrary(readxl)library(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --## v ggplot2 3.3.3 v purrr 0.3.4## v tibble 3.1.1 v dplyr 1.0.6## v tidyr 1.1.3 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.1## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()rel_inc &amp;lt;- read_excel(&amp;quot;relig-income.xlsx&amp;quot;)rel_inc_long &amp;lt;- rel_inc %&amp;gt;% rename(religion = `Religious tradition`,n = `Sample Size`) %&amp;gt;%pivot_longer(cols = -c(religion, n), names_to = &amp;quot;income&amp;quot;, values_to = &amp;quot;proportion&amp;quot;) %&amp;gt;%mutate(frequency = round(proportion * n))Visualise using GGPLOTrel_inc_long &amp;lt;- rel_inc_long %&amp;gt;%mutate(religion = case_when(religion == &amp;quot;Evangelical Protestant&amp;quot; ~ &amp;quot;Ev.</description>
-    </item>
-    
-    <item>
-      <title>Assignment A02: TIDYVERSE</title>
-      <link>/2021/05/27/assignment-a02-tidyverse/</link>
-      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/27/assignment-a02-tidyverse/</guid>
-      <description>Import the diabetes.csv file for One table verblibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --## v ggplot2 3.3.3 v purrr 0.3.4## v tibble 3.1.1 v dplyr 1.0.6## v tidyr 1.1.3 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.1## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()diabetes &amp;lt;- read_csv(&amp;quot;diabetes.csv&amp;quot;)## ## -- Column specification --------------------------------------------------------## cols(## Pregnancies = col_double(),## Glucose = col_double(),## BloodPressure = col_double(),## SkinThickness = col_double(),## Insulin = col_double(),## BMI = col_double(),## DiabetesPedigreeFunction = col_double(),## Age = col_double(),## Outcome = col_double()## )# Function 1 arrange()diabetes %&amp;gt;% arrange(desc(Glucose))## # A tibble: 768 x 9## Pregnancies Glucose BloodPressure SkinThickness Insulin BMI## &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;## 1 1 199 76 43 0 42.</description>
-    </item>
-    
-    <item>
-      <title>Data Wrangling using Tidyverse</title>
-      <link>/2021/05/25/data-wrangling-using-tidyverse/</link>
-      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/25/data-wrangling-using-tidyverse/</guid>
-      <description>Import the Hotels.csv filelibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --## v ggplot2 3.3.3 v purrr 0.3.4## v tibble 3.1.1 v dplyr 1.0.6## v tidyr 1.1.3 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.1## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()hotels &amp;lt;- read_csv(&amp;quot;hotels.csv&amp;quot;)## ## -- Column specification --------------------------------------------------------## cols(## .</description>
-    </item>
-    
-    <item>
-      <title>Fun with R</title>
-      <link>/2021/05/25/fun-with-r/</link>
-      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/25/fun-with-r/</guid>
-      <description>##Variables and Numbers
-x &amp;lt;-1y=23-&amp;gt;zx+y## [1] 3y*z## [1] 6y/x## [1] 2##Vectors
-a &amp;lt;- 0:10print(a)## [1] 0 1 2 3 4 5 6 7 8 9 10b &amp;lt;- 10:4print(b)## [1] 10 9 8 7 6 5 4class(a)## [1] &amp;quot;integer&amp;quot;str(a)## int [1:11] 0 1 2 3 4 5 6 7 8 9 .</description>
-    </item>
-    
-    <item>
-      <title>Assignment A01- GGPLOT2</title>
-      <link>/2021/05/21/dataset-visualisation/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/21/dataset-visualisation/</guid>
-      <description>i) Speed vs DistanceSpeed vs Distance relationship through a scatter plot
-SpeedDistanceThe Cars dataset contains the data of cars which covered the distance in mentioned Speed.The pattern is scattered and clustered in specific linear trend.ii) Temperature vs PressureTemperature vs Pressure relationship through a scatter plot
-TemperaturePressureThe Pressure dataset contains the data of Pressure values measured at the various temperature.</description>
-    </item>
-    
-    <item>
-      <title>Data and Visualization</title>
-      <link>/2021/05/19/data-and-visualization/</link>
-      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/19/data-and-visualization/</guid>
-      <description>Data Visualization Exerciselibrary(dplyr)starwars## # A tibble: 87 x 14## name height mass hair_color skin_color eye_color birth_year sex gender## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; ## 1 Luke S~ 172 77 blond fair blue 19 male mascu~## 2 C-3PO 167 75 &amp;lt;NA&amp;gt; gold yellow 112 none mascu~## 3 R2-D2 96 32 &amp;lt;NA&amp;gt; white, bl~ red 33 none mascu~## 4 Darth ~ 202 136 none white yellow 41.</description>
-    </item>
-    
-    <item>
-      <title>Data Visualisation using GGPLOT2</title>
-      <link>/2021/05/19/data-visualisation-using-ggplot2/</link>
-      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/05/19/data-visualisation-using-ggplot2/</guid>
-      <description>Palmer Penguins Data Visualisation</description>
-    </item>
-    
-  </channel>
-</rss>

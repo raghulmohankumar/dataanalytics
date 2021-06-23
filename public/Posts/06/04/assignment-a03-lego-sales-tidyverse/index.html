@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.83.1" />
+
+
+<title>Data_IO - Raghul - Fundamentals of Business Analytics</title>
+<meta property="og:title" content="Data_IO - Raghul - Fundamentals of Business Analytics">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://www.facebook.com/rahul.mohan.54/">Facebook</a></li>
+    
+    <li><a href="https://github.com/raghulmohankumar">GitHub</a></li>
+    
+    <li><a href="https://www.instagram.com/rahulmohankumar/">Instagram</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/raghul-mohankumar-51811763/">LinkedIn</a></li>
+    
+    <li><a href="https://twitter.com/eee_rahulrahul">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Data_IO</h1>
+
+    
+    <span class="article-date">2021-06-04</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2021/06/04/assignment-a03-lego-sales-tidyverse/index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="import-lego_sales.csv" class="section level2">
+<h2>Import lego_sales.csv</h2>
+<pre><code>## # A tibble: 6 x 15
+##   first_name last_name    age phone_number set_id number theme  subtheme    year
+##   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+## 1 Serena     Bartkowiak    16 305-555-2377  24778 75113  Star ~ Buildable~  2018
+## 2 Natalia    Vonduyke      16 859-555-3818  25922 75149  Star ~ The Force~  2018
+## 3 Serena     Bartkowiak    16 305-555-2377  24987 40201  Seaso~ Valentine~  2018
+## 4 Natalia    Vonduyke      16 859-555-3818  24765 70332  Nexo ~ Ultimate    2018
+## 5 Talise     Nieukirk      16 801-555-2343  24902 41556  Mixels Series 7    2018
+## 6 Natalia    Vonduyke      16 859-555-3818  25879 853534 Gear   Key Chain~  2018
+## # ... with 6 more variables: name &lt;chr&gt;, pieces &lt;dbl&gt;, us_price &lt;dbl&gt;,
+## #   image_url &lt;chr&gt;, quantity &lt;dbl&gt;, amount &lt;dbl&gt;</code></pre>
+</div>
+<div id="q1.-the-three-most-common-first-names-of-customers-are-shown-below" class="section level2">
+<h2>Q1. The three most common first names of customers are shown below</h2>
+<pre><code>## # A tibble: 3 x 2
+##   `lego_sales$first_name` Occurrence
+##   &lt;chr&gt;                        &lt;int&gt;
+## 1 Jackson                         13
+## 2 Jacob                           11
+## 3 Joseph                          11</code></pre>
+</div>
+<div id="q2.-the-three-most-common-themes-of-lego-sets-purchased-are-shown-below" class="section level2">
+<h2>Q2. The three most common themes of lego sets purchased are shown below</h2>
+<pre><code>## # A tibble: 4 x 2
+##   `lego_sales$theme` Occurrence
+##   &lt;chr&gt;                   &lt;int&gt;
+## 1 Star Wars                  75
+## 2 Nexo Knights               64
+## 3 Gear                       55
+## 4 Mixels                     55</code></pre>
+</div>
+<div id="q3.-the-most-common-sub-theme-among-the-common-theme-is-shown-below" class="section level1">
+<h1>Q3. The most common sub-theme among the common theme is shown below</h1>
+<pre><code>## # A tibble: 1 x 2
+##   `sub_theme$subtheme` Occurrence
+##   &lt;chr&gt;                     &lt;int&gt;
+## 1 The Force Awakens            15</code></pre>
+<div id="age-grouping" class="section level2">
+<h2>Age grouping</h2>
+</div>
+<div id="q4---q6.-probability-workout" class="section level2">
+<h2>Q4 - Q6. Probability workout</h2>
+<pre><code>## From the 19 - 25 age group = 0.2080645</code></pre>
+<pre><code>## From the 19 - 25 age group and purchased a Duplo theme set = 0.01451613</code></pre>
+<pre><code>## From the 19 - 25 age group given they purchased a Duplo theme set = 0.2571429</code></pre>
+</div>
+<div id="q7-q8.-purchase-analysis" class="section level2">
+<h2>Q7 &amp; Q8. Purchase analysis</h2>
+<pre><code>## # A tibble: 5 x 2
+##   age_group    Quantity
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 18 and under       45
+## 2 19 - 25           174
+## 3 26 - 35           267
+## 4 36 - 50           313
+## 5 51 and over        92</code></pre>
+<pre><code>## The maximum purchase value in terms of quantity is  313 by the age group of 36 to 50</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   age_group    Amount
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 18 and under   949.
+## 2 19 - 25       4939.
+## 3 26 - 35       7576.
+## 4 36 - 50       9533.
+## 5 51 and over   2475.</code></pre>
+<pre><code>## The maximum purchase value in terms of amount is  9532.87 by the age group of 36 to 50</code></pre>
+</div>
+<div id="q9.-voluntary-question" class="section level2">
+<h2>Q9. Voluntary Question</h2>
+<p>Question : Which Lego set is expensive in terms of us_price per piece?</p>
+</div>
+</div>
+<div id="data-visualization-that-answers-the-question" class="section level1">
+<h1>Data visualization that answers the question</h1>
+<p><img src="/2021/06/04/assignment-a03-lego-sales-tidyverse/index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre><code>##  The expensive Lego set in terms of price per piece is Horse Trailer with the value of 1.33</code></pre>
+<p>Explanation:</p>
+<p>For the question “Which Lego set is expensive in terms of us_price per piece?”, the above data visualization clearly answers that the expensive Lego set in terms of price per piece is Horse Trailer with the value of 1.33. The bar chart depicts all the top names of lego sets in terms of high price per piece value. From the plot, it is inferred that the Horse Trailer bar is the highest one with the value of 1.33 $/piece. Thus, the plot answers the question as required.</p>
+</div>
+<div id="q10.-data-visualization-with-creative-changes-in-theme-background-color-and-annotations" class="section level1">
+<h1>Q10. Data visualization with creative changes in theme, background color and annotations</h1>
+<p>Changes list:</p>
+<ol style="list-style-type: lower-roman">
+<li>Inclusion of title</li>
+<li>Changing Bar colors to Blue</li>
+<li>Inclusion of labels</li>
+<li>Minimal theme with blue border</li>
+<li>Display y-values as decimal values</li>
+</ol>
+<pre class="r"><code> q&lt;- ggplot(lego_sales_filter, aes(x= name,y=price_per_piece,fill=price_per_piece)) +  ggtitle(&quot;Price per piece plot&quot;)+ geom_col(width = 0.5) + geom_text(aes(label = price_per_piece), vjust = -0.2, colour = &quot;blue&quot;, position = position_dodge(width = 0.7)) + theme_dark() + theme_minimal() + theme(panel.background = element_rect(colour = &quot;blue&quot;), plot.title=element_text( hjust=0.6, vjust=0.5, face=&#39;bold&#39;)
+  )+ scale_x_discrete(guide = guide_axis(n.dodge=3))
+q</code></pre>
+<p><img src="/2021/06/04/assignment-a03-lego-sales-tidyverse/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

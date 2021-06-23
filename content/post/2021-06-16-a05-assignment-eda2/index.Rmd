@@ -76,6 +76,7 @@ ix)   Are the residual values of previous linear model are high or low in the cu
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 wd <- read_csv("weather_dataset.csv", na = c("n/a", "", "NA"))
 DataExplorer::create_report(wd)
+
 ```
 
 ## Discoveries & Insights

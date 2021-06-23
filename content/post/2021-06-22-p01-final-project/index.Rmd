@@ -1,0 +1,62 @@
+---
+title: P01 Final Project
+author: Raghul Mohankumar
+date: '2021-06-22'
+slug: p01-final-project
+categories:
+  - ggplot2
+  - Tidyverse
+  - shiny
+tags: []
+---
+
+## Import the Crimes_2020.csv file
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(readr)
+crimes <- read_csv("Crimes_2020.csv", na = c(".", ".."))
+```
+
+## Description of the Dataset 
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+cat("The dimension of the dataset is shown as number rows and columns respectively below",dim(crimes))
+cat("The columns of the dataset are listed below",names(crimes))
+cat("The glimpse of the dataset is shown below")
+glimpse(crimes)
+cat("The length of the dataset is =",length(crimes))
+cat("The compact display of the dataset structure is shown below:")
+str(crimes)
+cat("The memory size of the dataset is ",object.size(crimes)/1048576, "MegaBytes")
+```
+
+## Understanding the Dataset with Transformation functions
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+crimes_arrange_PT <- crimes %>% arrange(Date, Primary_Type, Case_Number)
+crimes_select <- crimes_arrange_PT %>% select(ID:Description)
+crimes_filter <- crimes_select %>% filter(Primary_Type == 'THEFT')
+cat("The total number of theft cases in the dataset is ","shown below")
+count(crimes_filter)
+crimes_group_summarize <- crimes %>% group_by(Primary_Type) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
+crimes_group_summarize_location <- crimes %>% group_by(Location_Description) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
+```
+
+## Understanding the Dataset with Visualization functions
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+
+ggplot(data=crimes_group_summarize, aes(x=Primary_Type,y=n,fill=Primary_Type)) +
+  geom_bar(position="dodge",stat="identity", width = 0.5) + 
+  ggtitle("Major types of crimes in the dataset ") + scale_x_discrete(guide = guide_axis(n.dodge=3))
+
+ggplot(data=crimes_group_summarize_location, aes(x=Location_Description,y=n,fill=Location_Description)) +
+  geom_bar(position="dodge",stat="identity", width = 0.5) + 
+  ggtitle("Major locations of crimes in the dataset") + scale_x_discrete(guide = guide_axis(n.dodge=5))
+```
+
+
+

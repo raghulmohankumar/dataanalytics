@@ -1,2 +1,0 @@
-import-relig-income.csv
-visualise-using-ggplot
