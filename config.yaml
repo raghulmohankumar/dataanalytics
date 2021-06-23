@@ -1,7 +1,7 @@
 baseurl: /
 languageCode: en-us
-title: Raghul Mohankumar
-theme: hugo-profile
+title: Raghul - Fundamentals of Business Analytics
+theme: hugo-lithium
 googleAnalytics: ''
 disqusShortname: ''
 ignoreFiles:
@@ -40,7 +40,7 @@ params:
   logo:
     alt: Logo
     height: 50
-    url: logo.jpg
+    url: logo.png
     width: 50
 markup:
   defaultMarkdownHandler: goldmark
@@ -48,146 +48,3 @@ markup:
     renderer:
       unsafe: yes
 
-Paginate: 3
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-
-taxonomies:
-  tag: "tags"
-  category: "categories"
-
-enableEmoji: true
-params:
-  version: 3
-
-  favicon: "/images/fav.png"
-  description: "A high performance hugo theme for personal portfolio and blog."
-
-  # Navbar Menus
-  customMenus:
-    - name: "Blog"
-      Url: "/blog"
-
-  # home
-  disable_home: false
-  profile_image: "/images/profile.png"
-  name: "Example name"
-  profession: "Profession"
-  github: "https://github.com"
-  linkedin: "https://linkedin.com"
-  twitter: "https://twitter.com/"
-  instagram: "https://instagram.com/"
-  facebook: "https://facebook.com"
-
-  # About
-  disable_about: false
-  descripe_l1_person: "Hi, I'm Profile, a passionate web developer. I tend to make use of modern web technologies to build websites that looks great, feels fantastic, and functions correctly."
-  descripe_l2_person: "This is a example template for about section. You can find my works [here](#projects)"
-  skills:
-    - name: CSS
-      percentage: 90
-    - name: Django
-      percentage: 85
-    - name: Hugo
-      percentage: 80
-    - name: React JS
-      percentage: 70
-
-  # Experience
-  disable_experience: false
-  experience:
-    - company: "Tata Elxsi Limited"
-      role: "Engineer"
-      startdate: July 2012
-      enddate: July 2014
-      featuredpoints:
-        - point: Integration of the Hardware Drivers with the Middleware and Applications in the Set Top Box System using C language.
-        - point: Prototype Testing includes framing of regular and adhoc test cases using white and black box testing methodology.
-        - point: Validation of Motorola Embedded Devices for reliability, UI improvement, usability, regression and consistency.
-        
-    - company: "KONE Elevator India Limited"
-      role: "Electrical Engineer"
-      startdate: July 2014
-      enddate: September 2018
-      featuredpoints:
-        - point: Electrical System Design using Auto-CAD according to the IEC 14665 / EN-81-20/ IEC 60947 standards.
-        - point: Component Selection includes Switchgear, Electrical Machines, Electrical Drives, Actuator Switches and Load Weighing Sensors.
-        - point: The Prototyping & Verification of the control system in the In-House & Field.
-        - point: Design of LED lighting System with Wiring Circuitry, Driver Selection, Lumen Calculation using Math-CAD
-        - point: Co-ordination of regulatory testing of Electrical / Electronic solutions at external agencies, including HALT (Highly Accelerated Life Test), EMC (Electro Magnetic Compatibility) testing, as per EN 12015/16 standards.
-        - point: Supply line & Pre-Production Validation using SAP Software before the Product Releases.
-        - point: Involvement in supplier manufacturing processes by analyzing & conveying the critical to quality parameters toresolve technical issues at supplier end.
-        - point: Documentation of the Circuit Drawings, Wiring Harness Drawings, Operational sequence, Product descriptions, Bill of Materials, etc. based on the parameters such as distance of travel and speed of operation.
-        - point: Creation of Bill of Materials, Item Masters and Product Structure database in the VariPDM Software.
-        - point: Electrical module customization to replace and retain the existing components of old elevator system.
-        - point: The Energy Consumption Calculations for the Electrical System in both Standby Mode & Operational Mode for the design of the Energy Efficient Products.
-        - point: Costing workout and costing comparisons based on the Bill of Materials and commercial requirements.
-        - point: Creation of Delivery Documentation Circuit Drawings for easy troubleshooting of the Elevator Electrification Architecture at site.
-        - point: Design & Development of CCTV Cable integration with Elevator Traveling Cable to enable CCTV Monitoring for the safety of elevator passengers.
-        
-    - company: "KONE Elevator India Limited"
-      role: "Senior Electrical Engineer"
-      startdate: October 2018
-      enddate: February 2021
-      featuredpoints:
-        - point: Incorporating the Engineering changes in Elevator Electrification Architecture by developing and implementing actionable and targeted change management plans for prototyping and piloting at Production and field respectively. 
-        - point: Perform Change impact assessments for potential risks, critical to quality factors and production feasibility 
-        - point: Strategise with key stakeholders such as suppliers, frontline and production co-ordinators for driving and executing the change requests throughout the various stages of product change management.
-        - point: Implementation of changes in electrification architecture according to the periodic revisions of Elevator standards such as EN81-20 / EN-81-73.
-        - point: Analysing the quality feedbacks report related to the electrification module from the site and providing technical solution accordingly.
-        - point: Modifying the circuit drawings in the electrification architecture for better modularity and productivity using Eplan
-
-  # Education
-  disable_education: false
-  education:
-    - degree: "Master of Engineering (M.Eng)"
-      branch: "Electrical Engineering"
-      university: "University of New Brunswick"
-      startedyear: "2021"
-      graduation: "2022"
-      
-    - degree: "Bachelor of Engineering (B.E)"
-      branch: "Electrical and Electronics Engineering"
-      university: "Anna University"
-      startedyear: "2008"
-      graduation: "2012"
-
-  # Projects
-  disable_projects: false
-  projects:
-    - name: "Example project without details"
-      img: /images/project.jpg
-      githublink: "https://github.com/"
-      featuredlink: "/"
-      description: "Description of project"
-
-  # Achievements
-  disable_achievements: false
-  achievements:
-    - title: Competition winner
-      description: We are developed a product which can help others.
-      img: /images/achiv.jpg
-    - title: Competition winner
-      description: We are developed a product which can help others.
-      img: /images/achiv.jpg
-    - title: Competition winner
-      description: We are developed a product which can help others.
-      img: /images/achiv.jpg
-    - title: Competition winner
-      description: We are developed a product which can help others.
-      img: /images/achiv.jpg
-
-  # Contact
-  disable_contact: false
-  contact_content: I am open to relevant job opportunities. You can hire me if my profile qualifies your requirements. You can reach through email for saying hi or to ask any question. I'll back to you soon.
-  email: "raghulmohankumar@gmail.com"
-
-  # Footer
-  socialiconfooter: true
-  recentposts: true
-
-  # Blog
-  showdescription: false
-  tweet: true
