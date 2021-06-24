@@ -14,7 +14,18 @@ permalinks:
   post: /:year/:month/:day/:slug/
 menu:
   main:
-  
+    - name: About
+      url: /about/
+    - name: GitHub
+      url: https://github.com/raghulmohankumar
+    - name: Twitter
+      url: https://twitter.com/eee_rahulrahul
+    - name: LinkedIn
+      url: https://www.linkedin.com/in/raghul-mohankumar-51811763/  
+    - name: Facebook
+      url: https://www.facebook.com/rahul.mohan.54/  
+    - name: Instagram
+      url: https://www.instagram.com/rahulmohankumar/   
 params:
   MathJaxCDN: //cdnjs.cloudflare.com/ajax/libs
   MathJaxVersion: 2.7.5
