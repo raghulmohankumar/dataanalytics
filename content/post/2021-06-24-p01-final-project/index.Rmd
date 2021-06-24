@@ -1,15 +1,15 @@
 ---
-title: P01 - Data Analytics Project
-author: Raghul Mohankumar
+title: P01 Final Project
+author: ''
 date: '2021-06-24'
-slug: p01-data-analytics-project
+slug: p01-final-project
 categories:
   - ggplot2
   - Tidyverse
 tags: []
 ---
 
-style>
+<style>
 body {
 text-align: justify}
 </style>
@@ -17,6 +17,7 @@ text-align: justify}
 ## Import the Crimes_2020.csv file for dataset analysis
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
+
 library(tidyverse)
 library(ggplot2)
 library(readr)
@@ -36,9 +37,8 @@ str(crimes)
 cat("The memory size of the dataset is ",object.size(crimes)/1048576, "MegaBytes")
 ```
 
-## Understanding the Dataset with Transformation functions
-
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
+
 crimes_arrange_PT <- crimes %>% arrange(Date, Primary_Type, Case_Number)
 crimes_select <- crimes_arrange_PT %>% select(ID:Description)
 crimes_filter <- crimes_select %>% filter(Primary_Type == 'THEFT')
@@ -46,25 +46,26 @@ cat("The total number of theft cases in the dataset is ","shown below")
 count(crimes_filter)
 crimes_group_summarize <- crimes %>% group_by(Primary_Type) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
 crimes_group_summarize_location <- crimes %>% group_by(Location_Description) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
+
 ```
 
 ## Understanding the Dataset with Visualization functions
 
 The following visualization depicts that Battery related crimes are highly reported in the year 2020 with the count of 41000 in the city, as per the dataset.Furthermore, the weapon handling crimes are highly reported in 2020, after the battery crimes,  with the count of 40500. However, Robbery is least reported crime in the city.
 
+
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 ggplot(data=crimes_group_summarize, aes(x=Primary_Type,y=n,fill=Primary_Type)) +
   geom_bar(position="dodge",stat="identity", width = 0.5) + 
   ggtitle("Major types of crimes in the dataset ") + scale_x_discrete(guide = guide_axis(n.dodge=3))
+
 ```
 
 The following visualization depicts that most of the crimes in the year 2020, are witnessed in the streets with the count of 50000, as per the dataset.Furthermore, the next common location for crimes in 2020 is individual residences with the count of 39000. However, Restaurants are the places with lease crimes with the value of 3000 in 2020, which is mainly due to the presence of surveillance cameras in these locations.
 
-
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
-
 ggplot(data=crimes_group_summarize_location, aes(x=Location_Description,y=n,fill=Location_Description)) +
   geom_bar(position="dodge",stat="identity", width = 0.5) + 
   ggtitle("Major locations of crimes in the dataset") + scale_x_discrete(guide = guide_axis(n.dodge=5))
-
 ```
+
