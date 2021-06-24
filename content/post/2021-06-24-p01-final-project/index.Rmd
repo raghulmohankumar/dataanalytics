@@ -53,7 +53,6 @@ crimes_group_summarize_location <- crimes %>% group_by(Location_Description) %>%
 
 The following visualization depicts that Battery related crimes are highly reported in the year 2020 with the count of 41000 in the city, as per the dataset.Furthermore, the weapon handling crimes are highly reported in 2020, after the battery crimes,  with the count of 40500. However, Robbery is least reported crime in the city.
 
-
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 ggplot(data=crimes_group_summarize, aes(x=Primary_Type,y=n,fill=Primary_Type)) +
   geom_bar(position="dodge",stat="identity", width = 0.5) + 
