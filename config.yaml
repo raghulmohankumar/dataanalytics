@@ -26,6 +26,7 @@ menu:
       url: https://www.facebook.com/rahul.mohan.54/  
     - name: Instagram
       url: https://www.instagram.com/rahulmohankumar/   
+      
 params:
   MathJaxCDN: //cdnjs.cloudflare.com/ajax/libs
   MathJaxVersion: 2.7.5
