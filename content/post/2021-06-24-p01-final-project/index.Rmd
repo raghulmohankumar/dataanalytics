@@ -14,6 +14,7 @@ body {
 text-align: justify}
 </style>
 
+
 ## Import the Crimes_2020.csv file for dataset analysis
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
@@ -46,7 +47,6 @@ cat("The total number of theft cases in the dataset is ","shown below")
 count(crimes_filter)
 crimes_group_summarize <- crimes %>% group_by(Primary_Type) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
 crimes_group_summarize_location <- crimes %>% group_by(Location_Description) %>% summarise(n=n()) %>% arrange(desc(n)) %>% top_n(10)
-
 ```
 
 ## Understanding the Dataset with Visualization functions

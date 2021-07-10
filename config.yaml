@@ -1,4 +1,5 @@
-baseurl: /
+baseurl: "https://raghulblogs.netlify.app"
+
 languageCode: en-us
 title: Raghul - Fundamentals of Business Analytics
 theme: hugo-lithium
