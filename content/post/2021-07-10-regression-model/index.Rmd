@@ -1,0 +1,119 @@
+---
+title: "Regression Model"
+author: "Raghul Mohankumar"
+date: '2021-07-10'
+slug: regression-model
+categories:
+- ggplot2
+- models
+- Tidyverse
+tags: []
+---
+
+
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(psych)
+library(Hmisc)
+library(memisc)
+library(pastecs)
+library(rstatix)
+library(bivariate)
+library(ggtext)
+library(scorecardModelUtils)
+library(knitr)
+library(readxl)
+library(ggdark)
+library(kableExtra)
+library(gridExtra)
+library(MASS)
+library(bitops)
+library(RCurl)
+set.seed(1234)
+options(dplyr.print_min = 10, dplyr.print_max = 6)
+```
+
+## Import Dataset : Diamond data
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+pp <- read_excel("MBA6636_SM21_Professor_Proposes_Data.xlsx", na = c("n/a", "", "NA"))
+```
+
+## Summary Statistics
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+summary(pp)
+```
+
+
+
+## Univariate Analysis
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+describe(pp)
+stat.desc(pp)
+hist.data.frame(pp)
+```
+
+## Bivariate Analysis - Correlation and Covariance
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+data(pp)
+cat("The Correlation between Carat and Price is",cor(pp$Carat, pp$Price, use="complete.obs"),"\n")
+cat("As per the default method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price),"\n")
+cat("As per the Pearson method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "pearson"),"\n")
+cat("As per the Kendall method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "kendall"),"\n")
+cat("As per the Kendall method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "spearman"),"\n")
+```
+## Goal: Predict Price from Carat
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+ggplot(data = pp, aes(x = Carat, y = Price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + 
+  labs( title = "Price vs. Carat", subtitle = "Price Predition of Diamonds", x = "Carat", y = "Price (CAD)"  )
+```
+
+## Build Simple regression model
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+linearmod <- lm(I(log(Price)) ~ I(Carat^(1/3)), data = pp)
+summary(linearmod)
+```
+## Build multiple regression model
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
+multiple_model <- lm(Price ~ Carat + Colour + Cut + Clarity + Polish + Symmetry + Certification, data = pp)
+summary(multiple_model)
+```
+
+## Build mtable
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+m1 <- lm(I(log(Price)) ~ I(Carat^(1/3)), data = pp)
+m2 <- update(m1, ~ . + Carat)
+m3 <- update(m2, ~ . + Cut)
+m4 <- update(m3, ~ . + Colour)
+m5 <- update(m4, ~ . + Clarity)
+m6 <- update(m5, ~ . + Polish)
+m7 <- update(m6, ~ . + Symmetry)
+m8 <- update(m7, ~ . + Certification)
+mtable(m1, m2, m3, m4, m5,m6,m7,m8,sdigits = 3)
+```
+
+## Predict the price of the Professor’s Diamond Ring of his interest
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+thisDiamond = data.frame(Carat = 0.9, Cut = "V", Colour = "J", Clarity="SI2", Polish="G", Symmetry="V", Certification="GIA")
+modelEstimate = predict(m8, newdata = thisDiamond, interval="prediction", level = .95) 
+exp(modelEstimate)
+```
+
+
+
