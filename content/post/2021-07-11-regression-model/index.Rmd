@@ -12,6 +12,9 @@ tags: []
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 library(tidyverse)
 library(tidymodels)
+library(ggplot2)
+library(GGally)
+library(dplyr)
 library(psych)
 library(Hmisc)
 library(memisc)
@@ -20,6 +23,7 @@ library(rstatix)
 library(bivariate)
 library(ggtext)
 library(scorecardModelUtils)
+library(scatterplot3d)
 library(knitr)
 library(readxl)
 library(ggdark)
@@ -28,6 +32,7 @@ library(gridExtra)
 library(MASS)
 library(bitops)
 library(RCurl)
+library(ggcorrplot)
 set.seed(1234)
 options(dplyr.print_min = 10, dplyr.print_max = 6)
 ```
@@ -53,6 +58,32 @@ summary(pp)
 describe(pp)
 stat.desc(pp)
 hist.data.frame(pp)
+#ggpairs(pp)
+
+ggplot(pp, aes(x=Carat, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) + 
+  labs(x = 'Carat', y='Price(CAD)') +ggtitle("Scatter Plot Carat vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Cut, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) + 
+  labs(x = 'Cut', y='Price(CAD)') +ggtitle("Scatter Plot Cut vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Clarity, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) + 
+  labs(x = 'Clarity', y='Price(CAD)') +ggtitle("Scatter Plot Clarity vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Colour, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) + 
+  labs(x = 'Colour', y='Price(CAD)') +ggtitle("Scatter Plot Colour vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Certification, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) +   labs(x = 'Certification', y='Price(CAD)') +ggtitle("Scatter Plot Certification vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Polish, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) +   labs(x = 'Polish', y='Price(CAD)') +ggtitle("Scatter Plot Polish vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(pp, aes(x=Symmetry, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) +   labs(x = 'Symmetry', y='Price(CAD)') +ggtitle("Scatter Plot Symmetry vs Price")+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ## Bivariate Analysis - Correlation and Covariance
@@ -61,6 +92,10 @@ hist.data.frame(pp)
 
 data(pp)
 cat("The Correlation between Carat and Price is",cor(pp$Carat, pp$Price, use="complete.obs"),"\n")
+df <- dplyr::select_if(pp, is.numeric)
+r <- cor(df, use="complete.obs")
+round(r,2)
+ggcorrplot(r)
 cat("As per the default method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price),"\n")
 cat("As per the Pearson method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "pearson"),"\n")
 cat("As per the Kendall method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "kendall"),"\n")
@@ -70,11 +105,18 @@ cat("As per the Kendall method,","The Covariance between Carat and Price is",cov
 ## Goal: Predict Price from Carat
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
-ggplot(data = pp, aes(x = Carat, y = Price)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + 
-  labs( title = "Price vs. Carat", subtitle = "Price Predition of Diamonds", x = "Carat", y = "Price (CAD)"  )
+ggplot(data = pp, aes(x = Carat, y = Price)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + labs( title = "Price vs. Carat", subtitle = "Price Predition of Diamonds", x = "Carat", y = "Price (CAD)")
 ```
+## Splitting the dataset into 2 datasets based on the pricing
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+pp1 <- pp %>% filter(Price <=1000)
+pp2 <- pp %>% filter(Price >1000)
+ggplot(data = pp1, aes(x = Carat, y = Price)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + labs( title = "Price vs. Carat", subtitle = "Price Predition of Diamonds", x = "Carat", y = "Price (CAD)")
+ggplot(data = pp2, aes(x = Carat, y = Price)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "#8E2C90") + labs( title = "Price vs. Carat", subtitle = "Price Predition of Diamonds", x = "Carat", y = "Price (CAD)")
+```
+
+
 
 ## Build Simple regression model
 
