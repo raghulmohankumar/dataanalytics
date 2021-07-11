@@ -1,16 +1,13 @@
 ---
-title: "Regression Model"
-author: "Raghul Mohankumar"
-date: '2021-07-10'
+title: Regression Model
+author: ''
+date: '2021-07-11'
 slug: regression-model
-categories:
-- ggplot2
-- models
-- Tidyverse
+categories: []
 tags: []
 ---
 
-
+## Load Packages
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 library(tidyverse)
@@ -115,6 +112,3 @@ thisDiamond = data.frame(Carat = 0.9, Cut = "V", Colour = "J", Clarity="SI2", Po
 modelEstimate = predict(m8, newdata = thisDiamond, interval="prediction", level = .95) 
 exp(modelEstimate)
 ```
-
-
-

@@ -1,0 +1,354 @@
+---
+title: Regression Model
+author: ''
+date: '2021-07-11'
+slug: regression-model
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="load-packages" class="section level2">
+<h2>Load Packages</h2>
+</div>
+<div id="import-dataset-diamond-data" class="section level2">
+<h2>Import Dataset : Diamond data</h2>
+</div>
+<div id="summary-statistics" class="section level2">
+<h2>Summary Statistics</h2>
+<pre><code>##      Carat           Colour            Clarity              Cut           
+##  Min.   :0.0900   Length:440         Length:440         Length:440        
+##  1st Qu.:0.3000   Class :character   Class :character   Class :character  
+##  Median :0.8100   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :0.6693                                                           
+##  3rd Qu.:1.0100                                                           
+##  Max.   :1.5800                                                           
+##  Certification         Polish            Symmetry             Price     
+##  Length:440         Length:440         Length:440         Min.   : 160  
+##  Class :character   Class :character   Class :character   1st Qu.: 520  
+##  Mode  :character   Mode  :character   Mode  :character   Median :2169  
+##                                                           Mean   :1717  
+##                                                           3rd Qu.:3012  
+##                                                           Max.   :3145  
+##    Wholesaler   
+##  Min.   :1.000  
+##  1st Qu.:2.000  
+##  Median :2.000  
+##  Mean   :2.318  
+##  3rd Qu.:3.000  
+##  Max.   :3.000</code></pre>
+</div>
+<div id="univariate-analysis" class="section level2">
+<h2>Univariate Analysis</h2>
+<pre><code>## pp 
+## 
+##  9  Variables      440  Observations
+## --------------------------------------------------------------------------------
+## Carat 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      440        0       50    0.955   0.6693    0.414    0.110    0.279 
+##      .25      .50      .75      .90      .95 
+##    0.300    0.810    1.010    1.090    1.160 
+## 
+## lowest : 0.09 0.10 0.11 0.20 0.21, highest: 1.26 1.33 1.41 1.43 1.58
+## --------------------------------------------------------------------------------
+## Colour 
+##        n  missing distinct 
+##      440        0        9 
+## 
+## lowest : D E F G H, highest: H I J K L
+##                                                                 
+## Value          D     E     F     G     H     I     J     K     L
+## Frequency     20    54    58    43    71    79    72    31    12
+## Proportion 0.045 0.123 0.132 0.098 0.161 0.180 0.164 0.070 0.027
+## --------------------------------------------------------------------------------
+## Clarity 
+##        n  missing distinct 
+##      440        0        9 
+## 
+## lowest : I1   I2   SI1  SI2  SI3 , highest: SI3  VS1  VS2  VVS1 VVS2
+##                                                                 
+## Value         I1    I2   SI1   SI2   SI3   VS1   VS2  VVS1  VVS2
+## Frequency     82    28   116   110    26    30    41     2     5
+## Proportion 0.186 0.064 0.264 0.250 0.059 0.068 0.093 0.005 0.011
+## --------------------------------------------------------------------------------
+## Cut 
+##        n  missing distinct 
+##      440        0        5 
+## 
+## lowest : F G I V X, highest: F G I V X
+##                                         
+## Value          F     G     I     V     X
+## Frequency     59    49    86    97   149
+## Proportion 0.134 0.111 0.195 0.220 0.339
+## --------------------------------------------------------------------------------
+## Certification 
+##        n  missing distinct 
+##      440        0        5 
+## 
+## lowest : AGS DOW EGL GIA IGI, highest: AGS DOW EGL GIA IGI
+##                                         
+## Value        AGS   DOW   EGL   GIA   IGI
+## Frequency     12     1   119   265    43
+## Proportion 0.027 0.002 0.270 0.602 0.098
+## --------------------------------------------------------------------------------
+## Polish 
+##        n  missing distinct 
+##      440        0        6 
+## 
+## lowest : F G I v V, highest: G I v V X
+##                                               
+## Value          F     G     I     v     V     X
+## Frequency      5   165     5     1   203    61
+## Proportion 0.011 0.375 0.011 0.002 0.461 0.139
+## --------------------------------------------------------------------------------
+## Symmetry 
+##        n  missing distinct 
+##      440        0        5 
+## 
+## lowest : F G I V X, highest: F G I V X
+##                                         
+## Value          F     G     I     V     X
+## Frequency     21   157     5   206    51
+## Proportion 0.048 0.357 0.011 0.468 0.116
+## --------------------------------------------------------------------------------
+## Price 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      440        0      197    0.997     1717     1282    313.5    463.3 
+##      .25      .50      .75      .90      .95 
+##    520.0   2169.0   3012.5   3102.3   3126.1 
+## 
+## lowest :  160  180  190  320  330, highest: 3139 3140 3141 3142 3145
+## --------------------------------------------------------------------------------
+## Wholesaler 
+##        n  missing distinct     Info     Mean      Gmd 
+##      440        0        3    0.835    2.318   0.7331 
+##                             
+## Value          1     2     3
+## Frequency     60   180   200
+## Proportion 0.136 0.409 0.455
+## --------------------------------------------------------------------------------</code></pre>
+<pre><code>##                     Carat Colour Clarity Cut Certification Polish Symmetry
+## nbr.val      440.00000000     NA      NA  NA            NA     NA       NA
+## nbr.null       0.00000000     NA      NA  NA            NA     NA       NA
+## nbr.na         0.00000000     NA      NA  NA            NA     NA       NA
+## min            0.09000000     NA      NA  NA            NA     NA       NA
+## max            1.58000000     NA      NA  NA            NA     NA       NA
+## range          1.49000000     NA      NA  NA            NA     NA       NA
+## sum          294.47000000     NA      NA  NA            NA     NA       NA
+## median         0.81000000     NA      NA  NA            NA     NA       NA
+## mean           0.66925000     NA      NA  NA            NA     NA       NA
+## SE.mean        0.01810625     NA      NA  NA            NA     NA       NA
+## CI.mean.0.95   0.03558570     NA      NA  NA            NA     NA       NA
+## var            0.14424796     NA      NA  NA            NA     NA       NA
+## std.dev        0.37979989     NA      NA  NA            NA     NA       NA
+## coef.var       0.56750077     NA      NA  NA            NA     NA       NA
+##                     Price   Wholesaler
+## nbr.val      4.400000e+02 4.400000e+02
+## nbr.null     0.000000e+00 0.000000e+00
+## nbr.na       0.000000e+00 0.000000e+00
+## min          1.600000e+02 1.000000e+00
+## max          3.145000e+03 3.000000e+00
+## range        2.985000e+03 2.000000e+00
+## sum          7.553650e+05 1.020000e+03
+## median       2.169000e+03 2.000000e+00
+## mean         1.716739e+03 2.318182e+00
+## SE.mean      5.604878e+01 3.339791e-02
+## CI.mean.0.95 1.101573e+02 6.563966e-02
+## var          1.382245e+06 4.907848e-01
+## std.dev      1.175689e+03 7.005604e-01
+## coef.var     6.848387e-01 3.022025e-01</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="bivariate-analysis---correlation-and-covariance" class="section level2">
+<h2>Bivariate Analysis - Correlation and Covariance</h2>
+<pre><code>## The Correlation between Carat and Price is 0.925436</code></pre>
+<pre><code>## As per the default method, The Covariance between Carat and Price is 413.2318</code></pre>
+<pre><code>## As per the Pearson method, The Covariance between Carat and Price is 413.2318</code></pre>
+<pre><code>## As per the Kendall method, The Covariance between Carat and Price is 101702</code></pre>
+<pre><code>## As per the Kendall method, The Covariance between Carat and Price is 12227.55</code></pre>
+</div>
+<div id="goal-predict-price-from-carat" class="section level2">
+<h2>Goal: Predict Price from Carat</h2>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="build-simple-regression-model" class="section level2">
+<h2>Build Simple regression model</h2>
+<pre><code>## 
+## Call:
+## lm(formula = I(log(Price)) ~ I(Carat^(1/3)), data = pp)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.82427 -0.11368 -0.02300  0.05774  0.52458 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     3.00811    0.04720   63.73   &lt;2e-16 ***
+## I(Carat^(1/3))  4.88282    0.05512   88.58   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2167 on 438 degrees of freedom
+## Multiple R-squared:  0.9471, Adjusted R-squared:  0.947 
+## F-statistic:  7847 on 1 and 438 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="build-multiple-regression-model" class="section level2">
+<h2>Build multiple regression model</h2>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Carat + Colour + Cut + Clarity + Polish + 
+##     Symmetry + Certification, data = pp)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -762.63  -82.58  -18.59  101.42  689.59 
+## 
+## Coefficients: (1 not defined because of singularities)
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      -1432.6219   146.6961  -9.766  &lt; 2e-16 ***
+## Carat             4205.3391    51.2981  81.978  &lt; 2e-16 ***
+## ColourE           -191.2462    53.5345  -3.572 0.000396 ***
+## ColourF           -311.1620    53.6267  -5.802 1.32e-08 ***
+## ColourG           -301.4412    54.5157  -5.529 5.76e-08 ***
+## ColourH           -430.3664    53.0617  -8.111 6.03e-15 ***
+## ColourI           -500.9400    53.0827  -9.437  &lt; 2e-16 ***
+## ColourJ           -635.8407    54.6431 -11.636  &lt; 2e-16 ***
+## ColourK           -985.9734    61.0240 -16.157  &lt; 2e-16 ***
+## ColourL          -1173.6677    76.3472 -15.373  &lt; 2e-16 ***
+## CutG                56.4835    41.8846   1.349 0.178233    
+## CutI                95.4908    40.9225   2.333 0.020112 *  
+## CutV                84.1675    41.5654   2.025 0.043527 *  
+## CutX                56.8290    35.7071   1.592 0.112269    
+## ClarityI2         -778.3139    50.8010 -15.321  &lt; 2e-16 ***
+## ClaritySI1         858.5738    43.2466  19.853  &lt; 2e-16 ***
+## ClaritySI2         731.5613    35.6145  20.541  &lt; 2e-16 ***
+## ClaritySI3         388.9407    49.2119   7.903 2.58e-14 ***
+## ClarityVS1        1025.1681    59.0373  17.365  &lt; 2e-16 ***
+## ClarityVS2         915.4216    53.2913  17.178  &lt; 2e-16 ***
+## ClarityVVS1       1342.8683   154.7169   8.680  &lt; 2e-16 ***
+## ClarityVVS2        918.2219   101.0745   9.085  &lt; 2e-16 ***
+## PolishG            210.9384   106.7503   1.976 0.048832 *  
+## PolishI            461.4891   156.8392   2.942 0.003443 ** 
+## Polishv            265.1641   230.8040   1.149 0.251286    
+## PolishV            226.5659   110.6450   2.048 0.041234 *  
+## PolishX            236.0952   113.7270   2.076 0.038524 *  
+## SymmetryG          108.1495    57.3953   1.884 0.060239 .  
+## SymmetryI                NA         NA      NA       NA    
+## SymmetryV          119.4279    61.2390   1.950 0.051841 .  
+## SymmetryX          113.5676    68.3626   1.661 0.097435 .  
+## CertificationDOW  -500.9363   223.5204  -2.241 0.025558 *  
+## CertificationEGL  -418.0748    81.9208  -5.103 5.13e-07 ***
+## CertificationGIA   -64.8962    80.6771  -0.804 0.421640    
+## CertificationIGI     0.2533    94.8367   0.003 0.997871    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 197.2 on 406 degrees of freedom
+## Multiple R-squared:  0.974,  Adjusted R-squared:  0.9719 
+## F-statistic: 460.4 on 33 and 406 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="build-mtable" class="section level2">
+<h2>Build mtable</h2>
+<pre><code>## 
+## Calls:
+## m1: lm(formula = I(log(Price)) ~ I(Carat^(1/3)), data = pp)
+## m2: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat, data = pp)
+## m3: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut, data = pp)
+## m4: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut + Colour, 
+##     data = pp)
+## m5: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut + Colour + 
+##     Clarity, data = pp)
+## m6: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut + Colour + 
+##     Clarity + Polish, data = pp)
+## m7: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut + Colour + 
+##     Clarity + Polish + Symmetry, data = pp)
+## m8: lm(formula = I(log(Price)) ~ I(Carat^(1/3)) + Carat + Cut + Colour + 
+##     Clarity + Polish + Symmetry + Certification, data = pp)
+## 
+## ==========================================================================================================================
+##                               m1          m2          m3          m4          m5          m6          m7          m8      
+## --------------------------------------------------------------------------------------------------------------------------
+##   (Intercept)               3.008***    1.143***    1.195***    1.183***    1.441***    1.432***    1.391***    1.603***  
+##                            (0.047)     (0.169)     (0.165)     (0.172)     (0.106)     (0.117)     (0.120)     (0.157)    
+##   I(Carat^(1/3))            4.883***    8.603***    8.196***    8.418***    7.084***    6.936***    7.024***    6.676***  
+##                            (0.055)     (0.331)     (0.323)     (0.331)     (0.208)     (0.213)     (0.223)     (0.278)    
+##   Carat                                -1.858***   -1.594***   -1.664***   -0.596***   -0.532***   -0.574***   -0.324*    
+##                                        (0.163)     (0.162)     (0.166)     (0.107)     (0.109)     (0.115)     (0.138)    
+##   Cut: G/F                                          0.116**     0.094**     0.031       0.026       0.020       0.012     
+##                                                    (0.036)     (0.034)     (0.020)     (0.021)     (0.021)     (0.019)    
+##   Cut: I/F                                          0.184***    0.166***    0.073***    0.056**     0.056**     0.037*    
+##                                                    (0.033)     (0.031)     (0.019)     (0.020)     (0.021)     (0.019)    
+##   Cut: V/F                                          0.176***    0.162***    0.082***    0.074***    0.071***    0.037     
+##                                                    (0.034)     (0.032)     (0.020)     (0.020)     (0.021)     (0.019)    
+##   Cut: X/F                                          0.072*      0.071*      0.054**     0.043*      0.039*      0.017     
+##                                                    (0.029)     (0.028)     (0.017)     (0.017)     (0.018)     (0.016)    
+##   Colour: E/D                                                  -0.011      -0.072**    -0.071**    -0.075**    -0.064**   
+##                                                                (0.046)     (0.027)     (0.027)     (0.027)     (0.025)    
+##   Colour: F/D                                                  -0.089      -0.144***   -0.141***   -0.143***   -0.141***  
+##                                                                (0.045)     (0.027)     (0.027)     (0.027)     (0.025)    
+##   Colour: G/D                                                  -0.105*     -0.120***   -0.118***   -0.119***   -0.136***  
+##                                                                (0.047)     (0.028)     (0.027)     (0.028)     (0.025)    
+##   Colour: H/D                                                  -0.118**    -0.186***   -0.188***   -0.185***   -0.181***  
+##                                                                (0.044)     (0.026)     (0.026)     (0.026)     (0.025)    
+##   Colour: I/D                                                  -0.140**    -0.233***   -0.237***   -0.236***   -0.234***  
+##                                                                (0.043)     (0.026)     (0.026)     (0.026)     (0.025)    
+##   Colour: J/D                                                  -0.158***   -0.349***   -0.347***   -0.345***   -0.319***  
+##                                                                (0.043)     (0.027)     (0.027)     (0.027)     (0.025)    
+##   Colour: K/D                                                  -0.222***   -0.435***   -0.432***   -0.432***   -0.439***  
+##                                                                (0.050)     (0.031)     (0.031)     (0.031)     (0.029)    
+##   Colour: L/D                                                  -0.341***   -0.481***   -0.475***   -0.480***   -0.506***  
+##                                                                (0.063)     (0.039)     (0.038)     (0.039)     (0.036)    
+##   Clarity: I2                                                              -0.224***   -0.216***   -0.213***   -0.303***  
+##                                                                            (0.023)     (0.023)     (0.023)     (0.024)    
+##   Clarity: SI1                                                              0.425***    0.416***    0.416***    0.394***  
+##                                                                            (0.021)     (0.021)     (0.021)     (0.021)    
+##   Clarity: SI2                                                              0.349***    0.342***    0.344***    0.323***  
+##                                                                            (0.018)     (0.018)     (0.018)     (0.017)    
+##   Clarity: SI3                                                              0.104***    0.118***    0.116***    0.168***  
+##                                                                            (0.024)     (0.024)     (0.024)     (0.023)    
+##   Clarity: VS1                                                              0.554***    0.534***    0.536***    0.497***  
+##                                                                            (0.028)     (0.029)     (0.029)     (0.027)    
+##   Clarity: VS2                                                              0.494***    0.482***    0.483***    0.452***  
+##                                                                            (0.025)     (0.026)     (0.026)     (0.025)    
+##   Clarity: VVS1                                                             0.666***    0.642***    0.641***    0.647***  
+##                                                                            (0.078)     (0.078)     (0.078)     (0.072)    
+##   Clarity: VVS2                                                             0.606***    0.592***    0.600***    0.573***  
+##                                                                            (0.050)     (0.051)     (0.051)     (0.048)    
+##   Polish: G/F                                                                           0.089       0.053       0.077     
+##                                                                                        (0.048)     (0.054)     (0.049)    
+##   Polish: I/F                                                                           0.210**     0.202**     0.160*    
+##                                                                                        (0.070)     (0.071)     (0.073)    
+##   Polish: v/F                                                                           0.181       0.131       0.089     
+##                                                                                        (0.113)     (0.116)     (0.106)    
+##   Polish: V/F                                                                           0.111*      0.078       0.094     
+##                                                                                        (0.050)     (0.056)     (0.051)    
+##   Polish: X/F                                                                           0.120*      0.093       0.094     
+##                                                                                        (0.051)     (0.057)     (0.053)    
+##   Symmetry: G/F                                                                                     0.045       0.038     
+##                                                                                                    (0.028)     (0.026)    
+##   Symmetry: V/F                                                                                     0.027       0.032     
+##                                                                                                    (0.030)     (0.028)    
+##   Symmetry: X/F                                                                                     0.017       0.033     
+##                                                                                                    (0.034)     (0.032)    
+##   Certification: DOW/AGS                                                                                       -0.251*    
+##                                                                                                                (0.103)    
+##   Certification: EGL/AGS                                                                                       -0.175***  
+##                                                                                                                (0.038)    
+##   Certification: GIA/AGS                                                                                       -0.032     
+##                                                                                                                (0.037)    
+##   Certification: IGI/AGS                                                                                       -0.039     
+##                                                                                                                (0.049)    
+## --------------------------------------------------------------------------------------------------------------------------
+##   R-squared                 0.947       0.959       0.963       0.968       0.989       0.989       0.990       0.991     
+##   N                       440         440         440         440         440         440         440         440         
+## ==========================================================================================================================
+##   Significance: *** = p &lt; 0.001; ** = p &lt; 0.01; * = p &lt; 0.05</code></pre>
+</div>
+<div id="predict-the-price-of-the-professors-diamond-ring-of-his-interest" class="section level2">
+<h2>Predict the price of the Professor’s Diamond Ring of his interest</h2>
+<pre><code>##       fit      lwr      upr
+## 1 2628.39 2186.132 3160.118</code></pre>
+</div>
