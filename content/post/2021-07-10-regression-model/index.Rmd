@@ -68,6 +68,7 @@ cat("As per the default method,","The Covariance between Carat and Price is",cov
 cat("As per the Pearson method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "pearson"),"\n")
 cat("As per the Kendall method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "kendall"),"\n")
 cat("As per the Kendall method,","The Covariance between Carat and Price is",cov(pp$Carat, pp$Price, method = "spearman"),"\n")
+
 ```
 ## Goal: Predict Price from Carat
 
