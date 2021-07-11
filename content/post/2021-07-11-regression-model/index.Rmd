@@ -58,7 +58,6 @@ summary(pp)
 describe(pp)
 stat.desc(pp)
 hist.data.frame(pp)
-#ggpairs(pp)
 
 ggplot(pp, aes(x=Carat, y= as.numeric(Price), color = (Price >= 1000))) + geom_point(show.legend = FALSE) + 
   labs(x = 'Carat', y='Price(CAD)') +ggtitle("Scatter Plot Carat vs Price")+  theme_minimal() +
