@@ -10,6 +10,12 @@ tags: []
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
+<style>
+body {
+text-align: justify}
+</style>
+<p>A professor of machine learning is planning to get married to his long-time girlfriend. He has never shopped for diamonds before. In the mall, he was confronted with a dizzying array of diamond characteristics, configurations, and pricing. His quick search revealed that diamonds are primarily characterized by 4C viz. Color, Cut, Carat Weight and Clarity besides Polish, Symmetry, and certification. He scrapped the web to collect information from three different wholesaler websites to build his pricing model to ensure he does not get cheated while purchasing the diamond ring. This blog builds a Linear Regression Model to predict the price of the diamond ring of his interest.</p>
+<p><img src="interest.jpg" width="98%" /></p>
 <div id="load-packages" class="section level2">
 <h2>Load Packages</h2>
 </div>
@@ -18,6 +24,7 @@ tags: []
 </div>
 <div id="summary-statistics" class="section level2">
 <h2>Summary Statistics</h2>
+<p>The summary of the dataset is shown below. The summary of metric data has the values such as minimum, first quartile, median, mean, third quartile and maximum. However, the summary of non-metric data has the summary of length, class and mode.</p>
 <pre><code>##      Carat           Colour            Clarity              Cut           
 ##  Min.   :0.0900   Length:440         Length:440         Length:440        
 ##  1st Qu.:0.3000   Class :character   Class :character   Class :character  
@@ -42,6 +49,7 @@ tags: []
 </div>
 <div id="univariate-analysis" class="section level2">
 <h2>Univariate Analysis</h2>
+<p>Univariate analysis of the dataset explores the minimum, maximum, range, sum, mean, median, mode, SE.mean, variance, standard deviation and coefficient variance of the individual characteristics of the diamonds. In addition, this analysis includes the histogram plots for the frequency of data in the dataset and scatter plots of the Price with respect to the characteristics of the diamond such as Carat, Colour, Clarity, Cut, Certification, Polish and Symmetry. In the scatter plot, the colors are configured based on the price value as it is easily noticed that two sets of data are present in the dataset, based on the price. To identify the price range, different colour schemes are used. The low cost data ranges till 0.3 carat and 700 CAD, whereas high cost data ranges between 0.8 and 1.6 carats and 1800 CAD and $3200 CAD.</p>
 <pre><code>## pp 
 ## 
 ##  9  Variables      440  Observations
@@ -160,16 +168,29 @@ tags: []
 ## var          1.382245e+06 4.907848e-01
 ## std.dev      1.175689e+03 7.005604e-01
 ## coef.var     6.848387e-01 3.022025e-01</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-5.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-6.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-7.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-8.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-4.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-5.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-6.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-7.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-8.png" width="672" /></p>
 </div>
 <div id="bivariate-analysis---correlation-and-covariance" class="section level2">
 <h2>Bivariate Analysis - Correlation and Covariance</h2>
+<p>In the bivariate analysis, coorelation and covariance among the metric data, i.e Price and Carat, is calculated. The Correlation between Carat and Price is 0.925436. The results of correlation among the metric data is as shown below,
+Carat Price Wholesaler
+Carat 1.00 0.93 -0.78
+Price 0.93 1.00 -0.91
+Wholesaler -0.78 -0.91 1.00</p>
+<p>This is also depicted as a plot.</p>
+<p>Furthermore, the covariance among the metric data is as shown below,</p>
+<ol style="list-style-type: lower-roman">
+<li>As per the default method, The Covariance between Carat and Price is 413.2318</li>
+<li>As per the Pearson method, The Covariance between Carat and Price is 413.2318</li>
+<li>As per the Kendall method, The Covariance between Carat and Price is 101702</li>
+<li>As per the Kendall method, The Covariance between Carat and Price is 12227.55</li>
+</ol>
 <pre><code>## The Correlation between Carat and Price is 0.925436</code></pre>
 <pre><code>##            Carat Price Wholesaler
 ## Carat       1.00  0.93      -0.78
 ## Price       0.93  1.00      -0.91
 ## Wholesaler -0.78 -0.91       1.00</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre><code>## As per the default method, The Covariance between Carat and Price is 413.2318</code></pre>
 <pre><code>## As per the Pearson method, The Covariance between Carat and Price is 413.2318</code></pre>
 <pre><code>## As per the Kendall method, The Covariance between Carat and Price is 101702</code></pre>
@@ -177,12 +198,23 @@ tags: []
 </div>
 <div id="goal-predict-price-from-carat" class="section level2">
 <h2>Goal: Predict Price from Carat</h2>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<p>In this Section, the price of the diamond is predicted from the carat as they both are proportional to each other. This work is done by the linear modelling method on the dataset along with smoothening work. It is clear from the plot that the purple line at the inclination shows the linear prediction line for the price according the carat value of the diamonds.However, it is possible to identify some scarce amount of plots away from the purple line. As mentioned earlier, it is easily noticed that two sets of data are present in the dataset, based on the price. To identify the price range, different colour schemes are used. The low cost data ranges till 0.3 carat and 700 CAD, whereas high cost data ranges between 0.8 and 1.6 carats and 1800 CAD and $3200 CAD.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 ## Splitting the dataset into 2 datasets based on the pricing</p>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>As a continuation, this section depicts the splitting of the huge dataset into two, based on the price and carat of the diamond.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 </div>
 <div id="build-simple-regression-model" class="section level2">
 <h2>Build Simple regression model</h2>
+<p>Based on the above data, the linear regression model is built as shown below. The results of the simple linear regression is shown below,</p>
+<ol style="list-style-type: lower-roman">
+<li>Residual standard error: 0.2167 on 438 degrees of freedom</li>
+<li>Multiple R-squared: 0.9471</li>
+<li>Adjusted R-squared: 0.947</li>
+<li>F-statistic: 7847 on 1 and 438 DF,<br />
+</li>
+<li>p-value: &lt; 2.2e-16</li>
+</ol>
 <pre><code>## 
 ## Call:
 ## lm(formula = I(log(Price)) ~ I(Carat^(1/3)), data = pp)
@@ -204,6 +236,16 @@ tags: []
 </div>
 <div id="build-multiple-regression-model" class="section level2">
 <h2>Build multiple regression model</h2>
+<p>Based on the above data, the linear regression model is built as shown below. The results of the multiple linear regression is shown below,</p>
+<ol style="list-style-type: lower-roman">
+<li>Residual standard error: 197.2 on 406 degrees of freedom</li>
+<li>Multiple R-squared: 0.974,<br />
+</li>
+<li>Adjusted R-squared: 0.9719</li>
+<li>F-statistic: 460.4 on 33 and 406 DF,<br />
+</li>
+<li>p-value: &lt; 2.2e-16</li>
+</ol>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ Carat + Colour + Cut + Clarity + Polish + 
@@ -259,6 +301,7 @@ tags: []
 </div>
 <div id="build-mtable" class="section level2">
 <h2>Build mtable</h2>
+<p>In this session, the mtable is built for the dependent characteristics such as Carat, Colour, Clarity, Cut, Certification, Polish and Symmetry.</p>
 <pre><code>## 
 ## Calls:
 ## m1: lm(formula = I(log(Price)) ~ I(Carat^(1/3)), data = pp)
@@ -356,6 +399,10 @@ tags: []
 </div>
 <div id="predict-the-price-of-the-professors-diamond-ring-of-his-interest" class="section level2">
 <h2>Predict the price of the Professor’s Diamond Ring of his interest</h2>
+<p>The Professor’s interest towards the Diamond Ring is shown below,</p>
+<p><img src="interest.jpg" width="98%" /></p>
+<p>Ultimately, the prediction of the price based on the professor’s interest is shown below,</p>
 <pre><code>##       fit      lwr      upr
 ## 1 2628.39 2186.132 3160.118</code></pre>
+<p>From this prediction, it is observable that best fit of price is 2628.39 CAD and the fit ranges between 2186.132 CAD and 3160.118 CAD. The Residual standard error is 197.2 on 406 degrees of freedom. The claim of the seller is 3100 CAD. In conclusion, the price of the diamond is marked at high price of 3100 CAD, despite the standard error of 197.2 in the multiple regression model.</p>
 </div>
