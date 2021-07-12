@@ -1,5 +1,5 @@
 ---
-title: 'Assignment A02: TIDYVERSE'
+title: 'Tidyverse Transformations'
 author: ''
 date: '2021-05-27'
 slug: assignment-a02-tidyverse
@@ -24,7 +24,6 @@ diabetes %>% count(Age)
 ## Import the diamonds.csv file for Two table verb
 
 ```{r warning=FALSE}
-
 diamonds <- read_csv("diamonds.csv")
 
 # Function 1 bind_rows
