@@ -2,7 +2,7 @@
 title: EDA2
 author: ''
 date: '2021-06-16'
-slug: a05-assignment-eda2
+slug: eda2
 categories: []
 tags: []
 ---
