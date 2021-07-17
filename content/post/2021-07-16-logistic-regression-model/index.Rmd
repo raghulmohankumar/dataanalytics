@@ -283,7 +283,9 @@ test_25=train[-s,]
 
 ## Step 3: Model Building
 
-We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters , i)   Residual standard error: 0.2695 on 45179 degrees of freedom
+We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters, 
+
+i)   Residual standard error: 0.2695 on 45179 degrees of freedom
 ii)  Multiple R-squared:  0.2976
 iii) Adjusted R-squared:  0.2971 
 iv)  F-statistic: 617.5 on 31 and 45179 DF,  

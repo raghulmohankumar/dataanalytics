@@ -64,11 +64,11 @@ Number of Attributes: 16 + output attribute</p>
 <h2>Methodology:</h2>
 <p>We will build a Logistic regression model to predict the response variable “y” (whether the client subscribed to a term deposit or No.)</p>
 <p>Step 1: Imputing NA values in the datasets.</p>
-<p>Step 2:Data Preparation: Grouping similar category variables and making dummies.</p>
+<p>Step 2: Data Preparation: Grouping similar category variables and making dummies.</p>
 <p>Step 3: Model Building( LOGISTIC REGRESSION )</p>
-<p>Step 4. Finding Cutoff value and Perfomance measurements of the model.(Sensitivity, Specificity, Accuracy)</p>
-<p>Step 5.Predict the final output on test dataset.(whether the client subscribe or no to term deposit)</p>
-<p>Step 6:Creating confusion matrix and finding how good the model is.</p>
+<p>Step 4: Finding Cutoff value and Perfomance measurements of the model.(Sensitivity, Specificity, Accuracy)</p>
+<p>Step 5: Predict the final output on test dataset.(whether the client subscribe or no to term deposit)</p>
+<p>Step 6: Creating confusion matrix and finding how good the model is.</p>
 </div>
 <div id="load-packages" class="section level2">
 <h2>Load Packages</h2>
@@ -306,8 +306,11 @@ Number of Attributes: 16 + output attribute</p>
 </div>
 <div id="step-3-model-building" class="section level2">
 <h2>Step 3: Model Building</h2>
-<p>We will use train for logistic regression model building and use train_25 to test the performance of the model thus built.
-Lets build logistic regression model on train dataset.</p>
+<p>We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters , i) Residual standard error: 0.2695 on 45179 degrees of freedom
+ii) Multiple R-squared: 0.2976
+iii) Adjusted R-squared: 0.2971
+iv) F-statistic: 617.5 on 31 and 45179 DF,<br />
+v) p-value: &lt; 2.2e-16</p>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ ., data = train)
@@ -358,6 +361,11 @@ Lets build logistic regression model on train dataset.</p>
 ## F-statistic: 617.5 on 31 and 45179 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div id="fine-tuning-for-multi-collinearity" class="section level3">
 <h3>Fine tuning for multi-collinearity</h3>
+<p>The logistics regression model is fine tuned in this section where the model has the following parameters.</p>
+<ol style="list-style-type: lower-roman">
+<li>Null deviance: 32631 on 45210 degrees of freedom</li>
+<li>Residual deviance: 21860 on 45180 degrees of freedom</li>
+</ol>
 <pre><code>##     edu_sec    edu_tert       pdays edu_primary poc_failure 
 ##    6.773766    6.408443    4.584444    4.112661    3.888840</code></pre>
 <pre><code>##       pdays poc_failure   poc_other       job_3     month_1 
@@ -741,6 +749,7 @@ Lets build logistic regression model on train dataset.</p>
 </div>
 <div id="building-final-logistic-model-on-significant-variables" class="section level3">
 <h3>Building final logistic model on significant variables</h3>
+<p>The final logistic model is built with the predictors such as housing, loan, duration, campaign, previous, job_2, job_4, job_5, divorced, single, edu_primary, edu_tert, co_cellular, co_tel, month_2, month_3, month_4, month_5, month_6, poc_success, poc_failure and poc_other.</p>
 <pre><code>## 
 ## Call:
 ## glm(formula = y ~ housing + loan + duration + campaign + previous + 
@@ -796,6 +805,7 @@ Lets build logistic regression model on train dataset.</p>
 </div>
 <div id="predict-scores-and-visualisation" class="section level3">
 <h3>Predict Scores and visualisation</h3>
+<p>In this visualization, we could observe that the prediction of subscription customers in the green color and the other customers in the red color.</p>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 </div>
