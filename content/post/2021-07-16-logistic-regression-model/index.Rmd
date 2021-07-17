@@ -88,15 +88,15 @@ We will build a Logistic regression model to predict the response variable â€œyâ
 
 Step 1: Imputing NA values in the datasets.
 
-Step 2:Data Preparation: Grouping similar category variables and making dummies.
+Step 2: Data Preparation: Grouping similar category variables and making dummies.
 
 Step 3: Model Building( LOGISTIC REGRESSION )
 
-Step 4. Finding Cutoff value and Perfomance measurements of the model.(Sensitivity, Specificity, Accuracy)
+Step 4: Finding Cutoff value and Perfomance measurements of the model.(Sensitivity, Specificity, Accuracy)
 
-Step 5.Predict the final output on test dataset.(whether the client subscribe or no to term deposit)
+Step 5: Predict the final output on test dataset.(whether the client subscribe or no to term deposit)
 
-Step 6:Creating confusion matrix and finding how good the model is.
+Step 6: Creating confusion matrix and finding how good the model is.
 
 
 ## Load Packages
@@ -283,8 +283,11 @@ test_25=train[-s,]
 
 ## Step 3: Model Building
 
-We will use train for logistic regression model building and use train_25 to test the performance of the model thus built.
-Lets build logistic regression model on train dataset.
+We will use train for logistic regression model building and use train_25 to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters , i)   Residual standard error: 0.2695 on 45179 degrees of freedom
+ii)  Multiple R-squared:  0.2976
+iii) Adjusted R-squared:  0.2971 
+iv)  F-statistic: 617.5 on 31 and 45179 DF,  
+v)   p-value: < 2.2e-16
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 for_vif=lm(y~.,data=train)
@@ -292,6 +295,11 @@ summary(for_vif)
 ```
 
 ### Fine tuning for multi-collinearity
+
+The logistics regression model is fine tuned in this section where the model has the following parameters.
+
+i)  Null deviance: 32631  on 45210  degrees of freedom
+ii) Residual deviance: 21860  on 45180  degrees of freedom
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 # Removing variables whose  variance inflation factor >5
@@ -322,6 +330,9 @@ names(fit$coefficients)
 
 ### Building final logistic model on significant variables
 
+
+The final logistic model is built with the predictors such as housing, loan, duration, campaign, previous, job_2, job_4, job_5, divorced, single, edu_primary, edu_tert, co_cellular, co_tel, month_2, month_3, month_4, month_5, month_6, poc_success, poc_failure and poc_other.
+
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 fit_final=glm(y~housing+loan+duration+campaign+previous+job_2+job_4+job_5+divorced+single+edu_primary+edu_tert+co_cellular+co_tel+month_2+month_3+month_4+month_5+month_6+poc_success+poc_failure+poc_other,data=fit_train,family="binomial")
 summary(fit_final)
@@ -329,6 +340,8 @@ names(fit_final$coefficients)
 ```
 
 ### Predict Scores and visualisation
+
+In this visualization, we could observe that the prediction of subscription customers in the green color and the other customers in the red color.
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 train$score=predict(fit_final,newdata = train,type="response")
