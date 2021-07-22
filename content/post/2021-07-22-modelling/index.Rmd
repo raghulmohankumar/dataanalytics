@@ -1,0 +1,31 @@
+---
+title: Modelling
+author: Raghul, Nouran and Mona
+date: '2021-07-22'
+slug: modelling
+categories:
+  - ggplot2
+  - models
+  - Tidyverse
+tags: []
+---
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+## Load Packages
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(dplyr)
+library(car)
+library(ggplot2)
+library(pROC)
+```
+
+## Import Datasets : Bank data
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+test=read.csv("credit_bureau.csv",sep = ";" ) 
+train=read.csv("demogs.csv", sep = ";") 
+```
