@@ -26,6 +26,6 @@ library(pROC)
 
 ## Import Datasets : Bank data
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
-test=read.csv("credit_bureau.csv",sep = ";" ) 
-train=read.csv("demogs.csv", sep = ";") 
+credit=read.csv("credit_bureau.csv",sep = ";" ) 
+demogs=read.csv("demogs.csv", sep = ";") 
 ```

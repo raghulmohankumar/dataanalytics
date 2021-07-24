@@ -1,0 +1,643 @@
+---
+title: Resampling Methods
+author: Raghul Mohankumar
+date: '2021-07-23'
+slug: resampling-methods
+categories:
+  - caret
+  - ggplot2
+  - Tidyverse
+  - models
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<div id="load-packages" class="section level2">
+<h2>Load Packages</h2>
+</div>
+<div id="model-1" class="section level1">
+<h1>Model 1</h1>
+<p>A professor of machine learning is planning to get married to his long-time girlfriend. He has never shopped for diamonds before. In the mall, he was confronted with a dizzying array of diamond characteristics, configurations, and pricing. His quick search revealed that diamonds are primarily characterized by 4C viz. Color, Cut, Carat Weight and Clarity besides Polish, Symmetry, and certification. He scrapped the web to collect information from three different wholesaler websites to build his pricing model to ensure he does not get cheated while purchasing the diamond ring. This blog builds a Linear Regression Model to predict the price of the diamond ring of his interest.</p>
+<p><img src="interest.jpg" width="98%" /></p>
+<div id="import-dataset-diamond-data" class="section level2">
+<h2>Import Dataset : Diamond data</h2>
+</div>
+<div id="summary-statistics" class="section level2">
+<h2>Summary Statistics</h2>
+<p>The summary of the dataset is shown below. The summary of metric data has the values such as minimum, first quartile, median, mean, third quartile and maximum. However, the summary of non-metric data has the summary of length, class and mode.</p>
+<pre><code>##      Carat           Colour            Clarity              Cut           
+##  Min.   :0.0900   Length:440         Length:440         Length:440        
+##  1st Qu.:0.3000   Class :character   Class :character   Class :character  
+##  Median :0.8100   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :0.6693                                                           
+##  3rd Qu.:1.0100                                                           
+##  Max.   :1.5800                                                           
+##  Certification         Polish            Symmetry             Price     
+##  Length:440         Length:440         Length:440         Min.   : 160  
+##  Class :character   Class :character   Class :character   1st Qu.: 520  
+##  Mode  :character   Mode  :character   Mode  :character   Median :2169  
+##                                                           Mean   :1717  
+##                                                           3rd Qu.:3012  
+##                                                           Max.   :3145  
+##    Wholesaler   
+##  Min.   :1.000  
+##  1st Qu.:2.000  
+##  Median :2.000  
+##  Mean   :2.318  
+##  3rd Qu.:3.000  
+##  Max.   :3.000</code></pre>
+</div>
+<div id="repeated-k-fold-cross-validation-resampling-with-various-k-values-folds" class="section level2">
+<h2>Repeated K-fold cross-validation Resampling with various K values (folds)</h2>
+<pre><code>## Linear Regression 
+## 
+## 440 samples
+##   8 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (2 fold, repeated 3 times) 
+## Summary of sample sizes: 220, 220, 220, 220, 220, 220, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   194.1752  0.9731325  134.2056
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 440 samples
+##   8 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 3 times) 
+## Summary of sample sizes: 352, 352, 351, 353, 352, 352, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   179.1762  0.9770606  124.7982
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 440 samples
+##   8 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 3 times) 
+## Summary of sample sizes: 395, 396, 396, 396, 395, 395, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   176.3451  0.9782798  123.5628
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 440 samples
+##   8 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (439 fold, repeated 3 times) 
+## Summary of sample sizes: 439, 439, 439, 439, 439, 439, ... 
+## Resampling results:
+## 
+##   RMSE     Rsquared  MAE    
+##   124.369  1         124.337
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 440 samples
+##   8 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 3 times) 
+## Summary of sample sizes: 352, 352, 351, 353, 352, 352, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   179.1762  0.9770606  124.7982
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<p>In this dataset, 440 samples and 8 predictors are present. The comparison of Resampling parameters among different K values is shown below
+<img src="comp_1.jpg" width="98%" /></p>
+<p>From this analysis, it is observable that the accuracy of resampling increases if the K values are high or N-1.</p>
+</div>
+<div id="bootstrapping-resampling" class="section level2">
+<h2>Bootstrapping Resampling</h2>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = pp, statistic = function_1, R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original       bias    std. error
+## t1* 0.925436 5.601807e-05  0.00635996</code></pre>
+<pre><code>##       R original   bootBias  bootSE bootMed
+## 1 10000  0.92544 5.6018e-05 0.00636 0.92559</code></pre>
+<pre><code>## 
+##  The range of bootstrap correlation is  0.8989825 0.947535</code></pre>
+<pre><code>## 
+##  The mean of bootstrap correlation is  0.9254921</code></pre>
+<pre><code>## 
+##  The standard deviation of bootstrap correlation is  0.00635996</code></pre>
+<pre><code>## 
+##  The class of bootstrap correlation is  boot 
+## </code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 10000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootstrap_correlation, type = c(&quot;norm&quot;, &quot;basic&quot;, 
+##     &quot;perc&quot;, &quot;bca&quot;))
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   ( 0.9129,  0.9378 )   ( 0.9134,  0.9385 )  
+## 
+## Level     Percentile            BCa          
+## 95%   ( 0.9124,  0.9375 )   ( 0.9117,  0.9369 )  
+## Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
+<div id="model-2" class="section level1">
+<h1>Model 2</h1>
+<div id="problem-statement" class="section level2">
+<h2>Problem Statement:</h2>
+<p>The data is related with direct marketing campaigns of a Portuguese banking institution, which is rolling out term deposit for its customers. The marketing campaigns were based on phone calls. Often, more than one contact to the same client was required, in order to access if the product (bank term deposit) would be (or not) subscribed. The classification goal is to predict if the client will subscribe a term deposit (variable y).</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data:</h2>
+<p>There are two datasets:</p>
+<pre><code>  1) bank-full.csv with all examples, ordered by date (from May 2008 to November 2010).
+  
+  2) bank.csv with 10% of the examples (4521), randomly selected from bank-full.csv.
+  </code></pre>
+</div>
+<div id="import-datasets-bank-data" class="section level2">
+<h2>Import Datasets : Bank data</h2>
+</div>
+<div id="step-1-adding-na-values-in-the-datasets" class="section level2">
+<h2>Step 1: Adding NA values in the datasets</h2>
+<pre><code>##       age       job   marital education   default   balance   housing      loan 
+##         0         0         0         0         0         0         0         0 
+##   contact       day     month  duration  campaign     pdays  previous  poutcome 
+##         0         0         0         0         0         0         0         0 
+##         y 
+##         0</code></pre>
+<pre><code>##       age       job   marital education   default   balance   housing      loan 
+##         0         0         0         0         0         0         0         0 
+##   contact       day     month  duration  campaign     pdays  previous  poutcome 
+##         0         0         0         0         0         0         0         0 
+##         y 
+##         0</code></pre>
+<p>There are no NA values in train and test datasets.</p>
+</div>
+<div id="step-2data-preparation" class="section level2">
+<h2>Step 2:Data Preparation</h2>
+<p>Combining both train and test datasets prior to data preparation.</p>
+<pre><code>##       age       job   marital education   default   balance   housing      loan 
+##         0         0         0         0         0         0         0         0 
+##   contact       day     month  duration  campaign     pdays  previous  poutcome 
+##         0         0         0         0         0         0         0         0 
+##         y      data 
+##      4521         0</code></pre>
+</div>
+<div id="creating-dummy-variables-by-combining-similar-categories" class="section level2">
+<h2>Creating dummy variables by combining similar categories</h2>
+<div id="dummy-for-job" class="section level3">
+<h3>Dummy for Job</h3>
+<pre><code>## 
+##       unknown       student     housemaid    unemployed  entrepreneur 
+##           326          1022          1352          1431          1655 
+## self-employed       retired      services        admin.    technician 
+##          1762          2494          4571          5649          8365 
+##    management   blue-collar 
+##         10427         10678</code></pre>
+<pre><code>##       student       retired    unemployed    management        admin. 
+##          71.3          77.2          84.5          86.2          87.8 
+## self-employed       unknown    technician      services     housemaid 
+##          88.2          88.2          88.9          91.1          91.2 
+##  entrepreneur   blue-collar 
+##          91.7          92.7</code></pre>
+</div>
+<div id="dummy-for-marital" class="section level3">
+<h3>Dummy for marital</h3>
+<pre><code>## 
+## divorced   single  married 
+##     5735    13986    30011</code></pre>
+</div>
+<div id="dummy-for-education" class="section level3">
+<h3>Dummy for education</h3>
+<pre><code>## 
+##   unknown   primary  tertiary secondary 
+##      2044      7529     14651     25508</code></pre>
+</div>
+<div id="dummy-for-default" class="section level3">
+<h3>Dummy for default</h3>
+<pre><code>## 
+##    no   yes 
+## 48841   891</code></pre>
+</div>
+<div id="dummy-for-housing" class="section level3">
+<h3>Dummy for housing</h3>
+<pre><code>## 
+##    no   yes 
+## 22043 27689</code></pre>
+</div>
+<div id="dummy-for-loan" class="section level3">
+<h3>Dummy for loan</h3>
+<pre><code>## 
+##    no   yes 
+## 41797  7935</code></pre>
+</div>
+<div id="dummy-for-contact" class="section level3">
+<h3>Dummy for contact</h3>
+<pre><code>## 
+## telephone   unknown  cellular 
+##      3207     14344     32181</code></pre>
+</div>
+<div id="dummy-for-month" class="section level3">
+<h3>Dummy for month</h3>
+<pre><code>##  mar  dec  sep  oct  apr  feb  aug  jun  nov  jan  jul  may 
+## 48.0 53.3 53.5 56.2 80.3 83.4 89.0 89.8 89.8 89.9 90.9 93.3</code></pre>
+</div>
+<div id="dummy-for-outcome" class="section level3">
+<h3>Dummy for outcome</h3>
+<pre><code>## 
+## success   other failure unknown 
+##    1640    2037    5391   40664</code></pre>
+</div>
+<div id="after-data-preparation" class="section level3">
+<h3>After Data Preparation</h3>
+<pre><code>## 
+##    no   yes 
+## 39922  5289</code></pre>
+<pre><code>## 
+##    no   yes 
+## 39922  5289</code></pre>
+<pre><code>## 
+##     0     1 
+## 39922  5289</code></pre>
+</div>
+<div id="after-separating-test-and-train" class="section level3">
+<h3>After Separating test and train</h3>
+<pre><code>## Rows: 45,211
+## Columns: 32
+## $ age         &lt;int&gt; 58, 44, 33, 47, 33, 35, 28, 42, 58, 43, 41, 29, 53, 58, 57~
+## $ default     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ housing     &lt;dbl&gt; 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
+## $ loan        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ day         &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5~
+## $ duration    &lt;int&gt; 261, 151, 76, 92, 198, 139, 217, 380, 50, 55, 222, 137, 51~
+## $ campaign    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
+## $ pdays       &lt;int&gt; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1~
+## $ previous    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ y           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ job_1       &lt;dbl&gt; 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0~
+## $ job_2       &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1~
+## $ job_3       &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ job_4       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ job_5       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0~
+## $ job_6       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ divorced    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ single      &lt;dbl&gt; 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0~
+## $ edu_primary &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0~
+## $ edu_sec     &lt;dbl&gt; 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1~
+## $ edu_tert    &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ co_cellular &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ co_tel      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_1     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_2     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_3     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_4     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_5     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_6     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ poc_success &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ poc_failure &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ poc_other   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~</code></pre>
+<pre><code>## Rows: 4,521
+## Columns: 31
+## $ age         &lt;int&gt; 30, 33, 35, 30, 59, 35, 36, 39, 41, 43, 39, 43, 36, 20, 31~
+## $ default     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ housing     &lt;dbl&gt; 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0~
+## $ loan        &lt;dbl&gt; 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0~
+## $ day         &lt;int&gt; 19, 11, 16, 3, 5, 23, 14, 6, 14, 17, 20, 17, 13, 30, 29, 2~
+## $ duration    &lt;int&gt; 79, 220, 185, 199, 226, 141, 341, 151, 57, 313, 273, 113, ~
+## $ campaign    &lt;int&gt; 1, 1, 1, 4, 1, 2, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 5, 1, 1, 1~
+## $ pdays       &lt;int&gt; -1, 339, 330, -1, -1, 176, 330, -1, -1, 147, -1, -1, -1, -~
+## $ previous    &lt;int&gt; 0, 4, 1, 0, 0, 3, 2, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 2, 0, 1~
+## $ job_1       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0~
+## $ job_2       &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1~
+## $ job_3       &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0~
+## $ job_4       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0~
+## $ job_5       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ job_6       &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ divorced    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ single      &lt;dbl&gt; 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0~
+## $ edu_primary &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0~
+## $ edu_sec     &lt;dbl&gt; 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1~
+## $ edu_tert    &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0~
+## $ co_cellular &lt;dbl&gt; 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1~
+## $ co_tel      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_1     &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1~
+## $ month_2     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_3     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_4     &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ month_5     &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0~
+## $ month_6     &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ poc_success &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0~
+## $ poc_failure &lt;dbl&gt; 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0~
+## $ poc_other   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1~</code></pre>
+</div>
+</div>
+<div id="step-3-model-building" class="section level2">
+<h2>Step 3: Model Building</h2>
+<p>We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters,</p>
+<ol style="list-style-type: lower-roman">
+<li>Residual standard error: 0.2695 on 45179 degrees of freedom</li>
+<li>Multiple R-squared: 0.2976</li>
+<li>Adjusted R-squared: 0.2971</li>
+<li>F-statistic: 617.5 on 31 and 45179 DF,<br />
+</li>
+<li>p-value: &lt; 2.2e-16</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ ., data = train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.25983 -0.10950 -0.03964  0.02150  1.04915 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.833e-02  1.072e-02  -4.509 6.52e-06 ***
+## age          1.865e-04  1.554e-04   1.200  0.23004    
+## default     -4.667e-03  9.574e-03  -0.487  0.62596    
+## housing     -5.068e-02  2.990e-03 -16.950  &lt; 2e-16 ***
+## loan        -2.705e-02  3.508e-03  -7.711 1.27e-14 ***
+## day         -1.737e-05  1.628e-04  -0.107  0.91503    
+## duration     4.701e-04  4.957e-06  94.845  &lt; 2e-16 ***
+## campaign    -1.017e-03  4.226e-04  -2.406  0.01614 *  
+## pdays       -3.396e-05  2.710e-05  -1.253  0.21016    
+## previous     1.075e-03  6.541e-04   1.643  0.10043    
+## job_1       -3.609e-03  3.771e-03  -0.957  0.33854    
+## job_2       -6.996e-03  3.980e-03  -1.758  0.07879 .  
+## job_3        4.987e-04  4.576e-03   0.109  0.91321    
+## job_4        8.261e-02  9.568e-03   8.634  &lt; 2e-16 ***
+## job_5        4.098e-02  6.902e-03   5.937 2.92e-09 ***
+## job_6        4.068e-03  7.888e-03   0.516  0.60609    
+## divorced     1.338e-02  4.106e-03   3.260  0.00112 ** 
+## single       2.289e-02  3.251e-03   7.041 1.94e-12 ***
+## edu_primary -1.458e-02  7.167e-03  -2.035  0.04189 *  
+## edu_sec     -2.983e-03  6.599e-03  -0.452  0.65123    
+## edu_tert     1.353e-02  7.040e-03   1.922  0.05459 .  
+## co_cellular  4.524e-02  3.375e-03  13.406  &lt; 2e-16 ***
+## co_tel       3.288e-02  5.883e-03   5.589 2.30e-08 ***
+## month_1     -5.984e-03  3.502e-03  -1.709  0.08747 .  
+## month_2      2.064e-01  1.029e-02  20.053  &lt; 2e-16 ***
+## month_3      3.337e-01  1.285e-02  25.975  &lt; 2e-16 ***
+## month_4      2.133e-01  1.057e-02  20.173  &lt; 2e-16 ***
+## month_5      5.870e-02  5.805e-03  10.112  &lt; 2e-16 ***
+## month_6      3.085e-02  6.389e-03   4.828 1.39e-06 ***
+## poc_success  4.334e-01  8.843e-03  49.010  &lt; 2e-16 ***
+## poc_failure  1.575e-02  8.039e-03   1.959  0.05015 .  
+## poc_other    3.920e-02  9.422e-03   4.161 3.18e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2695 on 45179 degrees of freedom
+## Multiple R-squared:  0.2976, Adjusted R-squared:  0.2971 
+## F-statistic: 617.5 on 31 and 45179 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div id="fine-tuning-for-multi-collinearity" class="section level3">
+<h3>Fine tuning for multi-collinearity</h3>
+<p>The logistics regression model is fine tuned in this section where the model has the following parameters.</p>
+<ol style="list-style-type: lower-roman">
+<li>Null deviance: 32631 on 45210 degrees of freedom</li>
+<li>Residual deviance: 21860 on 45180 degrees of freedom</li>
+</ol>
+<pre><code>##     edu_sec    edu_tert       pdays edu_primary poc_failure 
+##    6.773766    6.408443    4.584444    4.112661    3.888840</code></pre>
+<pre><code>##       pdays poc_failure   poc_other       job_3     month_1 
+##    4.584412    3.888836    2.158117    2.152767    1.902953</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ ., family = &quot;binomial&quot;, data = fit_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -5.6965  -0.3818  -0.2571  -0.1608   3.2832  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -4.180e+00  1.267e-01 -33.003  &lt; 2e-16 ***
+## age          4.720e-04  2.157e-03   0.219  0.82679    
+## default     -8.702e-02  1.620e-01  -0.537  0.59105    
+## housing     -7.301e-01  4.280e-02 -17.057  &lt; 2e-16 ***
+## loan        -4.831e-01  5.881e-02  -8.216  &lt; 2e-16 ***
+## day         -2.603e-03  2.305e-03  -1.129  0.25875    
+## duration     4.123e-03  6.357e-05  64.862  &lt; 2e-16 ***
+## campaign    -8.587e-02  9.874e-03  -8.696  &lt; 2e-16 ***
+## pdays        2.188e-05  3.033e-04   0.072  0.94250    
+## previous     1.022e-02  6.572e-03   1.555  0.11996    
+## job_1       -4.821e-02  5.506e-02  -0.876  0.38125    
+## job_2       -1.294e-01  6.223e-02  -2.080  0.03753 *  
+## job_3       -1.723e-03  6.329e-02  -0.027  0.97828    
+## job_4        5.691e-01  1.016e-01   5.601 2.13e-08 ***
+## job_5        4.471e-01  8.794e-02   5.084 3.70e-07 ***
+## job_6       -1.333e-02  1.046e-01  -0.127  0.89859    
+## divorced     1.916e-01  5.836e-02   3.284  0.00102 ** 
+## single       2.988e-01  4.543e-02   6.578 4.76e-11 ***
+## edu_primary -2.667e-01  6.083e-02  -4.385 1.16e-05 ***
+## edu_tert     2.003e-01  4.884e-02   4.102 4.10e-05 ***
+## co_cellular  1.023e+00  6.164e-02  16.603  &lt; 2e-16 ***
+## co_tel       8.474e-01  9.260e-02   9.151  &lt; 2e-16 ***
+## month_1     -5.869e-02  5.527e-02  -1.062  0.28828    
+## month_2      1.342e+00  1.013e-01  13.244  &lt; 2e-16 ***
+## month_3      2.154e+00  1.161e-01  18.551  &lt; 2e-16 ***
+## month_4      1.477e+00  1.047e-01  14.113  &lt; 2e-16 ***
+## month_5      6.243e-01  7.176e-02   8.700  &lt; 2e-16 ***
+## month_6      3.211e-01  8.190e-02   3.920 8.86e-05 ***
+## poc_success  2.427e+00  8.497e-02  28.559  &lt; 2e-16 ***
+## poc_failure  1.227e-01  9.195e-02   1.334  0.18212    
+## poc_other    3.433e-01  1.052e-01   3.264  0.00110 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 32631  on 45210  degrees of freedom
+## Residual deviance: 21860  on 45180  degrees of freedom
+## AIC: 21922
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+<div id="building-final-logistic-model-on-significant-variables" class="section level3">
+<h3>Building final logistic model on significant variables</h3>
+<p>The final logistic model is built with the predictors such as housing, loan, duration, campaign, previous, job_2, job_4, job_5, divorced, single, edu_primary, edu_tert, co_cellular, co_tel, month_2, month_3, month_4, month_5, month_6, poc_success, poc_failure and poc_other.</p>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ housing + loan + duration + campaign + previous + 
+##     job_2 + job_4 + job_5 + divorced + single + edu_primary + 
+##     edu_tert + co_cellular + co_tel + month_2 + month_3 + month_4 + 
+##     month_5 + month_6 + poc_success + poc_failure + poc_other, 
+##     family = &quot;binomial&quot;, data = fit_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -5.7041  -0.3817  -0.2574  -0.1609   3.3052  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -4.249e+00  7.343e-02 -57.866  &lt; 2e-16 ***
+## housing     -7.107e-01  3.955e-02 -17.969  &lt; 2e-16 ***
+## loan        -4.886e-01  5.843e-02  -8.363  &lt; 2e-16 ***
+## duration     4.125e-03  6.355e-05  64.908  &lt; 2e-16 ***
+## campaign    -8.785e-02  9.798e-03  -8.966  &lt; 2e-16 ***
+## previous     1.029e-02  6.576e-03   1.564 0.117705    
+## job_2       -1.155e-01  5.602e-02  -2.062 0.039214 *  
+## job_4        5.866e-01  9.544e-02   6.147 7.92e-10 ***
+## job_5        4.703e-01  7.156e-02   6.572 4.97e-11 ***
+## divorced     1.922e-01  5.807e-02   3.311 0.000931 ***
+## single       2.953e-01  4.147e-02   7.121 1.07e-12 ***
+## edu_primary -2.569e-01  5.984e-02  -4.293 1.76e-05 ***
+## edu_tert     2.014e-01  3.992e-02   5.046 4.51e-07 ***
+## co_cellular  1.000e+00  5.899e-02  16.960  &lt; 2e-16 ***
+## co_tel       8.286e-01  9.048e-02   9.159  &lt; 2e-16 ***
+## month_2      1.400e+00  9.154e-02  15.290  &lt; 2e-16 ***
+## month_3      2.211e+00  1.075e-01  20.563  &lt; 2e-16 ***
+## month_4      1.520e+00  9.493e-02  16.008  &lt; 2e-16 ***
+## month_5      6.616e-01  6.082e-02  10.877  &lt; 2e-16 ***
+## month_6      3.923e-01  6.683e-02   5.870 4.37e-09 ***
+## poc_success  2.438e+00  6.863e-02  35.521  &lt; 2e-16 ***
+## poc_failure  1.395e-01  5.924e-02   2.355 0.018509 *  
+## poc_other    3.568e-01  8.249e-02   4.325 1.52e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 32631  on 45210  degrees of freedom
+## Residual deviance: 21864  on 45188  degrees of freedom
+## AIC: 21910
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<pre><code>##  [1] &quot;(Intercept)&quot; &quot;housing&quot;     &quot;loan&quot;        &quot;duration&quot;    &quot;campaign&quot;   
+##  [6] &quot;previous&quot;    &quot;job_2&quot;       &quot;job_4&quot;       &quot;job_5&quot;       &quot;divorced&quot;   
+## [11] &quot;single&quot;      &quot;edu_primary&quot; &quot;edu_tert&quot;    &quot;co_cellular&quot; &quot;co_tel&quot;     
+## [16] &quot;month_2&quot;     &quot;month_3&quot;     &quot;month_4&quot;     &quot;month_5&quot;     &quot;month_6&quot;    
+## [21] &quot;poc_success&quot; &quot;poc_failure&quot; &quot;poc_other&quot;</code></pre>
+</div>
+</div>
+<div id="repeated-k-fold-cross-validation-resampling-with-various-k-values-folds-1" class="section level2">
+<h2>Repeated K-fold cross-validation Resampling with various k values (folds)</h2>
+<p>We will resample the logistic regression model using Repeated K-fold cross-validation.</p>
+<pre><code>## Linear Regression 
+## 
+## 45211 samples
+##    31 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (2 fold, repeated 3 times) 
+## Summary of sample sizes: 22606, 22605, 22606, 22605, 22606, 22605, ... 
+## Resampling results:
+## 
+##   RMSE       Rsquared   MAE      
+##   0.2698632  0.2952762  0.1610428
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 45211 samples
+##    31 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 3 times) 
+## Summary of sample sizes: 36169, 36169, 36169, 36168, 36169, 36169, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE      
+##   0.269721  0.2957518  0.1609696
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 45211 samples
+##    31 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 3 times) 
+## Summary of sample sizes: 40690, 40690, 40690, 40689, 40690, 40690, ... 
+## Resampling results:
+## 
+##   RMSE       Rsquared   MAE      
+##   0.2696532  0.2964486  0.1609273
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 45211 samples
+##    31 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (100 fold, repeated 3 times) 
+## Summary of sample sizes: 44759, 44759, 44758, 44759, 44759, 44759, ... 
+## Resampling results:
+## 
+##   RMSE       Rsquared   MAE      
+##   0.2692223  0.2985594  0.1609114
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<p>In this dataset, 45211 samples and 31 predictors are present. The comparison of Resampling parameters among different K values is shown below</p>
+<p><img src="comp_2.jpg" width="98%" /></p>
+<p>From this analysis, it is observable that the accuracy of resampling increases if the K values are high or N-1.</p>
+</div>
+<div id="bootstrapping-resampling-1" class="section level2">
+<h2>Bootstrapping Resampling</h2>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = fit_train, statistic = function_2, R = 100)
+## 
+## 
+## Bootstrap Statistics :
+##       original        bias    std. error
+## t1* 0.02515502 -0.0008057077 0.005743222</code></pre>
+<pre><code>##     R original    bootBias    bootSE  bootMed
+## 1 100 0.025155 -0.00080571 0.0057432 0.024993</code></pre>
+<pre><code>## 
+##  The range of bootstrap correlation is  0.01059698 0.04125146</code></pre>
+<pre><code>## 
+##  The mean of bootstrap correlation is  0.02434931</code></pre>
+<pre><code>## 
+##  The standard deviation of bootstrap correlation is  0.005743222</code></pre>
+<pre><code>## 
+##  The class of bootstrap correlation is  boot 
+## </code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 100 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bootstrap_correlation_1, type = c(&quot;norm&quot;, 
+##     &quot;basic&quot;, &quot;perc&quot;))
+## 
+## Intervals : 
+## Level      Normal              Basic              Percentile     
+## 95%   ( 0.0147,  0.0372 )   ( 0.0127,  0.0371 )   ( 0.0133,  0.0376 )  
+## Calculations and Intervals on Original Scale
+## Some basic intervals may be unstable
+## Some percentile intervals may be unstable</code></pre>
+</div>
+</div>
