@@ -19,7 +19,7 @@ body {
 text-align: justify}
 </style>
 
-## Load Packages
+
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
 library(tidyverse)
@@ -56,7 +56,7 @@ options(dplyr.print_min = 10, dplyr.print_max = 6)
 ```
 
 
-# Model 1
+# Regression Model
 
 A professor of machine learning is planning to get married to his long-time girlfriend. He has never shopped for diamonds before. In the mall, he was confronted with a dizzying array of diamond characteristics, configurations, and pricing. His quick search revealed that diamonds are primarily characterized by 4C viz. Color, Cut, Carat Weight and Clarity besides Polish, Symmetry, and certification. He scrapped the web to collect information from three different wholesaler websites to build his pricing model to ensure he does not get cheated while purchasing the diamond ring. This blog builds a Linear Regression Model to predict the price of the diamond ring of his interest.
 
@@ -150,7 +150,7 @@ cat("\n","The class of bootstrap correlation is ",class(bootstrap_correlation),"
 boot.ci(boot.out=bootstrap_correlation,type=c('norm','basic','perc','bca'))
 ```
 
-# Model 2
+# Classification Model
 
 ## Problem Statement:
 
