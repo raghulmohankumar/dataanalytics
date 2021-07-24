@@ -1,14 +1,13 @@
 ---
-title: Resampling Methods
+title: Resampling Methods - CV & BS
 author: Raghul Mohankumar
 date: '2021-07-23'
-slug: resampling-methods
 categories:
   - caret
   - ggplot2
-  - Tidyverse
   - models
-tags: []
+  - Tidyverse
+slug: resampling-methods
 ---
 
 
@@ -127,7 +126,7 @@ In this dataset, 440 samples and 8 predictors are present. The comparison of Res
 knitr::include_graphics("comp_1.jpg")
 ```
 
-From this analysis, it is observable that the accuracy of resampling increases if the K values are high or N-1. 
+From this analysis, it is observable that the accuracy of re-sampling increases if the K values are high or N-1. 
 
 
 
