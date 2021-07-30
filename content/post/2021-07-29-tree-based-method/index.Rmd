@@ -117,7 +117,7 @@ prop.table(table(train$y))
 
 We will use the C5.0 algorithm in the C50 package to train our decision tree model.Compared to the machine learning approaches we used previously, the C5.0 algorithm offers many more ways to tailor the model to a particular learning problem.
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 train$y<-as.factor(train$y)
 cmodel <- C5.0(train[-17],train$y)
@@ -135,20 +135,7 @@ CrossTable(test$y, cmodel_pred,
 
 ### Evaluation on training data (45211 cases):
 
-```{r out.width="98%", echo=FALSE}
-knitr::include_graphics("tree_summary.jpg")
-```
-
 The Errors output notes that the model correctly classified all but 3199 of the 45211 training instances for an error rate of 7.1%. A total of 1186 actual no values were incorrectly classified as no (false positives), while 2013 yes values were wrongly classified as no (false negatives).
-
-Top 5 attribute usage
-```{r out.width="98%", echo=FALSE}
-knitr::include_graphics("usage.jpg")
-```
-
-```{r out.width="98%", echo=FALSE}
-knitr::include_graphics("prediction.jpg")
-```
 
 Out of the 12433 test y application records, our model correctly predicted 3896 and 340 correctly, resulting in an accuracy of 93.69% and an error rate of 6.31%. This is a good performance for this kind of model although it´s necessary do more analysis and comparing with other classification models.
 
