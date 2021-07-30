@@ -1,0 +1,1075 @@
+---
+title: Decision Tree
+author: ''
+date: '2021-07-30'
+slug: decision-tree
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<div id="problem-statement" class="section level2">
+<h2>Problem Statement:</h2>
+<p>The data is related with direct marketing campaigns of a Portuguese banking institution, which is rolling out term deposit for its customers. The marketing campaigns were based on phone calls. Often, more than one contact to the same client was required, in order to access if the product (bank term deposit) would be (or not) subscribed. The classification goal is to predict if the client will subscribe a term deposit (variable y).</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data:</h2>
+<p>There are two datasets:</p>
+<pre><code>  1) bank-full.csv with all examples, ordered by date (from May 2008 to November 2010).
+  
+  2) bank.csv with 10% of the examples (4521), randomly selected from bank-full.csv.
+  </code></pre>
+<p>The smallest dataset is provided to test more computationally demanding machine learning algorithms (e.g. SVM).</p>
+<p>Number of Instances: 45211 for bank-full.csv (4521 for bank.csv)
+Number of Attributes: 16 + output attribute</p>
+</div>
+<div id="data-dictionary" class="section level2">
+<h2>Data dictionary:</h2>
+<div id="variables-definition-type-and-their-categories" class="section level3">
+<h3>Variables : Definition: Type and their categories</h3>
+<p>Each row represents characteristic of a single customer . Many categorical data has been coded to mask the data.</p>
+<p>1 - age (numeric)</p>
+<p>2 - job : type of job (categorical: “admin.”, “unknown”, “unemployed”, “management”, “housemaid”, “entrepreneur”, “student”, “blue-collar”, “self-employed”, “retired”,“technician”, “services”)</p>
+<p>3 - marital : marital status (categorical: “married”, “divorced”, “single”; note: “divorced” means divorced or widowed)</p>
+<p>4 - education (categorical: “unknown”, “secondary”, “primary”, “tertiary”)</p>
+<p>5 - default: has credit in default? (binary: “yes”, “no”)</p>
+<p>6 - balance: average yearly balance, in euros (numeric)</p>
+<p>7 - housing: has housing loan? (binary: “yes”,“no”)</p>
+<p>8 - loan: has personal loan? (binary: “yes”,“no”)</p>
+<p>Related with the last contact of the current campaign:</p>
+<p>9 - contact: contact communication type (categorical: “unknown”, “telephone”, “cellular”)</p>
+<p>10 - day: last contact day of the month (numeric))</p>
+<p>Direct Marketing Campaign: Details and Phase I Tasks</p>
+<p>11 - month: last contact month of year (categorical: “jan”, “feb”, “mar”, . . . , “nov”, “dec”)</p>
+<p>12 - duration: last contact duration, in seconds (numeric)</p>
+<p>other attributes: 13 - campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)</p>
+<p>14 - pdays: number of days that passed by after the client was last contacted from a previous campaign (numeric, -1 means client was not previously contacted)</p>
+<p>15 - previous: number of contacts performed before this campaign and for this client (numeric)</p>
+<p>16 - poutcome: outcome of the previous marketing campaign (categorical: “unknown”, “other”, “failure”, “success”)</p>
+<p>Output variable (desired target):</p>
+<p>17 - y - has the client subscribed a term deposit? (binary: “yes”,“no”)</p>
+</div>
+</div>
+<div id="load-packages" class="section level2">
+<h2>Load Packages</h2>
+</div>
+<div id="import-datasets-bank-data" class="section level2">
+<h2>Import Datasets : Bank data</h2>
+<pre><code>## [1] 45211    17</code></pre>
+<pre><code>##       age            job              marital           education        
+##  Min.   :18.00   Length:45211       Length:45211       Length:45211      
+##  1st Qu.:33.00   Class :character   Class :character   Class :character  
+##  Median :39.00   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :40.94                                                           
+##  3rd Qu.:48.00                                                           
+##  Max.   :95.00                                                           
+##    default             balance         housing              loan          
+##  Length:45211       Min.   : -8019   Length:45211       Length:45211      
+##  Class :character   1st Qu.:    72   Class :character   Class :character  
+##  Mode  :character   Median :   448   Mode  :character   Mode  :character  
+##                     Mean   :  1362                                        
+##                     3rd Qu.:  1428                                        
+##                     Max.   :102127                                        
+##    contact               day           month              duration     
+##  Length:45211       Min.   : 1.00   Length:45211       Min.   :   0.0  
+##  Class :character   1st Qu.: 8.00   Class :character   1st Qu.: 103.0  
+##  Mode  :character   Median :16.00   Mode  :character   Median : 180.0  
+##                     Mean   :15.81                      Mean   : 258.2  
+##                     3rd Qu.:21.00                      3rd Qu.: 319.0  
+##                     Max.   :31.00                      Max.   :4918.0  
+##     campaign          pdays          previous          poutcome        
+##  Min.   : 1.000   Min.   : -1.0   Min.   :  0.0000   Length:45211      
+##  1st Qu.: 1.000   1st Qu.: -1.0   1st Qu.:  0.0000   Class :character  
+##  Median : 2.000   Median : -1.0   Median :  0.0000   Mode  :character  
+##  Mean   : 2.764   Mean   : 40.2   Mean   :  0.5803                     
+##  3rd Qu.: 3.000   3rd Qu.: -1.0   3rd Qu.:  0.0000                     
+##  Max.   :63.000   Max.   :871.0   Max.   :275.0000                     
+##       y            
+##  Length:45211      
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## </code></pre>
+<pre><code>## 
+##        no       yes 
+## 0.8830152 0.1169848</code></pre>
+</div>
+<div id="building-decision-tree" class="section level2">
+<h2>Building Decision Tree</h2>
+<p>We will use the C5.0 algorithm in the C50 package to train our decision tree model.Compared to the machine learning approaches we used previously, the C5.0 algorithm offers many more ways to tailor the model to a particular learning problem.</p>
+<pre><code>## 
+## Call:
+## C5.0.default(x = train[-17], y = train$y)
+## 
+## Classification Tree
+## Number of samples: 45211 
+## Number of predictors: 16 
+## 
+## Tree size: 459 
+## 
+## Non-standard options: attempt to group attributes</code></pre>
+<pre><code>## 
+## Call:
+## C5.0.default(x = train[-17], y = train$y)
+## 
+## 
+## C5.0 [Release 2.07 GPL Edition]      Fri Jul 30 15:19:54 2021
+## -------------------------------
+## 
+## Class specified by attribute `outcome&#39;
+## 
+## Read 45211 cases (17 attributes) from undefined.data
+## 
+## Decision tree:
+## 
+## poutcome = success:
+## :...duration &lt;= 162:
+## :   :...duration &gt; 132:
+## :   :   :...job in {technician,entrepreneur,student}: no (31/9)
+## :   :   :   job in {unknown,self-employed,unemployed}: yes (8/1)
+## :   :   :   job = management:
+## :   :   :   :...duration &lt;= 158: yes (30/7)
+## :   :   :   :   duration &gt; 158: no (5)
+## :   :   :   job = blue-collar:
+## :   :   :   :...balance &lt;= 974: yes (4)
+## :   :   :   :   balance &gt; 974: no (7/1)
+## :   :   :   job = retired:
+## :   :   :   :...housing = yes: yes (2)
+## :   :   :   :   housing = no: no (10/3)
+## :   :   :   job = admin.:
+## :   :   :   :...marital = married: yes (6/2)
+## :   :   :   :   marital in {single,divorced}: no (5/1)
+## :   :   :   job = services:
+## :   :   :   :...marital = married: yes (3)
+## :   :   :   :   marital in {single,divorced}: no (3)
+## :   :   :   job = housemaid:
+## :   :   :   :...pdays &lt;= 90: no (3)
+## :   :   :       pdays &gt; 90: yes (2)
+## :   :   duration &lt;= 132:
+## :   :   :...month in {may,jun,jul,oct,dec,jan,apr}: no (110/12)
+## :   :       month = mar:
+## :   :       :...marital in {married,divorced}: no (5/1)
+## :   :       :   marital = single: yes (3)
+## :   :       month = nov:
+## :   :       :...day &gt; 16: no (14)
+## :   :       :   day &lt;= 16:
+## :   :       :   :...marital in {married,divorced}: no (11/4)
+## :   :       :       marital = single: yes (4)
+## :   :       month = feb:
+## :   :       :...day &lt;= 8: no (16/2)
+## :   :       :   day &gt; 8:
+## :   :       :   :...job in {management,technician,entrepreneur,blue-collar,
+## :   :       :       :       unknown,services,unemployed,housemaid,
+## :   :       :       :       student}: yes (9)
+## :   :       :       job in {retired,admin.,self-employed}: no (4)
+## :   :       month = aug:
+## :   :       :...day &lt;= 6: yes (7/1)
+## :   :       :   day &gt; 6:
+## :   :       :   :...day &lt;= 18: no (29)
+## :   :       :       day &gt; 18:
+## :   :       :       :...previous &lt;= 1: yes (3)
+## :   :       :           previous &gt; 1: no (6/1)
+## :   :       month = sep:
+## :   :       :...contact in {unknown,telephone}: no (4)
+## :   :           contact = cellular:
+## :   :           :...job in {technician,entrepreneur,blue-collar,unknown,
+## :   :               :       services,self-employed,housemaid,
+## :   :               :       student}: yes (4)
+## :   :               job in {retired,admin.,unemployed}: no (5/1)
+## :   :               job = management:
+## :   :               :...campaign &lt;= 1: yes (4)
+## :   :                   campaign &gt; 1: no (3)
+## :   duration &gt; 162:
+## :   :...housing = no: yes (806/162)
+## :       housing = yes:
+## :       :...month in {aug,mar,sep}: yes (73/7)
+## :           month in {may,jun,jul,oct,nov,dec,jan,feb,apr}:
+## :           :...job = entrepreneur: no (6/1)
+## :               job in {unknown,admin.,services,self-employed,housemaid,
+## :               :       student}: yes (86/28)
+## :               job = management:
+## :               :...marital in {married,single}: yes (52/17)
+## :               :   marital = divorced: no (9/2)
+## :               job = retired:
+## :               :...balance &lt;= 3145: yes (3)
+## :               :   balance &gt; 3145: no (2)
+## :               job = unemployed:
+## :               :...day &lt;= 17: no (3)
+## :               :   day &gt; 17: yes (4)
+## :               job = technician:
+## :               :...previous &gt; 5: yes (10/1)
+## :               :   previous &lt;= 5:
+## :               :   :...pdays &lt;= 133:
+## :               :       :...duration &lt;= 248: no (5)
+## :               :       :   duration &gt; 248: yes (10/1)
+## :               :       pdays &gt; 133:
+## :               :       :...contact in {unknown,telephone}: yes (2)
+## :               :           contact = cellular: no (29/8)
+## :               job = blue-collar:
+## :               :...education = tertiary: no (1)
+## :                   education = unknown: yes (4/1)
+## :                   education = secondary:
+## :                   :...duration &lt;= 327:
+## :                   :   :...age &lt;= 28: yes (5)
+## :                   :   :   age &gt; 28: no (13/3)
+## :                   :   duration &gt; 327:
+## :                   :   :...duration &lt;= 680: yes (11)
+## :                   :       duration &gt; 680: no (2)
+## :                   education = primary:
+## :                   :...previous &gt; 1: no (11)
+## :                       previous &lt;= 1:
+## :                       :...age &lt;= 43: no (2)
+## :                           age &gt; 43: yes (2)
+## poutcome in {unknown,failure,other}:
+## :...duration &lt;= 408:
+##     :...pdays &gt; 374:
+##     :   :...duration &lt;= 202: no (105/14)
+##     :   :   duration &gt; 202: yes (97/31)
+##     :   pdays &lt;= 374:
+##     :   :...age &gt; 60:
+##     :       :...duration &lt;= 126: no (210/13)
+##     :       :   duration &gt; 126:
+##     :       :   :...poutcome in {failure,other}: no (126/36)
+##     :       :       poutcome = unknown:
+##     :       :       :...job in {technician,entrepreneur}: yes (11/4)
+##     :       :           job in {blue-collar,unknown,services,
+##     :       :           :       student}: no (18/4)
+##     :       :           job = self-employed:
+##     :       :           :...month in {may,jun,jul,aug,oct,dec,jan,mar,apr,
+##     :       :           :   :         sep}: yes (4)
+##     :       :           :   month in {nov,feb}: no (2)
+##     :       :           job = unemployed:
+##     :       :           :...contact = cellular: yes (1)
+##     :       :           :   contact in {unknown,telephone}: no (3)
+##     :       :           job = housemaid:
+##     :       :           :...campaign &lt;= 2: no (18/6)
+##     :       :           :   campaign &gt; 2: yes (4/1)
+##     :       :           job = admin.:
+##     :       :           :...age &gt; 65: no (5)
+##     :       :           :   age &lt;= 65:
+##     :       :           :   :...contact in {unknown,cellular}: yes (5)
+##     :       :           :       contact = telephone: no (1)
+##     :       :           job = management:
+##     :       :           :...month in {may,jun,nov,dec,jan,mar}: no (4/1)
+##     :       :           :   month in {oct,sep}: yes (6)
+##     :       :           :   month = jul:
+##     :       :           :   :...campaign &lt;= 1: no (3)
+##     :       :           :   :   campaign &gt; 1: yes (2)
+##     :       :           :   month = feb:
+##     :       :           :   :...contact in {unknown,cellular}: no (2)
+##     :       :           :   :   contact = telephone: yes (2)
+##     :       :           :   month = apr:
+##     :       :           :   :...balance &lt;= 633: yes (2)
+##     :       :           :   :   balance &gt; 633: no (2)
+##     :       :           :   month = aug:
+##     :       :           :   :...education in {secondary,unknown,
+##     :       :           :       :             primary}: no (5)
+##     :       :           :       education = tertiary:
+##     :       :           :       :...balance &lt;= 3485: yes (4)
+##     :       :           :           balance &gt; 3485: no (3)
+##     :       :           job = retired:
+##     :       :           :...duration &lt;= 205: no (135/41)
+##     :       :               duration &gt; 205:
+##     :       :               :...month in {may,nov,feb}: yes (37/15)
+##     :       :                   month in {jun,aug,dec}: no (44/16)
+##     :       :                   month = oct:
+##     :       :                   :...balance &lt;= 595: no (6)
+##     :       :                   :   balance &gt; 595: yes (11/4)
+##     :       :                   month = jan:
+##     :       :                   :...campaign &lt;= 1: no (2)
+##     :       :                   :   campaign &gt; 1: yes (4)
+##     :       :                   month = mar:
+##     :       :                   :...marital = married: yes (4/1)
+##     :       :                   :   marital in {single,divorced}: no (2)
+##     :       :                   month = apr:
+##     :       :                   :...housing = yes: no (2)
+##     :       :                   :   housing = no: yes (22/7)
+##     :       :                   month = sep:
+##     :       :                   :...age &lt;= 81: yes (18/3)
+##     :       :                   :   age &gt; 81: no (3)
+##     :       :                   month = jul:
+##     :       :                   :...duration &gt; 293: yes (8/2)
+##     :       :                       duration &lt;= 293:
+##     :       :                       :...marital in {married,
+##     :       :                           :           single}: no (3)
+##     :       :                           marital = divorced: yes (3/1)
+##     :       age &lt;= 60:
+##     :       :...month in {may,jun,jul,aug,nov,jan}:
+##     :           :...day &lt;= 4: no (1794/158)
+##     :           :   day &gt; 4:
+##     :           :   :...duration &lt;= 153: no (15001/76)
+##     :           :       duration &gt; 153:
+##     :           :       :...contact = unknown:
+##     :           :           :...month in {may,jun,jul,jan}: no (4842/11)
+##     :           :           :   month in {aug,nov}:
+##     :           :           :   :...day &lt;= 15: yes (8)
+##     :           :           :       day &gt; 15: no (15)
+##     :           :           contact in {cellular,telephone}:
+##     :           :           :...month in {may,jul,aug,nov,
+##     :           :               :         jan}: no (8541/406)
+##     :           :               month = jun:
+##     :           :               :...previous &gt; 5: yes (7)
+##     :           :                   previous &lt;= 5:
+##     :           :                   :...job in {management,retired,
+##     :           :                       :       housemaid}: yes (47/20)
+##     :           :                       job in {entrepreneur,unknown,
+##     :           :                       :       student}: no (15/5)
+##     :           :                       job = technician:
+##     :           :                       :...duration &lt;= 170: yes (5)
+##     :           :                       :   duration &gt; 170: no (19/5)
+##     :           :                       job = admin.:
+##     :           :                       :...balance &lt;= 739: no (9/1)
+##     :           :                       :   balance &gt; 739: yes (5)
+##     :           :                       job = services:
+##     :           :                       :...campaign &lt;= 1: no (10/2)
+##     :           :                       :   campaign &gt; 1: yes (6/1)
+##     :           :                       job = self-employed:
+##     :           :                       :...campaign &lt;= 2: yes (2)
+##     :           :                       :   campaign &gt; 2: no (2)
+##     :           :                       job = unemployed:
+##     :           :                       :...age &lt;= 51: yes (2)
+##     :           :                       :   age &gt; 51: no (2)
+##     :           :                       job = blue-collar:
+##     :           :                       :...age &gt; 41: no (2)
+##     :           :                           age &lt;= 41:
+##     :           :                           :...campaign &lt;= 2: yes (5)
+##     :           :                               campaign &gt; 2: no (3/1)
+##     :           month in {oct,dec,mar,sep}:
+##     :           :...duration &lt;= 111: no (294/31)
+##     :           :   duration &gt; 111:
+##     :           :   :...duration &lt;= 184:
+##     :           :       :...job in {entrepreneur,services}: yes (13)
+##     :           :       :   job in {management,technician,blue-collar,unknown,
+##     :           :       :   :       retired,admin.,self-employed,unemployed,
+##     :           :       :   :       housemaid,student}:
+##     :           :       :   :...campaign &gt; 2: no (49/6)
+##     :           :       :       campaign &lt;= 2:
+##     :           :       :       :...month in {dec,sep}: no (70/13)
+##     :           :       :           month in {oct,mar}:
+##     :           :       :           :...previous &gt; 5: no (10)
+##     :           :       :               previous &lt;= 5:
+##     :           :       :               :...campaign &gt; 1:
+##     :           :       :                   :...day &lt;= 3: yes (7/1)
+##     :           :       :                   :   day &gt; 3: no (49/12)
+##     :           :       :                   campaign &lt;= 1:
+##     :           :       :                   :...day &lt;= 20:
+##     :           :       :                       :...month = oct: no (37/8)
+##     :           :       :                       :   month = mar: yes (29/12)
+##     :           :       :                       day &gt; 20: [S1]
+##     :           :       duration &gt; 184:
+##     :           :       :...poutcome in {failure,other}:
+##     :           :           :...job in {technician,entrepreneur,unknown,admin.,
+##     :           :           :   :       self-employed,
+##     :           :           :   :       housemaid}: no (61/20)
+##     :           :           :   job in {blue-collar,retired}: yes (16/6)
+##     :           :           :   job = services:
+##     :           :           :   :...day &lt;= 12: no (4)
+##     :           :           :   :   day &gt; 12: yes (3)
+##     :           :           :   job = unemployed:
+##     :           :           :   :...month in {oct,dec,sep}: no (3)
+##     :           :           :   :   month = mar: yes (2)
+##     :           :           :   job = student:
+##     :           :           :   :...education in {tertiary,secondary,
+##     :           :           :   :   :             primary}: yes (11/2)
+##     :           :           :   :   education = unknown: no (5/1)
+##     :           :           :   job = management:
+##     :           :           :   :...month in {dec,mar}: no (19/6)
+##     :           :           :       month = oct:
+##     :           :           :       :...housing = yes: no (4)
+##     :           :           :       :   housing = no:
+##     :           :           :       :   :...duration &lt;= 355: yes (6)
+##     :           :           :       :       duration &gt; 355: no (2)
+##     :           :           :       month = sep:
+##     :           :           :       :...marital in {single,
+##     :           :           :           :           divorced}: yes (3)
+##     :           :           :           marital = married:
+##     :           :           :           :...duration &lt;= 273: no (7/1)
+##     :           :           :               duration &gt; 273: yes (5)
+##     :           :           poutcome = unknown:
+##     :           :           :...month = mar: yes (88/20)
+##     :           :               month in {oct,dec,sep}:
+##     :           :               :...housing = yes: yes (37/10)
+##     :           :                   housing = no:
+##     :           :                   :...education = secondary: yes (71/30)
+##     :           :                       education = primary: no (11/4)
+##     :           :                       education = unknown:
+##     :           :                       :...day &lt;= 5: no (3)
+##     :           :                       :   day &gt; 5: yes (11/2)
+##     :           :                       education = tertiary:
+##     :           :                       :...job in {entrepreneur,retired,
+##     :           :                           :       housemaid,
+##     :           :                           :       student}: no (7/3)
+##     :           :                           job in {blue-collar,unknown,
+##     :           :                           :       self-employed,
+##     :           :                           :       unemployed}: yes (6/1)
+##     :           :                           job = technician:
+##     :           :                           :...duration &lt;= 274: no (5)
+##     :           :                           :   duration &gt; 274: yes (4)
+##     :           :                           job = admin.: [S2]
+##     :           :                           job = services:
+##     :           :                           :...month in {oct,sep}: yes (3)
+##     :           :                           :   month = dec: no (1)
+##     :           :                           job = management: [S3]
+##     :           month in {feb,apr}:
+##     :           :...day &gt; 20:
+##     :               :...duration &lt;= 199: no (254/43)
+##     :               :   duration &gt; 199: yes (177/75)
+##     :               day &lt;= 20:
+##     :               :...housing = yes: no (2363/75)
+##     :                   housing = no:
+##     :                   :...day &lt;= 9:
+##     :                       :...month = feb: no (945/51)
+##     :                       :   month = apr:
+##     :                       :   :...loan = yes:
+##     :                       :       :...marital in {married,single}: yes (5)
+##     :                       :       :   marital = divorced: no (2)
+##     :                       :       loan = no:
+##     :                       :       :...poutcome = other: no (7)
+##     :                       :           poutcome = failure:
+##     :                       :           :...education in {tertiary,secondary,
+##     :                       :           :   :             primary}: no (14)
+##     :                       :           :   education = unknown: yes (3/1)
+##     :                       :           poutcome = unknown:
+##     :                       :           :...duration &lt;= 102: no (13)
+##     :                       :               duration &gt; 102:
+##     :                       :               :...balance &gt; 1729: yes (27/11)
+##     :                       :                   balance &lt;= 1729: [S4]
+##     :                       day &gt; 9:
+##     :                       :...duration &lt;= 103: no (62/7)
+##     :                           duration &gt; 103:
+##     :                           :...month = feb:
+##     :                               :...poutcome = other: yes (3)
+##     :                               :   poutcome = unknown:
+##     :                               :   :...age &lt;= 21: no (2)
+##     :                               :   :   age &gt; 21: yes (44/8)
+##     :                               :   poutcome = failure:
+##     :                               :   :...balance &lt;= 2691: no (6/1)
+##     :                               :       balance &gt; 2691: yes (4/1)
+##     :                               month = apr:
+##     :                               :...pdays &gt; 180: no (24)
+##     :                                   pdays &lt;= 180:
+##     :                                   :...contact = telephone: no (8/1)
+##     :                                       contact = unknown: yes (2)
+##     :                                       contact = cellular: [S5]
+##     duration &gt; 408:
+##     :...duration &gt; 647:
+##         :...duration &lt;= 827:
+##         :   :...contact in {unknown,telephone}:
+##         :   :   :...poutcome = unknown: no (456/129)
+##         :   :   :   poutcome = failure:
+##         :   :   :   :...campaign &lt;= 2: yes (7/1)
+##         :   :   :   :   campaign &gt; 2: no (3)
+##         :   :   :   poutcome = other:
+##         :   :   :   :...day &lt;= 6: no (3)
+##         :   :   :       day &gt; 6: yes (2)
+##         :   :   contact = cellular:
+##         :   :   :...month in {may,jun}: yes (188/78)
+##         :   :       month = dec:
+##         :   :       :...pdays &lt;= 186: yes (3)
+##         :   :       :   pdays &gt; 186: no (2)
+##         :   :       month = mar:
+##         :   :       :...day &lt;= 18: yes (3)
+##         :   :       :   day &gt; 18: no (3)
+##         :   :       month = sep:
+##         :   :       :...job in {management,student}: yes (8/1)
+##         :   :       :   job in {technician,entrepreneur,blue-collar,unknown,
+##         :   :       :           retired,admin.,services,self-employed,
+##         :   :       :           unemployed,housemaid}: no (8/1)
+##         :   :       month = oct:
+##         :   :       :...loan = yes: no (2)
+##         :   :       :   loan = no:
+##         :   :       :   :...balance &lt;= 4287: yes (13/2)
+##         :   :       :       balance &gt; 4287: no (3)
+##         :   :       month = aug:
+##         :   :       :...job in {management,entrepreneur,blue-collar,admin.,
+##         :   :       :   :       self-employed}: yes (73/29)
+##         :   :       :   job in {unknown,retired,housemaid,
+##         :   :       :   :       student}: no (14/2)
+##         :   :       :   job = services:
+##         :   :       :   :...age &lt;= 51: no (4/1)
+##         :   :       :   :   age &gt; 51: yes (2)
+##         :   :       :   job = unemployed:
+##         :   :       :   :...balance &lt;= 4684: yes (3/1)
+##         :   :       :   :   balance &gt; 4684: no (2)
+##         :   :       :   job = technician:
+##         :   :       :   :...day &gt; 19: no (16/3)
+##         :   :       :       day &lt;= 19:
+##         :   :       :       :...age &lt;= 34: no (5)
+##         :   :       :           age &gt; 34: yes (19/3)
+##         :   :       month = apr:
+##         :   :       :...default = yes: yes (4)
+##         :   :       :   default = no:
+##         :   :       :   :...day &lt;= 20: no (82/16)
+##         :   :       :       day &gt; 20:
+##         :   :       :       :...pdays &lt;= 247: yes (15/1)
+##         :   :       :           pdays &gt; 247: no (2)
+##         :   :       month = jul:
+##         :   :       :...housing = yes:
+##         :   :       :   :...job in {entrepreneur,student}: yes (8/1)
+##         :   :       :   :   job in {blue-collar,unknown,retired,admin.,
+##         :   :       :   :   :       services,unemployed,
+##         :   :       :   :   :       housemaid}: no (50/11)
+##         :   :       :   :   job = technician:
+##         :   :       :   :   :...duration &lt;= 782: yes (9/1)
+##         :   :       :   :   :   duration &gt; 782: no (5/1)
+##         :   :       :   :   job = self-employed:
+##         :   :       :   :   :...balance &lt;= 463: no (3)
+##         :   :       :   :   :   balance &gt; 463: yes (2)
+##         :   :       :   :   job = management:
+##         :   :       :   :   :...campaign &lt;= 3: no (21/4)
+##         :   :       :   :       campaign &gt; 3:
+##         :   :       :   :       :...day &lt;= 30: yes (5)
+##         :   :       :   :           day &gt; 30: no (2)
+##         :   :       :   housing = no:
+##         :   :       :   :...duration &gt; 800: yes (10)
+##         :   :       :       duration &lt;= 800:
+##         :   :       :       :...job in {management,unknown,
+##         :   :       :           :       self-employed}: no (11/2)
+##         :   :       :           job in {entrepreneur,retired,housemaid,
+##         :   :       :           :       student}: yes (10/2)
+##         :   :       :           job = technician:
+##         :   :       :           :...education in {tertiary,
+##         :   :       :           :   :             primary}: yes (3)
+##         :   :       :           :   education in {secondary,
+##         :   :       :           :                 unknown}: no (10/4)
+##         :   :       :           job = blue-collar:
+##         :   :       :           :...duration &lt;= 754: yes (20/8)
+##         :   :       :           :   duration &gt; 754: no (7)
+##         :   :       :           job = admin.:
+##         :   :       :           :...day &lt;= 10: yes (5)
+##         :   :       :           :   day &gt; 10: no (5/1)
+##         :   :       :           job = services:
+##         :   :       :           :...age &lt;= 32: no (4)
+##         :   :       :           :   age &gt; 32: yes (6/1)
+##         :   :       :           job = unemployed:
+##         :   :       :           :...campaign &lt;= 2: yes (2)
+##         :   :       :               campaign &gt; 2: no (3)
+##         :   :       month = nov:
+##         :   :       :...job in {technician,unknown,admin.,housemaid,
+##         :   :       :   :       student}: no (29/9)
+##         :   :       :   job = entrepreneur:
+##         :   :       :   :...duration &lt;= 675: yes (2)
+##         :   :       :   :   duration &gt; 675: no (2)
+##         :   :       :   job = retired:
+##         :   :       :   :...day &lt;= 14: no (2)
+##         :   :       :   :   day &gt; 14: yes (6/1)
+##         :   :       :   job = services:
+##         :   :       :   :...balance &lt;= 482: yes (3)
+##         :   :       :   :   balance &gt; 482: no (3)
+##         :   :       :   job = self-employed:
+##         :   :       :   :...education in {tertiary,unknown,primary}: no (3)
+##         :   :       :   :   education = secondary: yes (2)
+##         :   :       :   job = unemployed:
+##         :   :       :   :...marital in {married,divorced}: no (5/1)
+##         :   :       :   :   marital = single: yes (1)
+##         :   :       :   job = management:
+##         :   :       :   :...age &lt;= 43: yes (13/2)
+##         :   :       :   :   age &gt; 43:
+##         :   :       :   :   :...housing = yes: no (6)
+##         :   :       :   :       housing = no:
+##         :   :       :   :       :...marital = married: yes (2)
+##         :   :       :   :           marital in {single,divorced}: no (2)
+##         :   :       :   job = blue-collar:
+##         :   :       :   :...housing = no: no (6)
+##         :   :       :       housing = yes:
+##         :   :       :       :...campaign &gt; 1: no (12/1)
+##         :   :       :           campaign &lt;= 1:
+##         :   :       :           :...day &lt;= 18: no (2)
+##         :   :       :               day &gt; 18: yes (8/2)
+##         :   :       month = jan:
+##         :   :       :...poutcome = failure: no (2)
+##         :   :       :   poutcome = other: yes (2)
+##         :   :       :   poutcome = unknown:
+##         :   :       :   :...education = tertiary: no (9/1)
+##         :   :       :       education = unknown: yes (1)
+##         :   :       :       education = primary:
+##         :   :       :       :...duration &lt;= 690: no (2)
+##         :   :       :       :   duration &gt; 690: yes (2)
+##         :   :       :       education = secondary:
+##         :   :       :       :...balance &gt; 524: yes (4)
+##         :   :       :           balance &lt;= 524:
+##         :   :       :           :...day &lt;= 29: no (5)
+##         :   :       :               day &gt; 29: yes (3/1)
+##         :   :       month = feb:
+##         :   :       :...age &gt; 58: yes (7)
+##         :   :           age &lt;= 58:
+##         :   :           :...job in {entrepreneur,blue-collar,unknown,retired,
+##         :   :               :       services,housemaid}: no (17/4)
+##         :   :               job in {admin.,self-employed,
+##         :   :               :       student}: yes (10/2)
+##         :   :               job = technician:
+##         :   :               :...campaign &lt;= 1: yes (4)
+##         :   :               :   campaign &gt; 1: no (5/1)
+##         :   :               job = unemployed:
+##         :   :               :...pdays &lt;= 87: no (11/2)
+##         :   :               :   pdays &gt; 87: yes (2)
+##         :   :               job = management:
+##         :   :               :...day &lt;= 4: no (5)
+##         :   :                   day &gt; 4:
+##         :   :                   :...housing = yes: no (3/1)
+##         :   :                       housing = no: yes (3)
+##         :   duration &gt; 827:
+##         :   :...marital in {single,divorced}:
+##         :       :...contact = cellular: yes (513/174)
+##         :       :   contact = telephone:
+##         :       :   :...month in {may,aug,dec,sep}: no (5)
+##         :       :   :   month in {jun,oct,jan,mar,apr}: yes (8/1)
+##         :       :   :   month = jul:
+##         :       :   :   :...education in {tertiary,secondary,
+##         :       :   :   :   :             unknown}: yes (5/1)
+##         :       :   :   :   education = primary: no (2)
+##         :       :   :   month = nov:
+##         :       :   :   :...housing = yes: yes (2)
+##         :       :   :   :   housing = no: no (4)
+##         :       :   :   month = feb:
+##         :       :   :   :...housing = yes: no (2)
+##         :       :   :       housing = no:
+##         :       :   :       :...marital = single: yes (3)
+##         :       :   :           marital = divorced: no (1)
+##         :       :   contact = unknown:
+##         :       :   :...loan = yes:
+##         :       :       :...month in {aug,oct,nov,dec,jan,feb,mar,apr,
+##         :       :       :   :         sep}: no (0)
+##         :       :       :   month = jun: yes (4)
+##         :       :       :   month in {may,jul}:
+##         :       :       :   :...duration &lt;= 966: no (10)
+##         :       :       :       duration &gt; 966: yes (11/5)
+##         :       :       loan = no:
+##         :       :       :...marital = divorced: yes (52/15)
+##         :       :           marital = single:
+##         :       :           :...job in {management,entrepreneur,retired,admin.,
+##         :       :               :       self-employed,student}: yes (41/14)
+##         :       :               job = unknown: no (1)
+##         :       :               job = blue-collar:
+##         :       :               :...month in {may,jul,aug,oct,nov,dec,jan,feb,
+##         :       :               :   :         mar,apr,sep}: no (19/6)
+##         :       :               :   month = jun: yes (8/2)
+##         :       :               job = unemployed:
+##         :       :               :...campaign &lt;= 2: yes (2)
+##         :       :               :   campaign &gt; 2: no (3)
+##         :       :               job = housemaid:
+##         :       :               :...age &lt;= 42: no (2)
+##         :       :               :   age &gt; 42: yes (2)
+##         :       :               job = services:
+##         :       :               :...education in {tertiary,
+##         :       :               :   :             unknown}: no (1)
+##         :       :               :   education = primary: yes (3)
+##         :       :               :   education = secondary:
+##         :       :               :   :...age &lt;= 30: yes (4)
+##         :       :               :       age &gt; 30: no (8/1)
+##         :       :               job = technician:
+##         :       :               :...education in {tertiary,unknown,
+##         :       :                   :             primary}: yes (13/3)
+##         :       :                   education = secondary:
+##         :       :                   :...housing = no: no (2)
+##         :       :                       housing = yes:
+##         :       :                       :...day &lt;= 14: no (7/1)
+##         :       :                           day &gt; 14: yes (6)
+##         :       marital = married:
+##         :       :...contact = unknown:
+##         :           :...month in {may,jul,aug,oct,nov,dec,jan,feb,mar,apr,
+##         :           :   :         sep}: no (171/65)
+##         :           :   month = jun:
+##         :           :   :...loan = no:
+##         :           :       :...job in {technician,unknown,self-employed,
+##         :           :       :   :       student}: no (12/4)
+##         :           :       :   job in {entrepreneur,retired,
+##         :           :       :   :       unemployed}: yes (19/6)
+##         :           :       :   job = management:
+##         :           :       :   :...duration &lt;= 1792: no (8/1)
+##         :           :       :   :   duration &gt; 1792: yes (3)
+##         :           :       :   job = blue-collar:
+##         :           :       :   :...balance &lt;= 772: no (12/3)
+##         :           :       :   :   balance &gt; 772: yes (6)
+##         :           :       :   job = admin.:
+##         :           :       :   :...day &lt;= 8: no (6/1)
+##         :           :       :   :   day &gt; 8: yes (5)
+##         :           :       :   job = services:
+##         :           :       :   :...balance &lt;= 726: no (6/1)
+##         :           :       :   :   balance &gt; 726: yes (3/1)
+##         :           :       :   job = housemaid:
+##         :           :       :   :...duration &lt;= 1102: yes (2)
+##         :           :       :       duration &gt; 1102: no (4)
+##         :           :       loan = yes:
+##         :           :       :...campaign &lt;= 5: yes (12)
+##         :           :           campaign &gt; 5:
+##         :           :           :...education = tertiary: yes (2)
+##         :           :               education in {secondary,unknown,
+##         :           :                             primary}: no (3)
+##         :           contact in {cellular,telephone}:
+##         :           :...default = yes: no (6/1)
+##         :               default = no:
+##         :               :...month in {aug,mar,sep}: yes (140/52)
+##         :                   month in {oct,jan}: no (38/12)
+##         :                   month = jun:
+##         :                   :...education = tertiary: no (3)
+##         :                   :   education in {secondary,unknown,
+##         :                   :                 primary}: yes (7)
+##         :                   month = dec:
+##         :                   :...duration &lt;= 942: yes (3)
+##         :                   :   duration &gt; 942: no (2)
+##         :                   month = feb:
+##         :                   :...balance &lt;= 907: no (25/9)
+##         :                   :   balance &gt; 907: yes (16/5)
+##         :                   month = nov:
+##         :                   :...job in {blue-collar,unknown,unemployed,
+##         :                   :   :       student}: yes (24/9)
+##         :                   :   job in {services,self-employed,
+##         :                   :   :       housemaid}: no (18/5)
+##         :                   :   job = entrepreneur:
+##         :                   :   :...poutcome in {unknown,failure}: yes (5)
+##         :                   :   :   poutcome = other: no (2)
+##         :                   :   job = retired:
+##         :                   :   :...balance &lt;= 4247: no (2)
+##         :                   :   :   balance &gt; 4247: yes (2)
+##         :                   :   job = admin.:
+##         :                   :   :...age &lt;= 40: yes (5)
+##         :                   :   :   age &gt; 40: no (2)
+##         :                   :   job = management:
+##         :                   :   :...education in {secondary,unknown,
+##         :                   :   :   :             primary}: yes (7)
+##         :                   :   :   education = tertiary:
+##         :                   :   :   :...loan = no: no (17/6)
+##         :                   :   :       loan = yes: yes (2)
+##         :                   :   job = technician:
+##         :                   :   :...campaign &gt; 1: yes (9/2)
+##         :                   :       campaign &lt;= 1:
+##         :                   :       :...duration &lt;= 935: yes (2)
+##         :                   :           duration &gt; 935: no (8)
+##         :                   month = may:
+##         :                   :...contact = telephone: no (9/2)
+##         :                   :   contact = cellular:
+##         :                   :   :...poutcome = other: yes (8/1)
+##         :                   :       poutcome = unknown:
+##         :                   :       :...loan = no: yes (42/13)
+##         :                   :       :   loan = yes: no (9/4)
+##         :                   :       poutcome = failure:
+##         :                   :       :...housing = no: yes (2)
+##         :                   :           housing = yes:
+##         :                   :           :...duration &lt;= 1100: yes (6/1)
+##         :                   :               duration &gt; 1100: no (9/1)
+##         :                   month = jul:
+##         :                   :...job in {technician,blue-collar,unknown,admin.,
+##         :                   :   :       services,unemployed,housemaid,
+##         :                   :   :       student}: yes (119/42)
+##         :                   :   job = self-employed: no (7/1)
+##         :                   :   job = entrepreneur:
+##         :                   :   :...age &lt;= 37: no (4/1)
+##         :                   :   :   age &gt; 37: yes (5)
+##         :                   :   job = retired:
+##         :                   :   :...housing = yes: no (3)
+##         :                   :   :   housing = no: yes (8)
+##         :                   :   job = management:
+##         :                   :   :...contact = telephone: no (4)
+##         :                   :       contact = cellular:
+##         :                   :       :...education in {secondary,unknown,
+##         :                   :           :             primary}: no (5/1)
+##         :                   :           education = tertiary:
+##         :                   :           :...balance &lt;= 885: yes (11/2)
+##         :                   :               balance &gt; 885: no (12/2)
+##         :                   month = apr:
+##         :                   :...housing = no:
+##         :                       :...contact = cellular: yes (9)
+##         :                       :   contact = telephone:
+##         :                       :   :...day &lt;= 19: no (2)
+##         :                       :       day &gt; 19: yes (2)
+##         :                       housing = yes:
+##         :                       :...job in {management,entrepreneur,unknown,
+##         :                           :       self-employed,housemaid,
+##         :                           :       student}: yes (13/4)
+##         :                           job in {retired,unemployed}: no (4/2)
+##         :                           job = technician:
+##         :                           :...balance &lt;= -32: no (4)
+##         :                           :   balance &gt; -32: yes (10/2)
+##         :                           job = admin.:
+##         :                           :...age &lt;= 33: yes (2)
+##         :                           :   age &gt; 33: no (2)
+##         :                           job = services:
+##         :                           :...day &lt;= 16: yes (5/1)
+##         :                           :   day &gt; 16: no (3)
+##         :                           job = blue-collar:
+##         :                           :...poutcome = failure: no (8/2)
+##         :                               poutcome = other: yes (1)
+##         :                               poutcome = unknown:
+##         :                               :...loan = yes: yes (3)
+##         :                                   loan = no: [S6]
+##         duration &lt;= 647:
+##         :...month in {oct,dec,mar,sep}: yes (168/59)
+##             month in {may,jun,jul,aug,nov,jan,feb,apr}:
+##             :...pdays &gt; 370: yes (26/5)
+##                 pdays &lt;= 370:
+##                 :...age &gt; 60:
+##                     :...month = may: no (7/3)
+##                     :   month = apr: yes (14/4)
+##                     :   month = jun:
+##                     :   :...education in {tertiary,unknown,
+##                     :   :   :             primary}: no (1)
+##                     :   :   education = secondary: yes (3/1)
+##                     :   month = jul:
+##                     :   :...age &lt;= 65: no (5)
+##                     :   :   age &gt; 65: yes (5/1)
+##                     :   month = nov:
+##                     :   :...marital in {married,single}: no (9/2)
+##                     :   :   marital = divorced: yes (2)
+##                     :   month = jan:
+##                     :   :...pdays &lt;= 91: yes (4)
+##                     :   :   pdays &gt; 91: no (2)
+##                     :   month = aug:
+##                     :   :...job in {management,entrepreneur,blue-collar,
+##                     :   :   :       unemployed}: no (4)
+##                     :   :   job in {technician,unknown,admin.,services,
+##                     :   :   :       self-employed,housemaid,
+##                     :   :   :       student}: yes (1)
+##                     :   :   job = retired:
+##                     :   :   :...contact in {unknown,cellular}: yes (14/3)
+##                     :   :       contact = telephone: no (4/1)
+##                     :   month = feb:
+##                     :   :...job = management: no (3)
+##                     :       job in {technician,entrepreneur,blue-collar,
+##                     :       :       unknown,admin.,services,self-employed,
+##                     :       :       unemployed,housemaid,
+##                     :       :       student}: yes (2)
+##                     :       job = retired:
+##                     :       :...campaign &gt; 1: no (5/1)
+##                     :           campaign &lt;= 1:
+##                     :           :...balance &lt;= 13501: yes (7)
+##                     :               balance &gt; 13501: no (2)
+##                     age &lt;= 60:
+##                     :...contact = unknown:
+##                         :...poutcome = failure: no (2)
+##                         :   poutcome = other: yes (1)
+##                         :   poutcome = unknown:
+##                         :   :...default = no:
+##                         :       :...month in {may,jun,jul,nov,jan,
+##                         :       :   :         feb}: no (1159/102)
+##                         :       :   month in {aug,apr}: yes (3)
+##                         :       default = yes:
+##                         :       :...marital in {married,divorced}: no (21/1)
+##                         :           marital = single: yes (8/2)
+##                         contact in {cellular,telephone}:
+##                         :...month = jun: yes (63/19)
+##                             month in {may,jul,aug,nov,jan,feb,apr}:
+##                             :...age &lt;= 25:
+##                                 :...job in {technician,entrepreneur,unknown,
+##                                 :   :       retired,admin.,services,
+##                                 :   :       self-employed,unemployed,
+##                                 :   :       housemaid}: no (31/8)
+##                                 :   job = student: yes (20/5)
+##                                 :   job = management:
+##                                 :   :...day &lt;= 13: no (4)
+##                                 :   :   day &gt; 13: yes (6)
+##                                 :   job = blue-collar:
+##                                 :   :...age &lt;= 21: yes (3)
+##                                 :       age &gt; 21: no (23/5)
+##                                 age &gt; 25:
+##                                 :...duration &lt;= 524:
+##                                     :...housing = yes: no (781/96)
+##                                     :   housing = no:
+##                                     :   :...month in {may,apr}:
+##                                     :       :...day &gt; 15: yes (57/20)
+##                                     :       :   day &lt;= 15: [S7]
+##                                     :       month in {jul,aug,nov,jan,feb}: [S8]
+##                                     duration &gt; 524:
+##                                     :...month in {jul,nov,jan,feb,apr}:
+##                                         :...housing = yes: no (380/71)
+##                                         :   housing = no:
+##                                         :   :...month in {jul,nov,jan,
+##                                         :       :         feb}: no (283/70)
+##                                         :       month = apr: yes (30/10)
+##                                         month in {may,aug}:
+##                                         :...duration &gt; 605: [S9]
+##                                             duration &lt;= 605: [S10]
+## 
+## SubTree [S1]
+## 
+## poutcome in {unknown,failure}: yes (34/7)
+## poutcome = other: no (5/1)
+## 
+## SubTree [S2]
+## 
+## marital = married: yes (1)
+## marital in {single,divorced}: no (3)
+## 
+## SubTree [S3]
+## 
+## contact in {unknown,telephone}: yes (5/1)
+## contact = cellular:
+## :...month in {oct,sep}: no (28/7)
+##     month = dec:
+##     :...campaign &lt;= 1: no (2)
+##         campaign &gt; 1: yes (5)
+## 
+## SubTree [S4]
+## 
+## education = unknown: yes (2)
+## education = primary: no (5/1)
+## education = tertiary:
+## :...campaign &gt; 4: no (3)
+## :   campaign &lt;= 4:
+## :   :...balance &lt;= 477: yes (6)
+## :       balance &gt; 477: no (3)
+## education = secondary:
+## :...day &gt; 5: no (10)
+##     day &lt;= 5:
+##     :...balance &lt;= 211: no (3)
+##         balance &gt; 211: yes (3)
+## 
+## SubTree [S5]
+## 
+## job in {entrepreneur,blue-collar,unknown,retired,admin.,
+## :       self-employed}: no (35/9)
+## job = housemaid: yes (4/1)
+## job = management:
+## :...balance &lt;= 44: no (5)
+## :   balance &gt; 44: yes (21/5)
+## job = services:
+## :...marital = married: no (2)
+## :   marital in {single,divorced}: yes (3)
+## job = unemployed:
+## :...day &lt;= 14: yes (3)
+## :   day &gt; 14: no (4/1)
+## job = student:
+## :...education in {tertiary,unknown,primary}: no (3)
+## :   education = secondary: yes (4/1)
+## job = technician:
+## :...loan = yes: yes (2)
+##     loan = no:
+##     :...marital = married: no (10/4)
+##         marital = divorced: yes (1)
+##         marital = single:
+##         :...duration &lt;= 218: yes (6/1)
+##             duration &gt; 218: no (2)
+## 
+## SubTree [S6]
+## 
+## education in {tertiary,unknown}: no (2/1)
+## education = primary:
+## :...age &lt;= 37: yes (2)
+## :   age &gt; 37: no (3)
+## education = secondary:
+## :...age &gt; 44: yes (2)
+##     age &lt;= 44:
+##     :...duration &lt;= 1032: yes (3/1)
+##         duration &gt; 1032: no (6)
+## 
+## SubTree [S7]
+## 
+## contact = cellular: no (36/8)
+## contact = telephone: yes (2)
+## 
+## SubTree [S8]
+## 
+## poutcome in {unknown,failure}: no (612/110)
+## poutcome = other:
+## :...duration &gt; 468: no (10)
+##     duration &lt;= 468:
+##     :...loan = no: yes (12/2)
+##         loan = yes:
+##         :...education = tertiary: yes (1)
+##             education in {secondary,unknown,primary}: no (3)
+## 
+## SubTree [S9]
+## 
+## marital in {married,single}: yes (107/40)
+## marital = divorced: no (12/3)
+## 
+## SubTree [S10]
+## 
+## poutcome in {failure,other}: no (55/15)
+## poutcome = unknown:
+## :...campaign &gt; 1:
+##     :...default = no: no (136/37)
+##     :   default = yes: yes (2)
+##     campaign &lt;= 1:
+##     :...day &gt; 11: yes (24/6)
+##         day &lt;= 11:
+##         :...marital = divorced: no (3)
+##             marital = married:
+##             :...housing = yes: no (11/1)
+##             :   housing = no: yes (3/1)
+##             marital = single:
+##             :...duration &lt;= 576: yes (6)
+##                 duration &gt; 576: no (3)
+## 
+## 
+## Evaluation on training data (45211 cases):
+## 
+##      Decision Tree   
+##    ----------------  
+##    Size      Errors  
+## 
+##     458 3199( 7.1%)   &lt;&lt;
+## 
+## 
+##     (a)   (b)    &lt;-classified as
+##    ----  ----
+##   38736  1186    (a): class no
+##    2013  3276    (b): class yes
+## 
+## 
+##  Attribute usage:
+## 
+##  100.00% duration
+##  100.00% poutcome
+##   93.80% month
+##   89.70% pdays
+##   89.46% age
+##   77.71% day
+##   45.92% contact
+##   16.99% housing
+##    6.20% job
+##    4.70% default
+##    4.58% marital
+##    1.54% campaign
+##    1.23% loan
+##    1.09% education
+##    0.87% previous
+##    0.70% balance
+## 
+## 
+## Time: 0.5 secs</code></pre>
+<pre><code>## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  4521 
+## 
+##  
+##                | predicted default 
+## actual default |        no |       yes | Row Total | 
+## ---------------|-----------|-----------|-----------|
+##             no |      3896 |       104 |      4000 | 
+##                |     0.862 |     0.023 |           | 
+## ---------------|-----------|-----------|-----------|
+##            yes |       181 |       340 |       521 | 
+##                |     0.040 |     0.075 |           | 
+## ---------------|-----------|-----------|-----------|
+##   Column Total |      4077 |       444 |      4521 | 
+## ---------------|-----------|-----------|-----------|
+## 
+## </code></pre>
+</div>
+<div id="results-of-train-model" class="section level2">
+<h2>Results of train model</h2>
+<div id="evaluation-on-training-data-45211-cases" class="section level3">
+<h3>Evaluation on training data (45211 cases):</h3>
+<p>The Errors output notes that the model correctly classified all but 3199 of the 45211 training instances for an error rate of 7.1%. A total of 1186 actual no values were incorrectly classified as no (false positives), while 2013 yes values were wrongly classified as no (false negatives).</p>
+<p>Out of the 12433 test y application records, our model correctly predicted 3896 and 340 correctly, resulting in an accuracy of 93.69% and an error rate of 6.31%. This is a good performance for this kind of model although it´s necessary do more analysis and comparing with other classification models.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>The results show that the model are fitted to evaluate train data considering that errors is so low (7.1%) and the accuracy in the test set is 93.69%.</p>
+</div>
