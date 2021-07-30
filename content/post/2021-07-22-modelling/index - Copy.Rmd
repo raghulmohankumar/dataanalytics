@@ -1,0 +1,74 @@
+---
+title: Modelling
+author: Raghul, Nouran and Mona
+date: '2021-07-22'
+slug: modelling
+categories:
+  - ggplot2
+  - models
+  - Tidyverse
+tags: []
+---
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+## Load Packages
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(dplyr)
+library(car)
+library(ggplot2)
+library(pROC)
+library(caret)
+library(caTools)
+library(e1071)
+library(kernlab)
+```
+
+## Import Datasets : Bank data
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+gc()
+credit <- read.csv("credit_bureau.csv", sep = ',', header = FALSE) 
+demogs <- read.csv("demogs.csv", sep = ',', header = FALSE)
+demogs = demogs[-1,]
+intrain <- createDataPartition(y = demogs$V12, p= 0.2, list = FALSE)
+training <- demogs[intrain,]
+testing <- demogs[-intrain,]
+dim(training) 
+dim(testing)
+anyNA(demogs)
+summary(demogs)
+training[["V12"]] = factor(training[["V12"]])
+trctrl <- trainControl(method = "repeatedcv", number = 2, repeats = 3)
+svm_Linear <- train(V12 ~ V5 + V6 + V10 + V11, data=training[,!colnames(training) %in% c("y")], method = "svmLinear",
+trControl=trctrl,
+preProcess = c("center", "scale"),
+tuneLength = 10)
+svm_Linear
+```
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+#testing_new <- testing[ -c(1,4,7:9) ]
+#test_pred <- predict(svm_Linear, newdata = testing)
+#confusionMatrix(table(test_pred, testing$V12))
+
+grid <- expand.grid(C = c(0,0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2,5))
+svm_Linear_Grid <- train(V12 ~ V2 + V3 + V5 + V6 + V10 + V11, data=training[,!colnames(training) %in% c("y")], method = "svmLinear",
+trControl=trctrl,
+preProcess = c("center", "scale"),
+tuneGrid = grid,
+tuneLength = 10)
+svm_Linear_Grid
+plot(svm_Linear_Grid)
+```
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+x.1 <- seq(from = min(testing$V2), to = max(testing$V2), length = 100)
+x.2 <- seq(from = min(testing$V11), to = max(testing$V11), length = 100)
+x.grid <- expand.grid(x.2, x.1)
+test_pred <- predict(svm_Linear, newdata = testing)
+```

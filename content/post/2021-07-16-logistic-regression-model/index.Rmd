@@ -1,13 +1,13 @@
 ---
-title: Logistic Regression Model
-author: Raghul Mohankumar
+title: "Logistic Regression Model"
+author: "Raghul Mohankumar"
 date: '2021-07-16'
 slug: logistic-regression-model
 categories:
-  - ggplot2
-  - caret
-  - models
-  - Tidyverse
+- ggplot2
+- caret
+- models
+- Tidyverse
 tags: []
 ---
 
@@ -105,6 +105,7 @@ library(dplyr)
 library(car)
 library(ggplot2)
 library(pROC)
+library(caret)
 ```
 
 ## Import Datasets : Bank data
@@ -283,17 +284,10 @@ test_25=train[-s,]
 
 ## Step 3: Model Building
 
-We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. In this model, we can observe the following parameters, 
+We will use train for logistic regression model building and use train to test the performance of the model thus built. Lets build logistic regression model on train dataset. 
 
-i)   Residual standard error: 0.2695 on 45179 degrees of freedom
-ii)  Multiple R-squared:  0.2976
-iii) Adjusted R-squared:  0.2971 
-iv)  F-statistic: 617.5 on 31 and 45179 DF,  
-v)   p-value: < 2.2e-16
-
-```{r warning=FALSE,echo=FALSE,message=FALSE}
+```{r warning=FALSE,echo=FALSE,message=FALSE,results='hide'}
 for_vif=lm(y~.,data=train)
-summary(for_vif)
 ```
 
 ### Fine tuning for multi-collinearity
@@ -426,8 +420,13 @@ P=bt[1]
 N=bt[2]
 # Accuracy=(TP+TN)/(P+N):
 a= (TP+TN)/(P+N)
-cat("The Accuracy of the model is ",a,"\n")
-cat("The Error of the model is ",1-a, "(according to ks method)")
+
+# Sensitivity, Specificity and Accuracy values
+
+cat("The sensitivity of the classification model is ", sensitivity(n1)*100, "%","\n","\n")
+cat("The specificity of the classification model is ", specificity(n1)*100, "%","\n","\n")
+cat("The Accuracy of the model is ",a,"\n","\n")
+cat("The Error of the model is ",1-a, "(according to ks method)","\n")
 
 # Plotting the ROC curve
 roccurve=roc(test_25$y,test_25$score) 
