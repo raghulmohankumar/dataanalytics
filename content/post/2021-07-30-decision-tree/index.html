@@ -61,6 +61,9 @@ Number of Attributes: 16 + output attribute</p>
 </div>
 <div id="import-datasets-bank-data" class="section level2">
 <h2>Import Datasets : Bank data</h2>
+</div>
+<div id="dataset-analysis" class="section level2">
+<h2>Dataset Analysis</h2>
 <pre><code>## [1] 45211    17</code></pre>
 <pre><code>##       age            job              marital           education        
 ##  Min.   :18.00   Length:45211       Length:45211       Length:45211      
@@ -97,6 +100,53 @@ Number of Attributes: 16 + output attribute</p>
 ##                    
 ##                    
 ## </code></pre>
+<pre><code>## Rows: 45,211
+## Columns: 17
+## $ age       &lt;int&gt; 58, 44, 33, 47, 33, 35, 28, 42, 58, 43, 41, 29, 53, 58, 57, ~
+## $ job       &lt;chr&gt; &quot;management&quot;, &quot;technician&quot;, &quot;entrepreneur&quot;, &quot;blue-collar&quot;, &quot;~
+## $ marital   &lt;chr&gt; &quot;married&quot;, &quot;single&quot;, &quot;married&quot;, &quot;married&quot;, &quot;single&quot;, &quot;marrie~
+## $ education &lt;chr&gt; &quot;tertiary&quot;, &quot;secondary&quot;, &quot;secondary&quot;, &quot;unknown&quot;, &quot;unknown&quot;, ~
+## $ default   &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;,~
+## $ balance   &lt;int&gt; 2143, 29, 2, 1506, 1, 231, 447, 2, 121, 593, 270, 390, 6, 71~
+## $ housing   &lt;chr&gt; &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;~
+## $ loan      &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;~
+## $ contact   &lt;chr&gt; &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unkn~
+## $ day       &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, ~
+## $ month     &lt;chr&gt; &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may&quot;, &quot;may~
+## $ duration  &lt;int&gt; 261, 151, 76, 92, 198, 139, 217, 380, 50, 55, 222, 137, 517,~
+## $ campaign  &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+## $ pdays     &lt;int&gt; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, ~
+## $ previous  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ poutcome  &lt;chr&gt; &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;unkn~
+## $ y         &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, ~</code></pre>
+<pre><code>## Statistics within and between groups  
+## Call: statsBy(data = train, group = c(&quot;education&quot;, &quot;age&quot;))
+## Intraclass Correlation 1 (Percentage of variance due to groups) 
+##       age       job   marital education   default   balance   housing      loan 
+##      1.00      0.05      0.21      1.00      0.00      0.04      0.08      0.01 
+##   contact       day     month  duration  campaign     pdays  previous  poutcome 
+##      0.03      0.00      0.02      0.00      0.00      0.00      0.00      0.01 
+##         y 
+##      0.04 
+## Intraclass Correlation 2 (Reliability of group differences) 
+##       age       job   marital education   default   balance   housing      loan 
+##      1.00      0.90      0.98      1.00     -0.32      0.87      0.93      0.61 
+##   contact       day     month  duration  campaign     pdays  previous  poutcome 
+##      0.85      0.30      0.73      0.39      0.40      0.36      0.40      0.48 
+##         y 
+##      0.88 
+## eta^2 between groups  
+##      job.bg  marital.bg  default.bg  balance.bg  housing.bg     loan.bg 
+##        0.06        0.21        0.00        0.05        0.08        0.02 
+##  contact.bg      day.bg    month.bg duration.bg campaign.bg    pdays.bg 
+##        0.04        0.01        0.02        0.01        0.01        0.01 
+## previous.bg poutcome.bg        y.bg 
+##        0.01        0.01        0.05 
+## 
+## To see the correlations between and within groups, use the short=FALSE option in your print statement.
+## Many results are not shown directly. To see specific objects select from the following list:
+##  mean sd n F ICC1 ICC2 ci1 ci2 raw rbg ci.bg pbg rwg nw ci.wg pwg etabg etawg nwg nG Call</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre><code>## 
 ##        no       yes 
 ## 0.8830152 0.1169848</code></pre>
@@ -120,7 +170,7 @@ Number of Attributes: 16 + output attribute</p>
 ## C5.0.default(x = train[-17], y = train$y)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Fri Jul 30 15:19:54 2021
+## C5.0 [Release 2.07 GPL Edition]      Fri Jul 30 20:45:41 2021
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome&#39;
@@ -1034,7 +1084,7 @@ Number of Attributes: 16 + output attribute</p>
 ##    0.70% balance
 ## 
 ## 
-## Time: 0.5 secs</code></pre>
+## Time: 0.6 secs</code></pre>
 <pre><code>## 
 ##  
 ##    Cell Contents

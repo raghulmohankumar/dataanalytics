@@ -93,6 +93,8 @@ library(C50)
 library(crosstable)
 library(gmodels)
 library(xtable)
+library(Hmisc)
+library(psych)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -102,11 +104,17 @@ test=read.csv("bank.csv",sep = ";" )
 train=read.csv("bank-full.csv", sep = ";") 
 ```
 
-
+## Dataset Analysis
 ```{r  warning=FALSE,echo=FALSE,message=FALSE}
 dim(train)
 summary(train)
+glimpse(train)
+#describe(train)
+statsBy(train,c("education","age"))
+#stat.desc(train)
+hist.data.frame(train)
 prop.table(table(train$y))
+
 ```
 
 ## Building Decision Tree
