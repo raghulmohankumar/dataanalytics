@@ -617,8 +617,8 @@ no_of_times_90_dpd_or_worse_in_last_6_months: 0.08</p>
 <h2>Splitting the data to training and testing splits</h2>
 <p>In this step we are going to split the data, so that 3/4 of the data would be assigned for training and the remaining 1/4 of the data would be assigned for testing.</p>
 </div>
-<div id="information-vlaue-of-the-predictors" class="section level2">
-<h2>Information Vlaue of the predictors</h2>
+<div id="information-value-of-the-predictors" class="section level2">
+<h2>Information Value of the predictors</h2>
 <p>Information value is used to select important predictors in the predictive model, So for the first model that used only the Demographic data we can see that the predictors with high information value (greater than 0.02) are no_of_months_in_current_residence,income, age, no_of_months_in_current_company, and for the second model the predictors with the high information value are all the predictors except application_id,gender_profession, marital_status_at_the_time_of_application, education, presence_of_open_auto_loan, type_of_residence and no_of_dependents.</p>
 <p>Based on the table shown below, any predictors whose information value is less than 0.02 is considered not useful and accordingly will be discarded and not used in our predictive models.</p>
 <p><img src="table.png" width="98%" /></p>
@@ -631,8 +631,8 @@ no_of_times_90_dpd_or_worse_in_last_6_months: 0.08</p>
 <h2>Creating bins for each predictor</h2>
 <p>In this part we will create number of bins for each predictor in the twos models.The bins for each predictor is created based on similarity of dependent variable distribution.</p>
 </div>
-<div id="weight-of-evidence-tranformation" class="section level2">
-<h2>Weight of evidence tranformation</h2>
+<div id="weight-of-evidence-transformation" class="section level2">
+<h2>Weight of evidence transformation</h2>
 <p>In this part we are going to calculate the weight of evidence (WOE) of the continuous predictors that helps to transform a continuous independent variable into a set of bins. Woe tells the predictive power of an independent variable in relation to the dependent variable.</p>
 <pre><code>## [INFO] converting into woe values ...</code></pre>
 <pre><code>## [INFO] converting into woe values ...</code></pre>

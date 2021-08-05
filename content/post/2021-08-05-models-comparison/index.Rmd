@@ -357,7 +357,7 @@ testing_data_both <- data_split_both%>%
   testing()
 ```
 
-## Information Vlaue of the predictors
+## Information Value of the predictors
 
 Information value is used to select important predictors in the predictive model, So for the first model that used only the Demographic data we can see that the predictors with high information value (greater than 0.02) are no_of_months_in_current_residence,income, age, no_of_months_in_current_company, and for the second model the predictors with the high information value are all the predictors except application_id,gender_profession, marital_status_at_the_time_of_application, education, presence_of_open_auto_loan, type_of_residence and no_of_dependents.
 
@@ -416,7 +416,7 @@ bins_d <- woebin(dt = reduced_training_data_d,y = "performance_tag")
 bins_both <- woebin(dt = reduced_training_data_both,y = "performance_tag")
 ```
 
-## Weight of evidence tranformation
+## Weight of evidence transformation
 
 In this part we are going to calculate the weight of evidence (WOE) of the continuous predictors that helps to transform a continuous independent variable into a set of bins. Woe tells the predictive power of an independent variable in relation to the dependent variable.
 
