@@ -1,8 +1,8 @@
 ---
-title: Machine Learning Models
+title: Machine Learning Modelling
 author: Nouran, Raghul and Mona
 date: '2021-08-05'
-slug: machine-learning-models
+slug: machine-learning-modelling
 categories: []
 tags: []
 ---
@@ -855,27 +855,38 @@ varImpPlot(classifier_RF)
 
 
 ## Random forest for both Demographics and Credit Bureau dataset
+
 ```{r,warning=FALSE , message=FALSE,echo=FALSE}
 
+knitr::include_graphics("RF_2.png")
+
+```
+
+```{r eval=FALSE, , message=FALSE, include=FALSE}
+
 set.seed(120) # Setting seed
-classifier_RF = randomForest(x = train_data_balanced_over, y = train_data_balanced_over$performance_tag, ntree = 25)
-classifier_RF
+classifier_RF1 = randomForest(x = train_data_balanced_over_both, y = train_data_balanced_over_both$performance_tag, ntree = 25)
+classifier_RF1
 # Predicting the Test set results
-y_pred = predict(classifier_RF, newdata = woe_demogs_testing_data)
+y_pred1 = predict(classifier_RF1, newdata = woe_both_testing_data)
   
 # Confusion Matrix
-confusion_mtx = table(woe_demogs_testing_data$performance_tag, y_pred)
-confusion_mtx
+confusion_mtx_1 = table(woe_both_testing_data$performance_tag, y_pred1)
+confusion_mtx_1
   
 # Plotting model
-plot(classifier_RF)
+plot(classifier_RF_1)
   
 # Importance plot
-randomForest::importance(classifier_RF)
+importance(classifier_RF_1)
   
 # Variable importance plot
-varImpPlot(classifier_RF)
+varImpPlot(classifier_RF_1)
 ```
+
+## Financial Benefit
+
+Among the three discussed models, namely Linear Regression Model, Support Vector Machine Model and Random Forest Model, the best model is selected based on the accuracy. Therefore, the Random Forest model is selected as the best due to its accuracy of 100 %. Furthermore, the financial benefit is calculated based on the predicted defaulters from the dataset using the defined model. This model finds around 748 defaulters from the dataset. For instance, if a defaulter can cause a loss of around $1000, then the total loss sums upto $748,000. So, this model saved the amount of $748,000 which is generally considered as huge financial benefit.
 
 
 
