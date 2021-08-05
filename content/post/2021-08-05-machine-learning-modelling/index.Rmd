@@ -859,7 +859,8 @@ varImpPlot(classifier_RF)
 ```{r,warning=FALSE , message=FALSE,echo=FALSE}
 
 knitr::include_graphics("RF_2.png")
-
+knitr::include_graphics("unnamed-chunk-27-1.png")
+knitr::include_graphics("unnamed-chunk-27-2.png")
 ```
 
 ```{r eval=FALSE, , message=FALSE, include=FALSE}
