@@ -751,6 +751,8 @@ conf_matrix_1<-table(prediction1,actual_values_1)
 conf_matrix_2<-table(prediction2,actual_values_2)
 conf_matrix_3<-table(prediction2,actual_values_2)
 conf_matrix_4<-table(prediction4,actual_values_4)
+conf_matrix_1
+conf_matrix_3
 cat("The sensitivity of SVM model with test dataset of demographic data is ",
 sensitivity(conf_matrix_1),"\n")
 cat("The sensitivity of SVM model with train dataset of demographic data is",
