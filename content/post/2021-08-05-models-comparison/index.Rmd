@@ -182,7 +182,7 @@ ggplot(demogs_data, aes(x=no_of_months_in_current_company)) + geom_boxplot() + g
 
 cat("Bivariate analysis of demogs data")
 cat("According to the results of correlation, there is no significant correlation between performance tag and other variables of the demogs data. The only positive correlation relates to no of months in current residence, 0.02. The negative correlations relates to income and no of months in current company which are, -0.04 and -0.02, respectively. Negative correlation is a relationship between two variables in which one variable increases as the other decreases, and vice versa.")
-data(demogs_data)
+#data(demogs_data)
 cat("The Correlation between Number of dependents and performance Tag is",cor(demogs_data$no_of_dependents,demogs_data$performance_tag, use="complete.obs"),"\n")
 cat("The Correlation between Number of dependents and performance Tag is",cor(demogs_data$income,demogs_data$performance_tag, use="complete.obs"),"\n")
 cat("The Correlation between Number of dependents and performance Tag is",cor(demogs_data$no_of_months_in_current_residence,demogs_data$performance_tag, use="complete.obs"),"\n")
@@ -277,7 +277,7 @@ ggplot(credit_bureau_data, aes(x= presence_of_open_auto_loan)) + geom_bar(binwid
 
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
-data(credit_bureau_data)
+#data(credit_bureau_data)
 ```
 
 
