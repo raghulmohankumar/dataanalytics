@@ -270,11 +270,14 @@ ggplot(credit_bureau_data, aes(x= presence_of_open_auto_loan)) + geom_bar(binwid
 ```
 
 
+### Bivariate Analysis of credit_bureau data
+
 
 ```{r warning=FALSE,echo=FALSE,message=FALSE}
-cat("Bivariate analysis of credit_bureau data")
 data(credit_bureau_data)
 ```
+
+
 Among the different variables, the following variables have the most correlation with the performance tag.
 no_of_times_30_dpd_or_worse_in_last_6_months: 0.1
 no_of_times_30_dpd_or_worse_in_last_12_months: 0.1
