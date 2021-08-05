@@ -857,7 +857,6 @@ varImpPlot(classifier_RF)
 ## Random forest for both Demographics and Credit Bureau dataset
 
 ```{r,warning=FALSE , message=FALSE,echo=FALSE}
-
 knitr::include_graphics("RF_2.png")
 knitr::include_graphics("unnamed-chunk-27-1.png")
 knitr::include_graphics("unnamed-chunk-27-2.png")
