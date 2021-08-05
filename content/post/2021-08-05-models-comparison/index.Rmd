@@ -17,7 +17,7 @@ text-align: justify}
 ```{r out.width="98%", echo=FALSE}
 knitr::include_graphics("home.png")
 ```
-## The Goal
+# The Goal
 
 The Goal of this study is to help the credit card provider company CredX to identify the right customer based on predictive model where the past data of the bank's applicants was used to built the predictive model and determine the factors affecting credit risk.
 
@@ -127,18 +127,18 @@ demogs_data<-read_csv("demogs.csv")%>%
 clean_names() %>%
 # removing the rows where the values of performance_tag are  Nas
 drop_na(performance_tag)
-str(demogs_data)
+#str(demogs_data)
 
 cat("Univariate analysis of demogs data")
-### Uni
-describe(demogs_data)
-stat.desc(demogs_data)
-hist.data.frame(demogs_data)
-summary(demogs_data$age)
-summary(demogs_data$no_of_dependents)
-summary(demogs_data$income)
-summary(demogs_data$no_of_months_in_current_residence)
-summary(demogs_data$no_of_months_in_current_company)
+
+#describe(demogs_data)
+#stat.desc(demogs_data)
+#hist.data.frame(demogs_data)
+#summary(demogs_data$age)
+#summary(demogs_data$no_of_dependents)
+#summary(demogs_data$income)
+#summary(demogs_data$no_of_months_in_current_residence)
+#summary(demogs_data$no_of_months_in_current_company)
 
 ### Performance tag is equally spread over number of dependents 0 and variate Analysis
 
@@ -205,18 +205,18 @@ str(credit_bureau_data)
 
 cat("Univariate analysis of credit_bureau data")
 
-describe(credit_bureau_data)
-stat.desc(credit_bureau_data)
-hist.data.frame(credit_bureau_data)
+#describe(credit_bureau_data)
+#stat.desc(credit_bureau_data)
+#hist.data.frame(credit_bureau_data)
 
-summary(credit_bureau_data$outstanding_balance)
-summary(credit_bureau_data$total_no_of_trades)
-summary(credit_bureau_data$avgas_cc_utilization_in_last_12_months)
-summary(credit_bureau_data$no_of_times_90_dpd_or_worse_in_last_6_months)
-summary(credit_bureau_data$no_of_times_90_dpd_or_worse_in_last_12_months)
-summary(credit_bureau_data$no_of_trades_opened_in_last_12_months)
-summary(credit_bureau_data$no_of_pl_trades_opened_in_last_12_months)
-summary(credit_bureau_data$total_no_of_trades)
+#summary(credit_bureau_data$outstanding_balance)
+#summary(credit_bureau_data$total_no_of_trades)
+#summary(credit_bureau_data$avgas_cc_utilization_in_last_12_months)
+#summary(credit_bureau_data$no_of_times_90_dpd_or_worse_in_last_6_months)
+#summary(credit_bureau_data$no_of_times_90_dpd_or_worse_in_last_12_months)
+#summary(credit_bureau_data$no_of_trades_opened_in_last_12_months)
+#summary(credit_bureau_data$no_of_pl_trades_opened_in_last_12_months)
+#summary(credit_bureau_data$total_no_of_trades)
 
 
 
