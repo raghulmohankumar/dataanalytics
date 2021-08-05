@@ -14,15 +14,6 @@ text-align: justify}
 </style>
 
 
-```{r out.width="98%", echo=FALSE}
-knitr::include_graphics("home.png")
-```
-# The Goal
-
-The Goal of this study is to help the credit card provider company CredX to identify the right customer based on predictive model where the past data of the bank's applicants was used to built the predictive model and determine the factors affecting credit risk.
-
-Three models were created which are the Logistic regression, random forest and support vector machine among which the best model is defined as the model with the best accuracy taking inconsideration the sensitivity and specificity.
-
 ```{r,warning=FALSE , message=FALSE,echo=FALSE,results=FALSE}
 library(DataExplorer)
 library(janitor)
@@ -69,6 +60,18 @@ library(gmodels)
 set.seed(1234)
 options(dplyr.print_min = 10, dplyr.print_max = 6)
 ```
+
+```{r out.width="98%", echo=FALSE}
+knitr::include_graphics("home.png")
+```
+
+## The Goal
+
+The Goal of this study is to help the credit card provider company CredX to identify the right customer based on predictive model where the past data of the bank's applicants was used to built the predictive model and determine the factors affecting credit risk.
+
+Three models were created which are the Logistic regression, random forest and support vector machine among which the best model is defined as the model with the best accuracy taking inconsideration the sensitivity and specificity.
+
+
 ## The Data
 
 The data provided are two data frames one provide the Demographic data that is obtained from the applicants at the time of the credit card application and the other is Credit Bureau which is taken from the credit bureau.The Demographic data composed of 71295 observations for 11 independent variables and one dependent variable that is the performance_tag while the size of the Credit Bureau is also 71295 observations for 18 independent variables and one dependent variable that is the performance_tag.
