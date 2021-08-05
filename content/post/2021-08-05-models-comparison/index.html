@@ -852,6 +852,13 @@ text-align: justify}
 <pre><code>## Distribution of presence of open auto loan represents that the most amount is 0 with almost 60000 observations.</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-34.png" width="672" /></p>
 <pre><code>## Bivariate analysis of credit_bureau data</code></pre>
+<p>Among the different variables, the following variables have the most correlation with the performance tag.
+no_of_times_30_dpd_or_worse_in_last_6_months: 0.1
+no_of_times_30_dpd_or_worse_in_last_12_months: 0.1
+no_of_times_60_dpd_or_worse_in_last_6_months: 0.09
+no_of_times_60_dpd_or_worse_in_last_12_months: 0.09
+avgas_cc_utilization_in_last_12_months: 0.08
+no_of_times_90_dpd_or_worse_in_last_6_months: 0.08</p>
 <pre><code>## The Correlation between no_of_inquiries_in_last_12_months_excluding_home_auto_loans and performance Tag is 0.05602722</code></pre>
 <pre><code>## The Correlation between presence_of_open_home_loan and performance Tag is -0.02547596</code></pre>
 <pre><code>## The Correlation between outstanding_balance and performance Tag is 0.001155206</code></pre>
@@ -1249,7 +1256,7 @@ text-align: justify}
 ## total_no_of_trades                                                     0.04
 ## presence_of_open_auto_loan                                            -0.01
 ## performance_tag                                                        1.00</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-35.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="splitting-the-data-to-training-and-testing-splits" class="section level2">
 <h2>Splitting the data to training and testing splits</h2>
@@ -1284,51 +1291,51 @@ text-align: justify}
 2.The slope resulted from a logistic regression with one independent variable vs the dependent variable must be equal to one or the intercept must be ln(% of non-events / % of events) .</p>
 <p>The graphs below show the binning and WOE transformation associated with all the predictors in the two models, From the shown graphs, we can see that the Woe transformation of all the predictors in the two models satisfied the first criteria that all are monotonic.</p>
 <pre><code>## $no_of_months_in_current_residence</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre><code>## $no_of_months_in_current_company</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
 <pre><code>## $age</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
 <pre><code>## $income</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-4.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
 <pre><code>## $no_of_times_90_dpd_or_worse_in_last_6_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-5.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-5.png" width="672" /></p>
 <pre><code>## $no_of_times_60_dpd_or_worse_in_last_6_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-6.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
 <pre><code>## $no_of_times_30_dpd_or_worse_in_last_6_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-7.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-7.png" width="672" /></p>
 <pre><code>## $no_of_times_90_dpd_or_worse_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-8.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-8.png" width="672" /></p>
 <pre><code>## $no_of_times_60_dpd_or_worse_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-9.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-9.png" width="672" /></p>
 <pre><code>## $no_of_times_30_dpd_or_worse_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-10.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-10.png" width="672" /></p>
 <pre><code>## $avgas_cc_utilization_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-11.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-11.png" width="672" /></p>
 <pre><code>## $no_of_trades_opened_in_last_6_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-12.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-12.png" width="672" /></p>
 <pre><code>## $no_of_trades_opened_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-13.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-13.png" width="672" /></p>
 <pre><code>## $no_of_pl_trades_opened_in_last_6_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-14.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-14.png" width="672" /></p>
 <pre><code>## $no_of_pl_trades_opened_in_last_12_months</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-15.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-15.png" width="672" /></p>
 <pre><code>## $no_of_inquiries_in_last_6_months_excluding_home_auto_loans</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-16.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-16.png" width="672" /></p>
 <pre><code>## $no_of_inquiries_in_last_12_months_excluding_home_auto_loans</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-17.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-17.png" width="672" /></p>
 <pre><code>## $total_no_of_trades</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-18.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-18.png" width="672" /></p>
 <pre><code>## $no_of_months_in_current_residence</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-19.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-19.png" width="672" /></p>
 <pre><code>## $no_of_months_in_current_company</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-20.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-20.png" width="672" /></p>
 <pre><code>## $income</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-21.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-21.png" width="672" /></p>
 <pre><code>## $age</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-22.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-22.png" width="672" /></p>
 <pre><code>## $outstanding_balance</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-23.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-23.png" width="672" /></p>
 <p>The logistic regressions resulted from each predictor in the two models Vs the dependent variable show that the slope associated with each regression is one as required.</p>
 </div>
 <div id="data-balance" class="section level2">
@@ -1351,12 +1358,12 @@ text-align: justify}
 <h3>Logistic Regression Model</h3>
 <p>Two logistic regression models are created.First logistic regression predictive model is created that used only the demographic balanced WOE transformed training data split for training the model and the second logistic regression predictive model is created that used combined balanced WOE transformed training data split for training the model.</p>
 <p>In the logistic regression models, the P-Value and the VIF value are used for further filtration for the predictors used in each model. Also the receiver operating characteristic curve (ROC) was used to tune the logistic models by determining the most suitable cut off threshold value.</p>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <p><em>1st model (using only the demographic data) gave the following results on the testing data</em></p>
 <p>Accuracy: 0.569
 Sensitivity: 0.569
 Specificity: 0.569</p>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
 <p><em>2nd model (using the combined data) gave the following results on the testing data</em></p>
 <p>Accuracy: 0.625
 Sensitivity: 0.626
@@ -1367,14 +1374,19 @@ Specificity: 0.606</p>
 <h2>Cross validation</h2>
 <p>The Cross validation is used for resampling and evaluation of the performance of our logistic regression models, where the 3 metrics used are the accuracy, sensitivity and specificity.</p>
 <p>For the 1st logistic regression model running the cross validation with 10 folds gave us an average accuracy of 0.587%, while for the 2nd logistic regression model running the cross validation with 10 folds gave us an average accuracy of 0.631%</p>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 ## Conclusion from the Logistic regression models</p>
 <ul>
 <li><p>Comparing the first model accuracy of 0.569% to the cross validation accuracy of 0.587% , we can see that our model is well built.</p></li>
 <li><p>Comparing the second model accuracy of 0.625% to the cross validation accuracy of 0.631% , we can see that our model is well built.</p></li>
 <li><p>Comparing the first model accuracy of 0.569% to the second model accuracy of 0.625% , we can see that the second model is better in prediction than the first model, so that the second model that used the combined data was better than the first model that used only the demographic data.</p></li>
 </ul>
+</div>
+<div id="support-vector-machine-model" class="section level2">
+<h2>Support Vector Machine Model</h2>
+<p>“Support Vector Machine” (SVM) is a supervised machine learning algorithm that can be used for both classification or regression challenges. However, it is mostly used in classification problems. In the SVM algorithm, we plot each data item as a point in n-dimensional space (where n is a number of features you have) with the value of each feature being the value of a particular coordinate. Then, we perform classification by finding the hyper-plane that differentiates the two classes very well. Support Vectors are simply the coordinates of individual observation. The SVM classifier is a frontier that best segregates the two classes (hyper-plane/ line).</p>
+<p><img src="svm.png" width="98%" /></p>
 </div>
 <div id="building-support-vector-machine-model-using-demographics-dataset" class="section level2">
 <h2>Building Support Vector Machine Model using demographics dataset</h2>
@@ -1456,6 +1468,15 @@ Specificity: 0.606</p>
 </div>
 <div id="random-forest-for-demographics-dataset" class="section level2">
 <h2>Random forest for Demographics dataset</h2>
+<p>Random forest is a flexible, easy to use machine learning algorithm that produces,
+even without hyper-parameter tuning, a great result most of the time. It is also one
+of the most used algorithms, because of its simplicity and diversity (it can be used
+for both classification and regression tasks).</p>
+<p>Random forest is a supervised learning algorithm. The “forest” it builds, is an ensemble
+of decision trees, usually trained with the “bagging” method. The general idea of the
+bagging method is that a combination of learning models increases the overall result.</p>
+<p>Overall, random forest builds multiple decision trees and merges them together to get a more accurate and stable prediction.
+We get %100 accuracy for the random forest model prediction. It seems that random forest can correctly predict all of the observations.</p>
 <p>The random forest model trains trees on bootstrap samples. It uses random predictors across trees. It’s hyperparameter includes ntrees = 500.</p>
 <pre><code>## 
 ## Call:
@@ -1473,14 +1494,14 @@ Specificity: 0.606</p>
 ##         0     1
 ##   0 16729     0
 ##   1     0   739</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <pre><code>##                                       MeanDecreaseGini
 ## performance_tag                            4295.507880
 ## no_of_months_in_current_residence_woe        49.480613
 ## no_of_months_in_current_company_woe          23.868485
 ## income_woe                                   15.582316
 ## age_woe                                       5.842339</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
 </div>
 <div id="random-forest-for-both-demographics-and-credit-bureau-dataset" class="section level2">
 <h2>Random forest for both Demographics and Credit Bureau dataset</h2>

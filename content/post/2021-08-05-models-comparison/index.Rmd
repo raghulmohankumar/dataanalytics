@@ -267,10 +267,25 @@ ggplot(credit_bureau_data, aes(x= total_no_of_trades)) + geom_bar(binwidth = 70,
 
 cat("Distribution of presence of open auto loan represents that the most amount is 0 with almost 60000 observations.")
 ggplot(credit_bureau_data, aes(x= presence_of_open_auto_loan)) + geom_bar(binwidth = 70, color = "black",fill = "lightblue") + labs(x = 'Presence of open auto loan') + ggtitle("Presence of open auto loan")+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+```
 
 
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
 cat("Bivariate analysis of credit_bureau data")
 data(credit_bureau_data)
+```
+Among the different variables, the following variables have the most correlation with the performance tag.
+no_of_times_30_dpd_or_worse_in_last_6_months: 0.1
+no_of_times_30_dpd_or_worse_in_last_12_months: 0.1
+no_of_times_60_dpd_or_worse_in_last_6_months: 0.09
+no_of_times_60_dpd_or_worse_in_last_12_months: 0.09
+avgas_cc_utilization_in_last_12_months: 0.08
+no_of_times_90_dpd_or_worse_in_last_6_months: 0.08
+
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+
 
 cat("The Correlation between no_of_inquiries_in_last_12_months_excluding_home_auto_loans and performance Tag is",cor(credit_bureau_data$no_of_inquiries_in_last_12_months_excluding_home_auto_loans,credit_bureau_data$performance_tag, use="complete.obs"),"\n")
 cat("The Correlation between presence_of_open_home_loan and performance Tag is",cor(credit_bureau_data$presence_of_open_home_loan,credit_bureau_data$performance_tag, use="complete.obs"),"\n")
@@ -679,6 +694,13 @@ collect_metrics(fits_cv_both)
 
 * Comparing the first model accuracy of 0.569% to the second model accuracy of 0.625% , we can see that the second model is better in prediction than the first model, so that the second model that used the combined data was better than the first model that used only the demographic data.
 
+## Support Vector Machine Model
+
+“Support Vector Machine” (SVM) is a supervised machine learning algorithm that can be used for both classification or regression challenges. However,  it is mostly used in classification problems. In the SVM algorithm, we plot each data item as a point in n-dimensional space (where n is a number of features you have) with the value of each feature being the value of a particular coordinate. Then, we perform classification by finding the hyper-plane that differentiates the two classes very well. Support Vectors are simply the coordinates of individual observation. The SVM classifier is a frontier that best segregates the two classes (hyper-plane/ line).
+
+```{r out.width="98%", echo=FALSE}
+knitr::include_graphics("svm.png")
+```
 
 ## Building Support Vector Machine Model using demographics dataset
 
@@ -756,6 +778,17 @@ cat("The accuracy of SVM model with train dataset of combined demographic and cr
 
 ## Random forest for Demographics dataset
 
+Random forest is a flexible, easy to use machine learning algorithm that produces, 
+even without hyper-parameter tuning, a great result most of the time. It is also one 
+of the most used algorithms, because of its simplicity and diversity (it can be used 
+for both classification and regression tasks).
+
+Random forest is a supervised learning algorithm. The "forest" it builds, is an ensemble 
+of decision trees, usually trained with the “bagging” method. The general idea of the 
+bagging method is that a combination of learning models increases the overall result.
+
+Overall, random forest builds multiple decision trees and merges them together to get a more accurate and stable prediction.
+We get %100 accuracy for the random forest model prediction. It seems that random forest can correctly predict all of the observations.
 
 The random forest model trains trees on bootstrap samples. It uses random predictors across trees. It's hyperparameter includes  ntrees = 500.
 
