@@ -1,0 +1,21 @@
+---
+title: Power Electronics Switching Schemes
+author: Raghul
+date: '2022-01-01'
+slug: power-electronics-switching-schemes
+categories: []
+tags: []
+---
+
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(latexpdf)
+library(RGraphics)
+library(knitr)
+set.seed(1234)
+options(dplyr.print_min = 10, dplyr.print_max = 6)
+```
+
+```{r label, out.width = "85%", fig.cap = "caption"}
+include_graphics("project_1.pdf")
+```
