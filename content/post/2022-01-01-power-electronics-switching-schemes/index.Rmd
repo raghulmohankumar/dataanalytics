@@ -1,6 +1,6 @@
 ---
-title: Power Electronics Switching Schemes
-author: Raghul
+title: "Power Electronics Switching Schemes"
+author: "Raghul"
 date: '2022-01-01'
 slug: power-electronics-switching-schemes
 categories: []
